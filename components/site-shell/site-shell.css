@@ -1,0 +1,157 @@
+/* Site Shell — layout the shell owns. Contract: components/site-shell/CONTRACT.md
+   Colors come from shared/tokens.css; this file adds no brand color of its own.
+   The bars use currentColor so the toggle reads correctly on a light or a dark nav. */
+
+site-nav, site-footer { display: block }
+
+/* ── skip link ─────────────────────────────────────────────────────────────────
+   First tab stop on every page (WCAG 2.4.1); targets the host page's id="main"
+   (CONTRACT.md). Visually hidden until keyboard focus brings it on-screen; fixed
+   so it overlays the sticky header rather than pushing it down. */
+.skip{
+  position:fixed;
+  top:-100px;left:16px;
+  z-index:100;
+  padding:10px 16px;
+  background:var(--surface-card);
+  color:var(--text-strong);
+  font-weight:600;
+  text-decoration:underline;
+  border:2px solid var(--gold-ink);
+  border-radius:var(--radius-sm);
+  box-shadow:var(--shadow-md);
+}
+.skip:focus{top:12px}
+
+/* The skip target itself is styled by the page, not here. Host pages carry
+   id="main" tabindex="-1"; the tabindex is what makes the element programmatically
+   focusable, so activating the link actually moves document.activeElement into the main
+   region instead of only scrolling to it, and a negative value keeps it out of the tab
+   sequence. Nothing in this codebase rings bare :focus — only :focus-visible — and a mouse
+   click on a tabindex="-1" container does not match :focus-visible, so the region rings on
+   the keyboard bypass and stays unringed on a click. Measured, not assumed; if a browser
+   ever rings it on click, scope the suppression to :focus:not(:focus-visible) here rather
+   than writing a global outline:none. */
+
+/* ── footer column headings ────────────────────────────────────────────────────
+   They render as <h2> (see site-shell.js: at h5 they skipped a level on every page). mockup.css and the landing page style `.foot h5`, which the corrected tag no
+   longer matches, so the shell carries that treatment forward — same values, unchanged
+   rendering. Those two `.foot h5` rules are dead now; folding them in belongs to whoever
+   next edits those files. */
+.foot h2{
+  font-size:.74rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+/* The white heading is a property of the dark footer band, not of the heading: mockup.css
+   and the landing page paint that band, and hero_variants.html loads the shell without
+   either, so an unconditional white here prints white on white. `.on-dark` is set by
+   site-shell.js from the band it measures. */
+.foot.on-dark h2{color:var(--white)}
+
+/* ── desktop nav: an item is one line ──────────────────────────────────────────
+   The bar is a flex row, so when it runs short of room the browser shrinks the items
+   rather than the row. At 1440px that broke "Knowledge base" onto two lines, made the
+   gold CTA a 122x61 two-line box, and split "🔒 Intranet" between the padlock and the
+   word — and because .lock draws a 1px border, the split rendered as two offset border
+   fragments, a torn-looking pill on every public page. nowrap goes on the item and the
+   CTA, never on the list: the list still has to wrap when the menu stacks on a phone. */
+body .nav ul li a,
+body .nav > .cta{white-space:nowrap}
+
+/* Whole items need more room than shrunken ones, and the content column stops growing at
+   --container (1200px), so the squeeze starts the moment the viewport drops below it. The
+   gap is what gives; the item set is a Wave 2 question and nothing is dropped here. Two
+   steps, measured down to the 1000px menu breakpoint. The `body` prefix is required because
+   mockup.css and the landing page's inline <style> both declare `.nav{gap:…}` after this
+   file at equal specificity. */
+@media (max-width:1200px){
+  body .nav{gap:20px}
+  body .nav ul{gap:14px}
+}
+@media (max-width:1060px){
+  body .nav{gap:14px}
+  body .nav ul{gap:10px}
+}
+
+/* ── mobile toggle ─────────────────────────────────────────────────────────────
+   Hidden on desktop. Before the shell existed, mockup.css hid the nav list at
+   820px with nothing in its place, so the site had no navigation at all on a
+   phone. The shell owns nav responsiveness now; that rule is gone. */
+.navtoggle{
+  display:none;
+  margin-left:auto;
+  flex-direction:column;
+  justify-content:center;
+  gap:5px;
+  width:44px;height:38px;
+  padding:0 10px;
+  background:transparent;
+  color:var(--text-body);
+  border:1px solid var(--border-control);
+  border-radius:var(--radius-sm);
+  cursor:pointer;
+  font:inherit;
+  transition:border-color .2s,color .2s;
+}
+.navtoggle-bar{
+  display:block;height:2px;width:100%;
+  background:currentColor;border-radius:var(--radius-pill);
+}
+.navtoggle:hover{color:var(--gold-ink);border-color:var(--gold-ink)}
+.navtoggle[aria-expanded="true"]{color:var(--gold-ink);border-color:var(--gold)}
+
+/* 1000px, not 820px. The expanded bar needs ~984px to lay out; at the old 820px there was a
+   dead band from 821px to ~984px where the full nav was still shown and simply overflowed the
+   viewport horizontally. The breakpoint has to sit above the bar's own width requirement, so
+   it moves whenever a nav item is added or removed. */
+@media (max-width:1000px){
+  /* `body` prefix on the two rules mockup.css also writes (`.nav`, `.nav ul`), deliberately:
+     that file is linked AFTER this one on every page and declares `.nav{height:var(--nav-h)}`
+     and `.nav ul{display:flex}` at equal specificity, so a plain rule here loses even inside
+     a media query — media queries add no specificity. Without the prefix the bar could not
+     grow and the closed menu rendered anyway, over the page, at phone width on all 17 pages.
+     The Shell owns nav responsiveness (CONTRACT.md), so it wins the tie here rather than
+     mockup.css re-hiding the list and owning the mobile menu by accident. */
+  body .nav{
+    flex-wrap:wrap;
+    height:auto;
+    min-height:var(--nav-h);
+    padding-top:12px;padding-bottom:12px;
+    gap:14px;
+  }
+  .navtoggle{display:flex}
+
+  body .nav ul{
+    display:none;
+    order:3;
+    width:100%;
+    margin-left:0;
+    flex-direction:column;
+    gap:0;
+  }
+  body .nav.open ul{display:flex}
+  .nav ul li{width:100%}
+  /* Stacked rows own their own width, so the desktop nowrap is lifted: a long label in a
+     narrow drawer should wrap, not overflow the viewport. */
+  body .nav ul li a,
+  body .nav > .cta{white-space:normal}
+  .nav ul li a{
+    display:block;
+    padding:13px 2px;
+    border-top:1px solid var(--border-hairline);
+  }
+  /* the intranet lock reads as a normal row once stacked, not a pill */
+  .nav ul li a.lock{
+    border:none;border-top:1px solid var(--border-hairline);
+    border-radius:0;padding:13px 2px;
+  }
+
+  .nav > .cta{display:none;order:4}
+  .nav.open > .cta{display:block;width:100%;text-align:center}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .navtoggle{transition:none}
+}

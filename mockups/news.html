@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IIDS — News archive</title>
+<meta name="description" content="Every IIDS story published between March 2018 and April 2025, searchable by year and full text. University of Idaho.">
+<meta name="keywords" content="IIDS, University of Idaho, U of I, UIdaho, news archive, research news, data science">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../components/site-shell/site-shell.css">
+<link rel="stylesheet" href="mockup.css">
+<link rel="stylesheet" href="../components/news-archive/news-archive.css">
+</head>
+<body class="theme-light">
+
+<site-nav active="news"></site-nav>
+
+<div class="pagehead">
+  <div class="wrap">
+    <p class="eyebrow">News</p>
+    <h1>News archive</h1>
+    <p>Every IIDS story published between March 2018 and April 2025. Search the full text, or
+      pick a year. Recent items also appear on the
+      <a href="landing_placeholder.html">home page</a>.</p>
+  </div>
+</div>
+
+<main id="main" tabindex="-1" class="wrap" style="padding:32px var(--gutter) 80px">
+  <div id="newsArchive"></div>
+
+  <p class="disclaimer" style="margin-top:36px">
+    Migrated from the old site's <code>news.php?showall=1</code>, scraped 2026-07-09. The stream
+    stopped in April 2025; nothing has been published since, so the archive ends there rather
+    than being current. Images are served from this repo, not the old site. <strong>Events</strong> are listed separately on the
+    <a href="events.html">events page</a>.
+  </p>
+</main>
+
+<site-footer></site-footer>
+
+<script src="../backend/news-data/news-data.generated.js"></script>
+<script src="../components/news-archive/news-archive.js"></script>
+<script>
+  NewsArchive.mount(
+    document.getElementById('newsArchive'),
+    (window.NEWS_DATA && window.NEWS_DATA.news) || [],
+    { assetBase: '../' }   // news.html is in mockups/, one level below the repo root
+  );
+</script>
+
+<script src="../components/site-shell/site-shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IIDS — Research enabled by IIDS</title>
+<meta name="description" content="Projects the Institute for Interdisciplinary Data Sciences (IIDS) at the University of Idaho has supported, and what the support was.">
+<meta name="keywords" content="IIDS, University of Idaho, U of I, UIdaho, research projects, research computing, data sciences">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../components/site-shell/site-shell.css">
+<link rel="stylesheet" href="mockup.css">
+<link rel="stylesheet" href="../components/project-browse/project-browse.css">
+</head>
+<body class="theme-light">
+
+<site-nav active="projects"></site-nav>
+
+<div class="pagehead">
+  <div class="wrap">
+    <p class="eyebrow">Portfolio</p>
+    <h1>Research enabled by IIDS</h1>
+    <!-- No AI4UI line here. A sentence floating above the browse was a stand-in for the
+         record that should have been IN the browse, and it left the page saying one project
+         was special enough to name in the header. AI4UI is a record like every other one now:
+         it answers a search, it carries the Data science & computing filter, and its entry
+         page opens mockups/ai4ui.html. That page has no nav item and does not need one — the
+         route into it is the browse below, the same route into every other project. -->
+  </div>
+</div>
+
+<main id="main" tabindex="-1" class="wrap" style="padding:32px var(--gutter) 80px">
+  <div id="projectOverview"></div>
+  <div id="projectBrowse"></div>
+
+  <p class="disclaimer" style="margin-top:36px">
+    Built from the University of Idaho sponsored-projects record, filtered to funded awards
+    affiliated with IIDS — proposals that were declined, withdrawn or are still pending are not
+    listed. Every description here traces to a public source: where a funder publishes an
+    abstract it is quoted verbatim and linked, and where one does not, the description comes
+    from the project's own site and says so. Records marked <em>low confidence</em> are
+    confirmed awards whose sponsor publishes no description at all. Coverage is a floor rather
+    than a census — it reflects the proposals in that record, not everything IIDS has touched.
+  </p>
+</main>
+
+<site-footer></site-footer>
+
+<script src="../backend/projects-data/projects-data.generated.js"></script>
+<script src="../components/project-browse/project-browse.js"></script>
+<script>
+  /* The full store, subprojects included. project-browse owns the treatment (2026-08-13):
+     subprojects stay out of the unqueried grid, the facets and the overview, and surface
+     in search results only, tagged with their parent. */
+  var items = (window.PROJECTS_DATA && window.PROJECTS_DATA.items) || [];
+  var browse = ProjectBrowse.mountFaceted(document.getElementById('projectBrowse'), items, {
+    detailPage: 'project_entry.html'
+  });
+  /* The band is mounted second so it can drive the browse it sits above. */
+  ProjectBrowse.mountOverview(document.getElementById('projectOverview'), items, { browse: browse });
+</script>
+
+<script src="../components/site-shell/site-shell.js"></script>
+</body>
+</html>

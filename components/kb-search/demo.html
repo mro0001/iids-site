@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KB Search — demo</title>
+<link rel="stylesheet" href="../../shared/tokens.css">
+<link rel="stylesheet" href="../knowledge-base/knowledge-base.css">
+<link rel="stylesheet" href="kb-search.css">
+<style>/* Demo-local chrome only, in the site's light look. */
+  body{background:var(--surface-page);color:var(--text-body);font-family:var(--font);margin:0;padding:32px}
+  .wrap{max-width:760px;margin:0 auto}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px}</style>
+</head>
+<body>
+<div class="wrap">
+  <h1 style="color:var(--gold-ink)">KB Search — demo</h1>
+  <p style="font-size:.9rem;max-width:62ch;margin-bottom:22px">
+    Faceted browse over the fixture. Every filter option below is derived from the entries —
+    nothing names a unit, kind, or topic in the markup, so a new entry adds its own options.
+    Filters are mirrored into the URL, so a narrowed view can be linked and survives the back
+    button. Try <code>sbatch</code>, or pick a Kind. The policies entry carries
+    <code>adoption: 'draft'</code>, so its row shows the Draft badge.
+  </p>
+  <div id="facets"></div>
+</div>
+<script src="fixture.js"></script>
+<script src="kb-search.js"></script>
+<script>
+  KBSearch.mountFaceted(
+    document.getElementById('facets'),
+    window.KB_SEARCH_FIXTURE,
+    { detailPage: '#' }
+  );
+</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+/* KB search styles. Brand colors via var() from shared/tokens.css. Result rows
+   reuse knowledge-base.css classes; these add the input + snippet/gist lines.
+   Light is the base here, matching knowledge-base.css. */
+.kbsearch{width:100%;max-width:520px;box-sizing:border-box;margin:0 0 16px;padding:11px 14px;
+  background:var(--surface-card);color:var(--text-strong);border:1px solid var(--border-control);
+  border-radius:var(--radius-sm);box-shadow:var(--shadow-sm);
+  font:inherit;font-size:.95rem}
+.kbsearch::placeholder{color:var(--text-muted)}
+.kbsearch:focus{outline:none;border-color:var(--gold)}
+/* Suppressing the UA outline requires an equivalent indicator (WCAG 2.4.7/1.4.11):
+   gold-ink is >=3:1 on every surface these controls sit on. */
+.kbsearch:focus-visible{outline:2px solid var(--gold-ink);outline-offset:2px}
+.kbresult-gist{display:block;color:var(--text-body);font-size:.82rem;margin-top:2px}
+/* draft badge — rendered when a result's adoption is 'draft'. Same flag palette
+   as the kb-entry draft banner, so draft reads the same in row and entry. */
+.kb-draftbadge{display:inline-block;margin-left:8px;padding:1px 8px;font-size:.66rem;
+  font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--flag-ink);background:var(--flag-tint);
+  border:1px solid var(--flag-ink);border-radius:var(--radius-pill);vertical-align:middle}
+.kbsnippet{display:block;color:var(--text-body);font-size:.8rem;margin-top:4px;
+  border-left:2px solid var(--border-hairline);padding-left:8px;line-height:1.45}
+
+/* ── faceted browse (mountFaceted) ───────────────────────────────────────────
+   Facet rows, active-filter chips, result count, reset, and empty state. Every
+   option is derived from the entries at runtime, so the markup below never names
+   a unit, kind, or topic. */
+.kbf-facets{display:flex;flex-direction:column;gap:12px;margin-bottom:16px}
+.kbf-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.kbf-label{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--text-muted);font-weight:600;min-width:86px}
+.kbf-pills{display:flex;gap:8px;flex-wrap:wrap}
+.kbf-pill{font:inherit;font-size:.82rem;cursor:pointer;padding:6px 13px;
+  background:var(--surface-card);color:var(--text-body);
+  border:1px solid var(--border-control);border-radius:var(--radius-pill);
+  transition:border-color .15s,color .15s,background .15s}
+.kbf-pill:hover{border-color:var(--gold-ink);color:var(--gold-ink)}
+.kbf-pill.active{background:var(--gold);color:var(--text-strong);
+  border-color:var(--gold);font-weight:600}
+.kbf-n{color:var(--text-muted);font-size:.74rem}
+.kbf-pill.active .kbf-n{color:var(--text-strong)}
+.kbf-select{font:inherit;font-size:.85rem;padding:7px 11px;cursor:pointer;
+  background:var(--surface-card);color:var(--text-strong);
+  border:1px solid var(--border-control);border-radius:var(--radius-sm)}
+.kbf-select:focus{outline:none;border-color:var(--gold)}
+.kbf-select:focus-visible{outline:2px solid var(--gold-ink);outline-offset:2px}
+
+.kbf-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.kbf-chip{font:inherit;font-size:.78rem;cursor:pointer;display:inline-flex;
+  align-items:center;gap:7px;padding:5px 12px;
+  background:var(--gold-tint);color:var(--gold-ink);
+  border:1px solid var(--gold-tint-strong);border-radius:var(--radius-pill)}
+.kbf-chip:hover{border-color:var(--gold-ink)}
+.kbf-x{font-size:1rem;line-height:1}
+.kbf-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.kbf-meta{display:flex;align-items:center;gap:16px;margin-bottom:14px;
+  padding-bottom:12px;border-bottom:1px solid var(--border-hairline)}
+.kbf-count{font-size:.8rem;color:var(--text-muted)}
+.kbf-reset{font:inherit;font-size:.78rem;cursor:pointer;padding:0;
+  background:none;border:none;color:var(--gold-ink);font-weight:600;
+  text-decoration:underline;text-underline-offset:3px}
+.kbf-reset[hidden]{display:none}
+
+.kbf-empty{border:1px dashed var(--border-hairline);border-radius:var(--radius-lg);
+  background:var(--surface-alt);padding:26px 22px;color:var(--text-body);font-size:.9rem}
+.kbf-empty strong{display:block;color:var(--text-strong);margin-bottom:4px;font-size:1rem}
+
+@media(max-width:640px){
+  .kbf-label{min-width:0;width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+  .kbf-pill{transition:none}
+}
+
+/* Result tiers — guides always lead the faceted list and read apart at a
+   glance: gold rail + pale gold wash, plus a Guide chip so the distinction
+   never rests on color alone. Atomic entries keep a neutral hairline rail. */
+.kbf-results li.kbf-r-guide > a{border-left:3px solid var(--gold);background:var(--gold-tint)}
+.kbf-results li.kbf-r-guide > a:hover{background:var(--surface-alt)}
+.kbf-results li.kbf-r-entry > a{border-left:3px solid var(--border-hairline)}
+.kb-guidebadge{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-ink);
+  border:1px solid var(--gold-line);border-radius:var(--radius-pill);padding:1px 8px;
+  background:var(--gold-tint-strong);flex:0 0 auto}

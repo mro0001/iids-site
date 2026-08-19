@@ -1,0 +1,78 @@
+/* Design tokens — the single canonical home for the U of I brand values.
+   Token NAMES are frozen (see shared/BRAND_CONTRACT.md); values are soft.
+   Every page links this FIRST, then its own stylesheet. Consumers use var(--name),
+   never a literal hex for brand colors.
+
+   TWO MODES, ONE PALETTE. The site is moving to the GBRC portal's light look
+   (white cards, hairline borders, soft shadows) as its primary surface, with the
+   original gold-on-black retained as a DARK-BAND sub-palette (hero/footer/CTA).
+   Both are the same U of I spine — Pride Gold, rich black, Public Sans. See the
+   translation spec: docs/superpowers/specs/2026-07-23-gbrc-design-translation-design.md */
+:root{
+  /* ── Dark-band sub-palette — the original frozen nine (names FROZEN) ──
+     Used for hero/footer/CTA bands. Values unchanged in this phase; the spec's
+     planned soft moves (--void #0d0d0d→#171717, --glow neutralized) are deferred
+     to the site-wide flip so no page is left half-migrated. */
+  --void:#0d0d0d; --panel:#191919; --gold:#f1b300; --gold-line:#8a6800;
+  --silver:#9a9a9a; --white:#ffffff; --edge:rgba(241,179,0,.22);
+  --glow:0 0 12px rgba(241,179,0,.5),0 0 32px rgba(241,179,0,.16);
+  --font:"Public Sans",-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+
+  /* ── Light-mode surfaces & text (NEW, additive — GBRC neutral roles) ── */
+  --surface-page:#ffffff;      /* default page background */
+  --surface-alt:#fafafa;       /* alternating "zebra" section background */
+  --surface-card:#ffffff;      /* card surface (with border + shadow) */
+  --border-hairline:#e5e5e5;   /* decorative card / hairline border on light (1.26:1 — never
+                                  the sole boundary of a control) */
+  --border-control:#767676;    /* boundary of an interactive control on light: inputs, selects,
+                                  facet pills, toggles. Non-text role — must hold >=3:1 against
+                                  both the control's own fill and the surface behind it
+                                  (WCAG 2.1 1.4.11; see BRAND_CONTRACT.md).
+                                  4.54:1 on #ffffff, 4.35:1 on #fafafa, 4.39:1 on --gold-tint. */
+  --text-strong:#171717;       /* headings / primary text on light */
+  --text-body:#525252;         /* body copy on light */
+  --text-muted:#737373;        /* labels, captions, meta */
+  --text-on-dark:#d4d4d4;      /* body text inside dark bands */
+
+  /* ── Gold applied on light (NEW, additive) ── */
+  --gold-ink:#8a6800;                     /* gold-as-text on white; button hover.
+                                             Text role — must hold >=4.5:1 on the light
+                                             surfaces (WCAG 2.1 AA; see BRAND_CONTRACT.md).
+                                             5.17:1 on #ffffff, 4.95:1 on #fafafa. */
+  --gold-tint:#fefce8;                    /* pale gold chip / highlight background */
+  --gold-tint-strong:rgba(241,179,0,.15); /* pill / badge background, faint gold edge */
+
+  /* ── Editorial review flag (NEW, additive — NOT brand expression) ──
+     Deliberately outside the U of I palette: this marks unverified content for a
+     human review pass and is meant to be conspicuous and temporary. Every use is a
+     to-do. When the flags are cleared before launch, this token goes with them. */
+  --flag-ink:#c00000;                     /* review-flag text — authoring affordance only */
+  --flag-tint:#fdf2f2;                    /* review-flag block background */
+
+  /* ── Radius scale (NEW, additive — GBRC rounded-*) ── */
+  --radius-sm:6px; --radius:8px; --radius-lg:12px;
+  --radius-xl:16px; --radius-2xl:24px; --radius-pill:9999px;
+
+  /* ── Shadow scale (NEW, additive — replaces glow on light surfaces) ── */
+  --shadow-sm:0 1px 2px 0 rgb(0 0 0 / .05);
+  --shadow-md:0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1);
+  --shadow-lg:0 10px 15px -3px rgb(0 0 0 / .1), 0 4px 6px -4px rgb(0 0 0 / .1);
+
+  /* ── Type scale & weights (NEW, additive — role still FROZEN to Public Sans) ── */
+  --text-xs:0.75rem; --text-sm:0.875rem; --text-base:1rem; --text-lg:1.125rem;
+  --text-xl:1.25rem; --text-2xl:1.5rem; --text-3xl:1.875rem; --text-4xl:2.25rem;
+  --text-6xl:3.75rem;
+  --weight-medium:500; --weight-semibold:600; --weight-bold:700;
+
+  /* ── Layout geometry (NEW, additive) ──
+     One container width and one vertical rhythm for the whole site. These exist because the
+     landing page had forked its own geometry — 1200px/80px/68px against the rest of the
+     site's 1100px/46px/64px — so moving between the landing and any other page shifted the
+     content column by 100px and jogged the header height. Values follow the newer,
+     GBRC-aligned landing; every page now reads them from here. */
+  --container:1200px;      /* max width of the centered content column */
+  --gutter:24px;           /* left/right page padding inside the container */
+  --nav-h:68px;            /* header height (min-height once the mobile menu opens) */
+  --section-y:80px;        /* vertical padding on a major landing-style section */
+  --section-y-sm:52px;     /* the tighter rhythm used by interior page content */
+}

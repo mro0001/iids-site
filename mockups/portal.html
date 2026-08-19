@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IIDS — Core portal template (wireframe)</title>
+<!--
+  OPEN DECISION (review 2026-08-08, ia#1 / intranet_portal#2 — Michael's call, deliberately
+  not made here). The public nav labels this page "RCDS", but the page is the core-portal
+  template explainer: its h1 is "Core portal grammar" and it addresses the project team,
+  not a visitor looking for research computing. The two options recorded in the review are
+  (a) give the nav a visitor-facing interim RCDS page and move this explainer to docs/, or
+  (b) relabel the nav item. Writing visitor-facing RCDS copy needs facts about what RCDS
+  currently offers, which is why the remediation waves left it alone rather than guessing.
+  The page's factual drift WAS fixed: AI4UI and GBRC are no longer described as future.
+
+  Changed 2026-08-10: this page framed three core portals — RCDS, AI4UI, GBRC. Michael
+  decided AI4UI is a project, not a unit of IIDS, so it was dropped from the enumeration and
+  from every zone's chip row. Two cores are named here now. The AI4UI column of the sizing
+  exercise is not lost: it survives in this file's git history and the page it described,
+  mockups/ai4ui.html, is reached from the Projects browse via the ai4ui record (no nav item — see the
+  top of it). Its disposition is Michael's open decision.
+-->
+
+<meta name="description" content="The shared structure behind each IIDS core portal at the University of Idaho, and how the RCDS portal will be built in it.">
+<meta name="keywords" content="IIDS, University of Idaho, U of I, UIdaho, RCDS, core portal, research computing">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../components/site-shell/site-shell.css">
+<link rel="stylesheet" href="mockup.css">
+<style>
+  .chiprow{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border:1px solid;font-weight:600;display:inline-flex;gap:7px;align-items:center}
+  .chip b{font-weight:800;letter-spacing:.12em}
+  .chip--migrate{color:var(--gold-ink);border-color:var(--gold-ink)}
+  .chip--mod{color:var(--gold-ink);border-color:var(--gold-ink);border-style:dashed}
+  .chip--new{color:var(--text-muted);border-color:var(--border-hairline)}
+  .chip--na{color:var(--text-muted);border-color:var(--border-hairline)}
+  /* Unit labels, not tabs: this page is the shared template, so no unit is "selected". */
+  .unitrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .unit{border:1px solid var(--border-hairline);border-radius:var(--radius-pill);padding:8px 16px;font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-body)}
+  .unit b{font-weight:800;color:var(--text-strong);margin-right:7px}
+  /* The sizing line sits outside .zone, so it does not inherit the zone link treatment. */
+  main > .desc a{color:var(--gold-ink);text-decoration:underline;text-underline-offset:2px}
+</style>
+</head>
+<body class="theme-light">
+
+<site-nav active="rcds"></site-nav>
+
+<div class="pagehead">
+  <div class="wrap">
+    <p class="eyebrow">Core portal · shared template</p>
+    <h1>Core portal grammar</h1>
+    <p>Each core portal is built in this common structure, maintained by that core. RCDS is the one still to be built in it: the GBRC application has shipped and no longer flows through this template. The zones below record how the same sections were sized for both.</p>
+    <div class="unitrow">
+      <span class="unit"><b>RCDS</b> on this template</span>
+      <span class="unit"><b>GBRC</b> application shipped</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="legend">
+    <span><span class="swatch sw-mig"></span> [migrate text]</span>
+    <span><span class="swatch sw-mod"></span> [migrate modified text]</span>
+    <span><span class="swatch sw-new"></span> [new text]</span>
+    <!-- The "n/a" legend entry went with the AI4UI chips on 2026-08-10: the only n/a chip on
+         the page was AI4UI's under Rates, so the key described a mark nothing carries. The
+         .chip--na rule is left in the stylesheet above for whoever needs it next. -->
+  </div>
+</div>
+
+<main id="main" tabindex="-1" class="wrap">
+
+  <p class="desc" style="color:var(--text-body);margin-bottom:26px">Overall sizing — <b style="color:var(--gold-ink)">RCDS</b>: mostly migrate (largest corpus). <b style="color:var(--gold-ink)">GBRC</b>: built — a live application integrated at <code>/gbrc/</code>.</p>
+
+  <div class="zone zone--migrate">
+    <h3>Overview</h3>
+    <p class="desc">Identity and what the core does.</p>
+    <div class="chiprow">
+      <span class="chip chip--migrate"><b>RCDS</b> [migrate text]</span>
+      <span class="chip chip--mod"><b>GBRC</b> [migrate modified text]</span>
+    </div>
+  </div>
+
+  <div class="zone zone--migrate">
+    <h3>Services / Offerings</h3>
+    <p class="desc">Service catalog.</p>
+    <div class="chiprow">
+      <span class="chip chip--migrate"><b>RCDS</b> [migrate text]</span>
+      <span class="chip chip--mod"><b>GBRC</b> [migrate modified text]</span>
+    </div>
+  </div>
+
+  <div class="zone zone--mod">
+    <h3>Rates</h3>
+    <!-- Ops note, not page copy: GBRC's rate tables need updating. -->
+    <p class="desc">Transparent pricing. RCDS has strong rate tables.</p>
+    <div class="chiprow">
+      <span class="chip chip--migrate"><b>RCDS</b> [migrate text]</span>
+      <span class="chip chip--mod"><b>GBRC</b> [migrate modified text]</span>
+    </div>
+  </div>
+
+  <div class="zone zone--mod">
+    <h3>Documentation</h3>
+    <p class="desc">Docs and tutorials. RCDS has ~50 docs + 18 tutorials.</p>
+    <div class="chiprow">
+      <span class="chip chip--migrate"><b>RCDS</b> [migrate text]</span>
+      <span class="chip chip--new"><b>GBRC</b> [new text]</span>
+    </div>
+  </div>
+
+  <div class="zone zone--mod">
+    <h3>Getting started / Ordering</h3>
+    <p class="desc">Account request (RCDS), iLab ordering (GBRC).</p>
+    <div class="chiprow">
+      <span class="chip chip--mod"><b>RCDS</b> [migrate modified text]</span>
+      <span class="chip chip--mod"><b>GBRC</b> [migrate modified text]</span>
+    </div>
+  </div>
+
+  <div class="zone zone--migrate">
+    <h3>Team</h3>
+    <p class="desc">Core staff, drawn from the single People source of record.</p>
+    <div class="chiprow">
+      <span class="chip chip--migrate"><b>RCDS</b> [migrate text]</span>
+      <span class="chip chip--migrate"><b>GBRC</b> [migrate text]</span>
+    </div>
+  </div>
+
+  <div class="zone zone--mod">
+    <h3>Contact</h3>
+    <!-- Ops note, not page copy: RCDS's old contact page 404s and needs a live address. -->
+    <p class="desc">Core-specific contact and intake routes.</p>
+    <div class="chiprow">
+      <span class="chip chip--mod"><b>RCDS</b> [migrate modified text]</span>
+      <span class="chip chip--migrate"><b>GBRC</b> [migrate text]</span>
+    </div>
+  </div>
+
+</main>
+
+<site-footer></site-footer>
+
+<script src="../components/site-shell/site-shell.js"></script>
+</body>
+</html>

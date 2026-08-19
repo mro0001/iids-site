@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IIDS — Working with IIDS: Submitting a proposal</title>
+<meta name="description" content="Submitting a proposal with IIDS at the University of Idaho: using IIDS, RCDS, or GBRC resources in a proposal you submit yourself, or submitting through IIDS.">
+<meta name="keywords" content="IIDS, University of Idaho, U of I, UIdaho, proposals, grants, VERAS, affiliation">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../components/site-shell/site-shell.css">
+<link rel="stylesheet" href="mockup.css">
+<link rel="stylesheet" href="award_proposal.css">
+<style>
+  .chooser{display:grid;gap:16px;grid-template-columns:repeat(2,minmax(0,1fr))}
+  @media (max-width:720px){.chooser{grid-template-columns:1fr}}
+  .choice{background:var(--surface-card);border:1px solid var(--border-hairline);
+        border-radius:var(--radius-lg);padding:20px}
+  .choice h3{margin:0 0 6px;color:var(--text-strong);font-size:var(--text-lg)}
+  .choice p{margin:0 0 8px;color:var(--text-body);font-size:var(--text-sm);line-height:1.6}
+  a.choice{display:block;text-decoration:none;cursor:pointer;
+        transition:border-color .12s ease,box-shadow .12s ease}
+  a.choice:hover{border-color:var(--gold-ink);box-shadow:0 2px 10px rgba(0,0,0,.06)}
+  a.choice:hover h3{color:var(--gold-ink)}
+  a.choice:focus-visible{outline:3px solid var(--gold-ink);outline-offset:2px}
+  .track h3{font-size:var(--text-lg);font-weight:var(--weight-bold);color:var(--text-strong);
+        margin:26px 0 6px}
+  .track p{margin:0 0 6px}
+  .track ul{margin:6px 0 10px;padding-left:22px}
+  .track li{margin:4px 0;color:var(--text-body);font-size:var(--text-sm);line-height:1.6}
+  .track .kbdoor{font-size:var(--text-sm);font-weight:var(--weight-semibold);margin:2px 0 0}
+  .track .quiet{color:var(--text-muted);font-size:var(--text-sm)}
+</style>
+</head>
+<body class="theme-light">
+
+<div class="reviewbar">SUBMITTING A PROPOSAL — promoted 2026-08-12 (client-directed): two tracks
+  replace the four-node stepper, Using resources first. VERAS screenshot lives in the KB walkthrough
+  only; award administration lives in the knowledge base.
+  <span>Old stepper's Connect placeholders moved to the hub.</span></div>
+
+<site-nav active="resources"></site-nav>
+
+<main id="main" tabindex="-1">
+
+<!-- P-1 hero -->
+<section class="band band--dark">
+  <div class="wrap">
+    <p class="eyebrow">Working with IIDS</p>
+    <h1>Submitting a proposal</h1>
+  </div>
+</section>
+
+<!-- P-2 chooser + strap -->
+<section class="band band--narrow">
+  <div class="wrap">
+    <h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Which one is you?</h2>
+    <div class="chooser">
+      <a class="choice" href="#using-resources">
+        <h3>Using IIDS, RCDS, or GBRC resources</h3>
+        <p>You submit through your department or college, and build institute computing, genomics,
+          or people into the proposal.</p>
+      </a>
+      <a class="choice" href="#through-iids">
+        <h3>Through IIDS</h3>
+        <p>You want IIDS to prepare, submit, and administer the grant for you. An evaluated
+          request — not a form.</p>
+      </a>
+    </div>
+    <div class="trap" style="margin:18px 0 0"><p><b>Either way, one rule has a deadline: IIDS
+      affiliation is declared when the proposal is submitted — it cannot be added later.</b>
+      <a href="#declare-it">Declare it →</a></p></div>
+<!-- Quiet line retargeted 2026-08-14 — doors straight to the Grant Resources guide (the
+     Resources #templates section is now the same door). DMPs and rates dropped from the
+     enumeration: the guide does not hold them; Budget it and Describe it below carry those. -->
+    <p class="quiet" style="margin-top:12px;font-size:var(--text-sm);color:var(--text-muted)">
+      Looking for what you attach — facilities statements, agency templates, the other reusable
+      pieces? <a href="kb_entry.html?id=iids-guide-grant-resources">Guide: Grant Resources →</a></p>
+    <p class="quiet" style="margin-top:6px;font-size:var(--text-sm);color:var(--text-muted)">
+      Prefer the whole path on one page?
+      <a href="kb_entry.html?id=iids-guide-writing-a-proposal">Guide: Writing a Proposal with IIDS →</a></p>
+  </div>
+</section>
+
+<!-- P-3 · Using resources -->
+<section class="band band--alt band--narrow track" id="using-resources">
+  <div class="wrap">
+    <h2>Using IIDS, RCDS, or GBRC resources</h2>
+    <p>You submit through your department or college — and the proposal builds on institute
+      computing, genomics, or people. Four steps, in the order you'll hit them.</p>
+
+    <h3>Plan it</h3>
+    <p>Talk to the core director before you write. Consultation is free: what you need, whether
+      the cores can do it, and roughly what it would cost.</p>
+    <p class="kbdoor"><a href="contact.html">Core directors →</a> ·
+      <a href="kb_entry.html?id=iids-policy-subsidized-services">Policy: Subsidized Services →</a></p>
+
+    <h3>Budget it</h3>
+    <p>Core directors help develop a cost estimate for the proposed work — free. The rates
+      themselves are published by
+      <a href="https://www.uidaho.edu/research/facilities/shared-resources">ORED</a> and, for
+      genomics, <a href="https://my.ilabsolutions.com/service_center/show_external/3232/">iLab</a>;
+      university budget rates (F&amp;A, fringe) live with
+      <a href="https://www.uidaho.edu/research">ORED</a>. Linked, never restated.</p>
+    <p class="kbdoor"><a href="kb_entry.html?id=rcds-service-center-rates">Internal and external users: who pays which rate →</a></p>
+
+    <h3>Describe it</h3>
+    <p>What reviewers read: <b>facilities and resources statements</b> for RCDS, GBRC, the IIDS
+      Administrative Core, and NKN; <b>letters of support</b> from core directors, who can join as
+      key personnel when appropriate; and the <b>data management plan</b>, which RCDS helps draft
+      during proposal development.</p>
+    <p class="kbdoor"><a href="kb_entry.html?id=iids-guide-grant-resources">Guide: Grant Resources →</a> ·
+      <a href="kb_entry.html?id=rcds-research-data-management">Research data management and the data repository →</a></p>
+
+    <h3 id="declare-it">Declare it</h3>
+    <p><span class="chip chip--iids">Required</span> If the work will use IIDS infrastructure,
+      personnel, or resources: <b>check the box when you submit</b> — the walkthrough below shows
+      exactly where it is. It costs your college and department nothing, and it cannot be added
+      later.</p>
+    <p><b>What counts</b> — examples, not an exhaustive list: sequencing, sample preparation, and
+      bioinformatics from GBRC; high performance computing, storage, and development from RCDS.
+      Unsure whether your project qualifies? Ask before you submit, not after.</p>
+    <p class="quiet">The detail lives in the policy entries:
+      <a href="kb_entry.html?id=iids-veras-institute-affiliation">Indicating IIDS affiliation in VERAS</a> ·
+      <a href="kb_entry.html?id=iids-policy-affiliation-requirement">Policy: Affiliation Requirement</a> ·
+      <a href="kb_entry.html?id=iids-policy-fa-split">Policy: Facilities and Administrative (F&amp;A) Split</a>.</p>
+  </div>
+</section>
+
+<!-- P-4 · Through IIDS -->
+<section class="band band--narrow track" id="through-iids">
+  <div class="wrap">
+    <h2>Submitting a proposal through IIDS</h2>
+    <p>IIDS prepares and submits the proposal and acts as your liaison with the Office of Sponsored
+      Programs, then administers the award if funded.</p>
+
+    <h3>Criteria</h3>
+    <p>The IIDS Director and relevant staff evaluate every request against three things —
+      <b>intellectual alignment</b> with the IIDS mission, <b>reliance on IIDS infrastructure and
+      personnel</b>, and <b>current and future staff capacity</b>. If yes, IIDS submits for you.
+      If no, you submit through your department — and the resources track above still applies.</p>
+    <p class="kbdoor"><a href="kb_entry.html?id=iids-proposal-submission-criteria">How IIDS evaluates a submission request →</a></p>
+
+    <h3>Request</h3>
+    <p>Email the <a href="contact.html">Program Manager</a> five things: the RFA (PDF or link) ·
+      the submission deadline · PIs and Co-PIs including external collaborators · a 2–5 sentence
+      summary · a 2–5 sentence justification of why submission through IIDS is appropriate. The
+      last two are what the request is judged on.</p>
+    <p class="kbdoor"><a href="kb_entry.html?id=iids-submitting-a-proposal">Submitting a proposal through IIDS →</a></p>
+
+    <h3>Timeline</h3>
+    <p>A minimum of <b>three weeks before the sponsor's deadline; four if collaborative or with
+      subawards or contracts</b>. Ask early: alignment and reliance do not change between now and
+      your deadline, but capacity does — a proposal that aligns perfectly can still be declined
+      because the team is already committed.</p>
+
+    <h3>What you get</h3>
+    <p>Submitting through IIDS means the institute's admin core works the proposal with you:</p>
+    <ul>
+      <li>RFA and program-guideline review</li>
+      <li>Budgets and budget justifications</li>
+      <li>Supporting documentation prepared, tracked, and uploaded — current and pending support,
+        biosketches, letters of support</li>
+      <li>Subaward documentation</li>
+      <li>Uploads to VERAS, Grants.gov, Research.gov, and FastLane</li>
+      <li>Coordination with the Office of Sponsored Programs and ORFD</li>
+      <li><b>Proposal pre-review</b> — IIDS pays stipends to qualified external reviewers to read
+        your proposal before it goes out</li>
+      <li><b>Teaching release funds</b> for faculty working on large programmatic proposals</li>
+      <li>Art and graphic design for grant figures</li>
+      <li>And after the award: full administration — purchasing, travel, hiring, budget changes.
+        The how-tos are collected in the
+        <a href="kb_entry.html?id=iids-guide-post-award">Guide: Managing Your Award with IIDS →</a></li>
+    </ul>
+    <p class="quiet">Pre-review and teaching release are budget and calendar decisions, not
+      last-minute ones — ask about both early.</p>
+    <p class="kbdoor"><a href="kb_entry.html?id=iids-proposal-support-services">What IIDS does for a proposal submitted through the Institute →</a></p>
+  </div>
+</section>
+
+</main>
+<site-footer></site-footer>
+<script src="../components/site-shell/site-shell.js"></script>
+</body>
+</html>

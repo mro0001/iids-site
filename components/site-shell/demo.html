@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>site-shell — demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../shared/tokens.css">
+<link rel="stylesheet" href="../../mockups/mockup.css">
+<link rel="stylesheet" href="site-shell.css">
+
+<!-- Scripts in <head> so the elements are defined before they are parsed, which lets the
+     demo swap in the fixture model. Real pages load these at the end of <body> and use the
+     built-in default model. -->
+<script src="site-shell.js"></script>
+<script src="fixture.js"></script>
+<script>SiteShell.setModel(window.SITE_SHELL_FIXTURE);</script>
+
+<style>
+  .note{border:1px solid var(--border-hairline);border-left:4px solid var(--gold);
+        background:var(--surface-card);border-radius:var(--radius);
+        padding:18px 20px;margin:22px 0;box-shadow:var(--shadow-sm)}
+  .note h2{font-size:1.05rem;color:var(--text-strong);margin-bottom:6px}
+  .note p{color:var(--text-body);font-size:.9rem;max-width:70ch}
+  .note code{font-family:ui-monospace,"SFMono-Regular",Menlo,monospace;font-size:.82rem;
+             background:var(--surface-alt);border:1px solid var(--border-hairline);
+             border-radius:var(--radius-sm);padding:1px 5px}
+  .demolabel{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+             color:var(--gold-ink);font-weight:600;margin:34px 0 12px}
+</style>
+</head>
+<body class="theme-light">
+
+<p class="demolabel wrap" style="margin-top:22px">Variant: public (active = "two")</p>
+<site-nav active="two"></site-nav>
+
+<!-- id="main" tabindex="-1" is the skip-link target the shell contract requires of host pages; only
+     the first of this demo's two <main> blocks can carry it (ids are unique). -->
+<main id="main" tabindex="-1" class="wrap">
+  <div class="note">
+    <h2>This shell is rendered from data</h2>
+    <p>
+      The header above and the footers below are not markup in this file — they are
+      <code>&lt;site-nav&gt;</code> and <code>&lt;site-footer&gt;</code> rendering the model in
+      <code>fixture.js</code>. Swap the model, and every page that uses the shell changes with it.
+      On a real page the same elements render the built-in navigation model instead.
+    </p>
+  </div>
+  <div class="note">
+    <h2>Mobile menu</h2>
+    <p>
+      Narrow the window below 820px. The link list collapses behind a toggle button that carries
+      <code>aria-expanded</code> and <code>aria-controls</code>, and closes on <code>Escape</code>.
+      Before the shell, the nav list was simply hidden at this width with nothing in its place.
+    </p>
+  </div>
+</main>
+
+<p class="demolabel wrap">Variant: intranet (active = "home")</p>
+<site-nav variant="intranet" active="home"></site-nav>
+
+<main class="wrap">
+  <div class="note">
+    <h2>A second variant, same component</h2>
+    <p>
+      The intranet carries its own link set, its own brand subtitle, and an
+      &ldquo;Exit&rdquo; CTA in place of the intranet lock.
+    </p>
+  </div>
+</main>
+
+<p class="demolabel wrap">Footer: intranet model (no columns defined → simple footer)</p>
+<site-footer variant="intranet">Demo disclaimer — content authored inside the element is preserved as the
+<code>.disclaimer</code> paragraph, so each page keeps its own note.</site-footer>
+
+<p class="demolabel wrap">Footer: public model (columns come from the model, so every page gets them)</p>
+<site-footer variant="public">Same component, same call. The columns are not a landing-page
+variant any more — a footer renders whatever columns its model defines.</site-footer>
+
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IIDS — Working with IIDS: Start here (variant B)</title>
+<meta name="description" content="Start here to work with IIDS at the University of Idaho: services, grant proposals, award administration, and how to reach us.">
+<meta name="keywords" content="IIDS, University of Idaho, U of I, UIdaho, working with IIDS, research support">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../components/site-shell/site-shell.css">
+<link rel="stylesheet" href="mockup.css">
+<link rel="stylesheet" href="award_proposal.css">
+<style>
+  .hero-lead{margin:14px 0 0;max-width:62ch;color:#cfcfcf;font-size:var(--text-base);line-height:1.65}
+  .lanes{display:grid;gap:16px;grid-template-columns:repeat(2,minmax(0,1fr))}
+  @media (max-width:720px){.lanes{grid-template-columns:1fr}}
+  .lane{background:var(--surface-card);border:1px solid var(--border-hairline);
+        border-radius:var(--radius-lg);padding:22px;display:flex;flex-direction:column}
+  .lane h3{margin:0 0 6px;color:var(--text-strong);font-size:var(--text-xl)}
+  .lane p{margin:0 0 8px;color:var(--text-body);font-size:var(--text-sm);line-height:1.6}
+  .lane .mini{color:var(--text-muted);font-size:var(--text-xs);letter-spacing:.02em;
+        margin:0 0 10px}
+  .lane .go{color:var(--gold-ink);font-weight:var(--weight-semibold);font-size:var(--text-sm);
+        text-decoration:none;margin-top:auto}
+  .lane .go:hover{text-decoration:underline}
+  .lane .placeholder{margin:8px 0 10px;padding:10px 12px}
+  .cores .card p{margin-bottom:6px}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body class="theme-light">
+
+<div class="reviewbar">START HERE — VARIANT B: NOT SELECTED (2026-08-12). The client chose the
+  need-based variant C, promoted to <a href="wwi_hub.html">wwi_hub.html</a>.
+  <span>Kept for reference like award_proposal_a/b; links on this page may be stale. Not a site
+  page.</span></div>
+
+<site-nav active="resources"></site-nav>
+
+<main id="main" tabindex="-1">
+
+<!-- B-1 hero: same band, plus one orientation sentence. The client cut the old "never billed"
+     lead as off-putting; this lead is neutral orientation, not a pitch — a different sentence,
+     same slot. Client to judge. -->
+<section class="band band--dark">
+  <div class="wrap">
+    <p class="eyebrow">Working with IIDS</p>
+    <h1>Start here</h1>
+    <p class="hero-lead">The Institute for Interdisciplinary Data Sciences runs the university's
+      research-computing and genomics cores — and helps researchers win and manage the awards that
+      use them. Pick the door that matches where you are.</p>
+  </div>
+</section>
+
+<!-- B-2 lanes: same four doors as the current hub, each with a preview line of what is actually
+     behind it, so the cards carry equal weight and a novice knows what a click buys. -->
+<section class="band">
+  <div class="wrap">
+    <h2 class="sr-only">Where are you starting from?</h2>
+    <div class="lanes">
+      <div class="lane">
+        <h3>New here?</h3>
+        <p>Want to know what IIDS is and what it offers?</p>
+        <p class="mini">Accounts · storage · consultation · hosting · genomics · training</p>
+        <p><a class="go" href="wwi_services.html">Services →</a> ·
+           <a class="go" href="about.html">About →</a></p>
+      </div>
+      <div class="lane">
+        <h3>Proposals</h3>
+        <p>Writing a grant?</p>
+        <p class="mini">Cost estimates · letters of support · submitting through IIDS · what to
+          attach · the affiliation box</p>
+        <p><a class="go" href="wwi_write_a_grant.html">Proposals →</a></p>
+      </div>
+      <div class="lane">
+        <h3>Your award</h3>
+        <p>Have an award IIDS administers?</p>
+        <p class="mini">Purchases · travel · reimbursement · hiring · budget changes ·
+          acknowledgements</p>
+        <p><a class="go" href="wwi_award.html">Your award →</a></p>
+      </div>
+      <div class="lane">
+        <h3>Connect</h3>
+        <p>Want to talk through an idea, or don't know where to start?</p>
+        <div class="placeholder">
+          <p class="ph-label">Placeholder — details TBD</p>
+          <p><b>Office hours.</b> [Insert day + 1–2 hour window + location] — drop in, no
+            appointment. <b>Intake.</b> [Insert intake form link] — one form for any request or
+            1-on-1 meeting; will connect to ClickUp.</p>
+        </div>
+        <p><a class="go" href="contact.html">Contact →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- B-3 the rule: out of the Proposals card, into its own thin band — visible without making a
+     routing card read like a hazard label. Same trap element the Proposals page uses. -->
+<section class="band band--narrow" style="padding-top:0">
+  <div class="wrap">
+    <div class="trap"><p><b>One rule has a deadline: IIDS affiliation is declared when a proposal
+      is submitted — it cannot be added later.</b>
+      <a href="wwi_write_a_grant.html#submit">How to check the box →</a></p></div>
+  </div>
+</section>
+
+<!-- B-4 the cores: one sourced line each (WHO-5's "short identity blurb per core"), so the page
+     says who you'd actually be working with. Lines match resources_faq.md Q-3. -->
+<section class="band band--alt cores">
+  <div class="wrap">
+    <h2>Who you'll work with</h2>
+    <div class="cards">
+      <div class="card"><h3>RCDS</h3>
+        <p>Research Computing and Data Services — high performance computing, data management and
+          storage, scientific programming, and web development.</p>
+        <p><a href="wwi_services.html#computing">Computing →</a></p></div>
+      <div class="card"><h3>GBRC</h3>
+        <p>The Genomics and Bioinformatics Resources Core — sequencing, library preparation, and
+          bioinformatics; external researchers welcome.</p>
+        <p><a href="/gbrc/services">Catalog →</a></p></div>
+      <div class="card"><h3>Administrative core</h3>
+        <p>Proposal development, submission through IIDS, and award administration.</p>
+        <p><a href="wwi_write_a_grant.html">Proposals →</a></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- B-5 resources strip: unchanged from the current hub -->
+<section class="band band--narrow">
+  <div class="wrap">
+    <h2>Resources</h2>
+    <div class="cards">
+      <div class="card"><h3>Knowledge base</h3>
+        <p>Browse everything.</p>
+        <p><a href="kb.html">KB →</a></p></div>
+      <div class="card"><h3>Cite us</h3>
+        <p>Acknowledging the cores in publications.</p>
+        <p><a href="kb_entry.html?id=iids-citing-iids-resources">KB entry →</a></p></div>
+      <div class="card"><h3>Data management</h3>
+        <p>Data plans, the repository, DOIs.</p>
+        <p><a href="kb_entry.html?id=rcds-research-data-management">KB entry →</a></p></div>
+    </div>
+  </div>
+</section>
+
+</main>
+<site-footer></site-footer>
+<script src="../components/site-shell/site-shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+/* Project entry styles. Brand values via var() from shared/tokens.css.
+   Light surface, one reading column — this page is prose plus a record table, so the
+   measure is capped rather than filling the container. */
+.pe{max-width:74ch}
+.pe-eyebrow{margin:0 0 6px;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold-ink);font-weight:600}
+.pe-title{margin:0 0 12px;font-size:1.7rem;line-height:1.25;color:var(--text-strong);
+  font-weight:var(--weight-semibold)}
+
+.pe-tags{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 18px}
+.pe-tag{font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;
+  padding:4px 10px;border-radius:var(--radius-pill);
+  background:var(--surface-alt);color:var(--text-muted);border:1px solid var(--border-hairline)}
+
+.pe-partof{margin:-8px 0 18px;font-size:.85rem;color:var(--text-muted)}
+.pe-partof a{color:var(--gold-ink);font-weight:600;text-decoration:underline;
+  text-underline-offset:3px}
+
+.pe-subs{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.pe-subs li{padding:10px 14px;background:var(--surface-card);
+  border:1px solid var(--border-hairline);border-radius:var(--radius-lg)}
+.pe-subs a{color:var(--gold-ink);font-weight:600;font-size:.94rem;
+  text-decoration:underline;text-underline-offset:3px}
+.pe-subtext{display:block;margin-top:3px;font-size:.85rem;line-height:1.5;
+  color:var(--text-body)}
+
+/* The abstract is quoted source text, so it is set apart from the page's own prose: a rule
+   down the left edge, slightly smaller, and an attribution line under it. */
+.pe-abstract{margin-top:28px}
+.pe-abstracttext{margin:0;padding:0 0 0 18px;border-left:3px solid var(--gold-tint-strong)}
+.pe-abstracttext p{margin:0 0 12px;font-size:.93rem;line-height:1.7;color:var(--text-body)}
+.pe-abstracttext p:last-child{margin-bottom:0}
+.pe-abstractcite{margin:10px 0 0 18px;font-size:.8rem;color:var(--text-muted)}
+
+.pe-body p{margin:0 0 14px;font-size:.98rem;line-height:1.65;color:var(--text-body)}
+
+.pe-section{margin:26px 0 0;padding-top:20px;border-top:1px solid var(--border-hairline)}
+.pe-section h2{margin:0 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--text-muted);font-weight:600}
+.pe-section p{margin:0;font-size:.94rem;line-height:1.6;color:var(--text-body)}
+
+.pe-facts{margin:0;display:grid;gap:1px;background:var(--border-hairline);
+  border:1px solid var(--border-hairline);border-radius:var(--radius-lg);overflow:hidden}
+.pe-fact{display:grid;grid-template-columns:minmax(9rem,13rem) 1fr;gap:0;
+  background:var(--surface-card)}
+.pe-fact dt{padding:10px 14px;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--text-muted);font-weight:600;background:var(--surface-alt)}
+.pe-fact dd{margin:0;padding:10px 14px;font-size:.9rem;line-height:1.55;color:var(--text-body)}
+
+.pe-source{color:var(--gold-ink);font-weight:600;text-decoration:underline;
+  text-underline-offset:3px;word-break:break-word}
+
+/* the in-site continuation: the same gold button the rest of the site uses for a primary
+   action (body.theme-light .cta in mockups/mockup.css), so it reads as somewhere to go
+   rather than as one more link in the record */
+.pe-continue{margin:4px 0 0}
+.pe-cta{display:inline-block;background:var(--gold);color:var(--text-strong);
+  border-radius:var(--radius);padding:9px 18px;font-size:.9rem;font-weight:600;
+  text-decoration:none;transition:.2s}
+.pe-cta:hover,.pe-cta:focus-visible{background:var(--gold-ink);color:var(--white)}
+
+.pe-note{margin:24px 0 0;padding:14px 16px;font-size:.85rem;line-height:1.55;
+  color:var(--text-body);background:var(--surface-alt);
+  border:1px dashed var(--border-hairline);border-radius:var(--radius-lg)}
+.pe-note strong{color:var(--text-strong)}
+/* the same note standing in for a description it does not have: it opens the page body
+   rather than closing it, so it loses the leading gap a footnote needs */
+.pe-note--lead{margin:0}
+
+.pe-missing{font-size:.95rem;color:var(--text-body)}
+h1.pe-missing{font-size:1.4rem;font-weight:var(--weight-semibold);color:var(--text-strong);
+  margin:0 0 10px}
+.pe-missing a{color:var(--gold-ink);font-weight:600}
+
+/* announced, never shown: cues that a visual reader gets from an icon or a hover */
+.pe-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+@media(max-width:640px){
+  .pe-title{font-size:1.4rem}
+  .pe-fact{grid-template-columns:1fr}
+  .pe-fact dt{padding-bottom:2px}
+}

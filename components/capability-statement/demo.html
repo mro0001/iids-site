@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>capability-statement — isolated demo</title>
+<!-- Standalone host. Double-click this file; no server and no other module is loaded. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../shared/tokens.css">
+<link rel="stylesheet" href="capability-statement.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--surface-page);color:var(--text-body);font-family:var(--font);line-height:1.5;padding:40px 24px 80px}
+  .wrap{max-width:var(--container);margin:0 auto}
+  h1{font-size:1.35rem;font-weight:800;color:var(--text-strong);margin-bottom:6px}
+  .note{font-size:.9rem;color:var(--text-muted);max-width:80ch;margin-bottom:8px}
+  h2{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-ink);
+     font-weight:700;margin:48px 0 4px;padding-top:24px;border-top:1px solid var(--border-hairline)}
+  .empty{font-size:.9rem;color:var(--text-muted);font-style:italic;padding:12px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>capability-statement</h1>
+  <p class="note">Mounted in isolation against <code>fixture.js</code>, which is generated from
+    <code>content/home_capabilities.md</code>. Consumed for real by the band under the hero on
+    <code>mockups/landing_placeholder.html</code>.</p>
+
+  <h2>Real fixture</h2>
+  <div id="real"></div>
+
+  <h2>Longer list — the count is soft</h2>
+  <div id="many"></div>
+
+  <h2>Malformed records are dropped, not half-rendered</h2>
+  <div id="partial"></div>
+  <p class="empty" id="partialNote"></p>
+
+  <h2>Empty fixture renders nothing and does not throw</h2>
+  <div id="empty"></div>
+  <p class="empty" id="emptyNote"></p>
+</div>
+
+<script src="fixture.js"></script>
+<script src="capability-statement.js"></script>
+<script>
+  CapabilityStatement.mount(document.getElementById('real'), window.CAPABILITY_FIXTURE);
+
+  CapabilityStatement.mount(document.getElementById('many'), {
+    items: window.CAPABILITY_FIXTURE.items.concat([
+      { id: 'stewardship', title: 'Stewardship',
+        statement: 'A fourth row, present only to show that the component takes any number of items and the page rhythm holds.' }
+    ])
+  });
+
+  var partial = CapabilityStatement.mount(document.getElementById('partial'), {
+    items: [
+      { id: 'good', title: 'Rendered', statement: 'This record has both a title and a statement.' },
+      { id: 'no-statement', title: 'Dropped — no statement' },
+      { id: 'no-title', statement: 'Dropped — no title.' }
+    ]
+  });
+  document.getElementById('partialNote').textContent =
+    'Handed 3 records, rendered ' + document.querySelectorAll('#partial .cs-row').length + '.';
+
+  CapabilityStatement.mount(document.getElementById('empty'), { items: [] });
+  document.getElementById('emptyNote').textContent =
+    'Rendered ' + document.querySelectorAll('#empty .cs-row').length + ' rows, no error thrown.';
+</script>
+</body>
+</html>

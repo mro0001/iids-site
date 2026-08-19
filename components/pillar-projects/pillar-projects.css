@@ -1,0 +1,31 @@
+/* AI4UI Pillar Projects widget. Brand colors via var() from shared/tokens.css.
+   Light is the base: white pillar cards with a gold left rail, --surface-alt project
+   rows inset on the card. The former #6a6a6a illustrative-note literal is now the
+   --text-muted token, so no literals remain. */
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;align-items:start}
+
+/* pillar card — white card, hairline border, gold accent rail, soft elevation */
+.pp-card{border:1px solid var(--border-hairline);border-left:3px solid var(--gold);background:var(--surface-card);
+  border-radius:var(--radius);box-shadow:var(--shadow-sm);transition:box-shadow .2s,border-color .2s}
+.pp-card:hover{box-shadow:var(--shadow-md)}
+
+.pp-head{width:100%;display:flex;align-items:center;gap:14px;background:transparent;border:0;cursor:pointer;
+  font-family:inherit;color:var(--text-strong);text-align:left;padding:18px 20px;font-size:1.05rem;font-weight:700}
+.pp-head:hover{color:var(--gold-ink)}
+.pp-caret{margin-left:auto;color:var(--gold-ink);transition:transform .2s;font-size:.9rem}
+.pp-card.open .pp-caret{transform:rotate(90deg)}
+
+.pp-blurb{color:var(--text-body);font-size:.9rem;margin:0 20px 4px;max-width:75ch}
+.pp-card.open .pp-blurb{margin-bottom:14px}
+
+.pp-list{display:none;padding:0 20px 18px}
+.pp-card.open .pp-list{display:block}
+.pp-list ul{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:6px}
+/* project rows — inset on the card: light-alt surface, hairline + gold rail */
+.pp-list li{display:flex;align-items:center;gap:12px;border:1px solid var(--border-hairline);border-left:3px solid var(--gold);
+  background:var(--surface-alt);color:var(--text-body);padding:11px 14px;border-radius:var(--radius-sm)}
+.pp-proj{font-weight:600;color:var(--text-strong)}
+/* status badge — gold-ink outline, mirroring mockup.css .tag treatment */
+.pp-status{margin-left:auto;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-ink);
+  border:1px solid var(--gold-ink);padding:2px 9px}
+.pp-note{color:var(--text-muted);font-size:.74rem;font-style:italic;margin-top:12px}

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>project-spotlight — isolated demo</title>
+<link rel="stylesheet" href="../../shared/tokens.css">
+<link rel="stylesheet" href="project-spotlight.css">
+<style>
+  /* Demo host only. Not part of the component. */
+  body{font-family:var(--font);background:var(--surface-page);color:var(--text-strong);
+       margin:0;padding:32px 20px 60px}
+  .host{max-width:860px;margin:0 auto}
+  h1{font-size:1.5rem;margin:0 0 4px}
+  .lede{color:var(--text-muted);font-size:.92rem;margin:0 0 28px;max-width:64ch;line-height:1.5}
+  h2{font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);
+     margin:34px 0 10px;font-weight:600}
+  .note{font-size:.85rem;color:var(--text-muted);margin:8px 0 0;line-height:1.5}
+  code{background:var(--surface-alt);padding:1px 5px;border-radius:3px;font-size:.85em}
+  .report{background:var(--surface-alt);border:1px solid var(--border-hairline);
+          border-radius:var(--radius-sm);padding:14px 16px;margin-top:10px;
+          font-size:.86rem;line-height:1.6;white-space:pre-wrap}
+</style>
+</head>
+<body>
+<div class="host">
+
+  <h1>project-spotlight</h1>
+  <p class="lede">Isolated demo. Fixture data only, no other module loaded. The fixture holds
+  eight records: four that must appear and four that the selection rule must reject.</p>
+
+  <h2>Rotating spotlight</h2>
+  <div id="spot"></div>
+  <p class="note">Hover it, or tab into it, and rotation stops. Under
+  <code>prefers-reduced-motion: reduce</code> it never auto-rotates at all and opens paused.</p>
+
+  <h2>What the selection rule did to the fixture</h2>
+  <div class="report" id="report"></div>
+
+  <h2>Empty state</h2>
+  <div id="empty"></div>
+  <p class="note">What a host renders when nothing qualifies. It must not throw.</p>
+
+</div>
+
+<script src="fixture.js"></script>
+<script src="project-spotlight.js"></script>
+<script>
+  var picked = ProjectSpotlight.mount(
+    document.getElementById('spot'),
+    window.SPOTLIGHT_FIXTURE,
+    { entryPage: '../../mockups/project_entry.html', interval: 5000 }
+  );
+
+  /* Show the accept/reject decision for every fixture record, so the rule is visible
+     rather than implied. */
+  var lines = [];
+  var kept = ProjectSpotlight.spotlightItems(window.SPOTLIGHT_FIXTURE);
+  window.SPOTLIGHT_FIXTURE.forEach(function (it) {
+    var hit = kept.filter(function (k) { return k.objectid === it.objectid; })[0];
+    if (hit) {
+      lines.push('KEPT     ' + it.objectid +
+        '\n           PI: ' + hit.pi +
+        (hit.truncated ? '\n           byline truncated' : ''));
+    } else {
+      var why = String(it.status).trim() !== 'Active' ? 'status is ' + it.status
+        : !it.lead ? 'no lead field'
+        : !ProjectSpotlight.looksLikeName(ProjectSpotlight.leadName(it.lead))
+          ? 'lead resolves to "' + ProjectSpotlight.leadName(it.lead) + '", not a person'
+          : 'provenance-style description';
+      lines.push('REJECTED ' + it.objectid + '\n           ' + why);
+    }
+  });
+  lines.push('\n' + kept.length + ' of ' + window.SPOTLIGHT_FIXTURE.length + ' fixture records kept.');
+  document.getElementById('report').textContent = lines.join('\n');
+
+  ProjectSpotlight.mount(document.getElementById('empty'), []);
+</script>
+</body>
+</html>

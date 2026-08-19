@@ -1,0 +1,52 @@
+/* People Directory widget styles. Brand colors via var() from shared/tokens.css.
+   The GBRC light look is the BASE (white cards, hairline borders, radius + soft shadow,
+   gold left rail); filter buttons match the Knowledge Base .gbtn treatment (hairline
+   outline; active = gold fill). The widget only ever appears inside light content bands,
+   so there is no dark variant. The former #000 empty-photo backing is now --surface-alt,
+   so no incidental literals remain. */
+
+/* unit filter buttons */
+.peoplefilters{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:22px 0 6px}
+.peoplefilters .pf-label{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);margin-right:4px}
+.pfbtn{font-family:inherit;cursor:pointer;background:transparent;border:1px solid var(--border-hairline);
+  color:var(--text-body);padding:11px 20px;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:600;transition:.18s;border-radius:var(--radius)}
+.pfbtn:hover{border-color:var(--gold);color:var(--gold-ink)}
+.pfbtn.active,.pfbtn[aria-pressed="true"]{background:var(--gold);color:var(--text-strong)}
+/* The filter's spoken count. Visible because the count is useful to everyone. */
+.pf-status{font-size:.78rem;color:var(--text-muted);margin-left:auto}
+
+/* card grid */
+.peoplegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:22px;margin-top:20px}
+.peoplegrid.filtering .pcard{transition:opacity .3s,filter .3s}
+
+/* person card — white card, hairline border, gold accent rail, soft elevation */
+.pcard{border:1px solid var(--border-hairline);border-left:3px solid var(--gold);background:var(--surface-card);
+  padding:22px 20px 20px;display:flex;flex-direction:column;align-items:center;text-align:center;
+  border-radius:var(--radius);box-shadow:var(--shadow-sm);transition:box-shadow .2s,border-color .2s}
+.pcard:hover{box-shadow:var(--shadow-md)}
+.pcard.dim{opacity:.12;filter:grayscale(1);pointer-events:none}
+
+.pc-photo{width:132px;height:132px;border-radius:50%;overflow:hidden;border:2px solid var(--gold-line);
+  box-shadow:var(--shadow-sm);margin-bottom:16px;background:var(--surface-alt)}
+.pc-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.pc-photo--placeholder{filter:grayscale(1);opacity:.7;border-style:dashed}
+.pc-photo--none{display:grid;place-items:center}
+
+/* Class-based, so the host can set the heading LEVEL (nameLevel) without changing the look. */
+.pcard .pc-name{font-size:1.02rem;font-weight:700;letter-spacing:.01em;color:var(--text-strong)}
+.pc-title{color:var(--gold-ink);font-size:.82rem;font-weight:600;margin-top:4px;min-height:2.4em}
+
+.pc-contact{margin-top:12px;display:flex;flex-direction:column;gap:4px;width:100%}
+.pc-contact a{font-size:.74rem;color:var(--text-body);word-break:break-all;border-top:1px solid var(--border-hairline);padding-top:8px}
+.pc-contact a:hover{color:var(--gold-ink)}
+.pc-contact .pc-email{font-weight:600;color:var(--text-strong)}
+
+/* steering committee — the same source file, but not staff: no headshot, no unit, no filter */
+.sc-head{margin-top:26px;font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted);font-weight:600}
+.steering{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px 22px}
+.steering li{display:flex;flex-direction:column;gap:2px;border-left:3px solid var(--gold);padding:4px 0 4px 12px}
+.steering .sc-name{font-weight:600;color:var(--text-strong);font-size:.95rem}
+.steering .sc-name a{color:inherit}
+.steering .sc-name a:hover{color:var(--gold-ink)}
+.steering .sc-aff{font-size:.8rem;color:var(--text-muted)}

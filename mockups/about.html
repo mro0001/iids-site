@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IIDS — About</title>
+<meta name="description" content="Who we are, where we came from, and the people who do the work at IIDS, the Institute for Interdisciplinary Data Sciences, University of Idaho.">
+<meta name="keywords" content="IIDS, Institute for Interdisciplinary Data Sciences, University of Idaho, U of I, UIdaho, about, people, staff, steering committee">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../components/site-shell/site-shell.css">
+<link rel="stylesheet" href="mockup.css">
+<link rel="stylesheet" href="../components/people-directory/people-directory.css">
+<link rel="stylesheet" href="../components/content-render/content-render.css">
+<link rel="stylesheet" href="../components/project-spotlight/project-spotlight.css">
+</head>
+<body class="theme-light">
+
+<site-nav active="about"></site-nav>
+
+<div class="pagehead">
+  <div class="wrap">
+    <p class="eyebrow">About</p>
+    <h1>About IIDS</h1>
+    <p>Who we are, where we came from, and the people who do the work. Wireframe only — every box below is a content zone, tagged by where its text will come from.</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="legend">
+    <span><span class="swatch sw-mig"></span> [migrate text] — moves as-is</span>
+    <span><span class="swatch sw-mod"></span> [migrate modified text] — migrated + reworked</span>
+    <span><span class="swatch sw-new"></span> [new text] — written from scratch</span>
+  </div>
+</div>
+
+<main id="main" tabindex="-1" class="wrap">
+
+  <!-- Real headings, styled small: the zone titles below are h3s and need an h2 above them. -->
+  <h2 class="subhead">Identity</h2>
+
+  <div class="zone zone--migrate">
+    <span class="tag tag--migrate">[migrate text]</span>
+    <h3 style="margin-top:10px">Who we are</h3>
+    <div class="rendered" data-content="about_mission"></div>
+    <span class="file">content/about_mission.md</span>
+  </div>
+
+  <div class="zone zone--migrate">
+    <span class="tag tag--migrate">[migrate text]</span>
+    <h3 style="margin-top:10px">Origin story</h3>
+    <div class="rendered" data-content="about_origin"></div>
+    <span class="file">content/about_origin.md</span>
+  </div>
+
+  <div class="zone zone--migrate">
+    <span class="tag tag--migrate">[migrate text · live component]</span>
+    <h3 style="margin-top:10px">People</h3>
+    <p class="desc">Live <code>people-directory</code> component. Data is generated from the single source of record; click a unit to fade the rest, click again to reset. Roster migrated from the old site; titles and links are pending verification by each person before launch.</p>
+    <div class="peoplefilters" id="peopleFilters">
+      <span class="pf-label">Filter by unit</span>
+      <button class="pfbtn" data-unit="IIDS">Administrative Core</button>
+      <button class="pfbtn" data-unit="RCDS">RCDS</button>
+      <button class="pfbtn" data-unit="GBRC">GBRC</button>
+    </div>
+    <div class="peoplegrid" id="peopleGrid"></div>
+    <div id="steering">
+      <h4 class="sc-head">Steering committee</h4>
+      <ul class="steering" id="steeringList"></ul>
+    </div>
+    <span class="file">content/about_people.md → components/people-directory/</span>
+  </div>
+
+  <h2 class="subhead">Research</h2>
+
+  <div class="zone zone--mod">
+    <span class="tag tag--mod">[migrate modified text · live component]</span>
+    <h3 style="margin-top:10px"><a class="zonelink" href="projects.html">Research &amp; impact</a></h3>
+    <p class="desc">Live <code>project-spotlight</code> component, rotating the currently active
+      projects from the published store. The section title goes to the full projects page; a
+      project title goes to its own record.</p>
+    <div id="projectSpotlight"></div>
+    <span class="file">backend/projects-data/ → components/project-spotlight/</span>
+  </div>
+
+
+</main>
+
+<site-footer></site-footer>
+
+<script src="../components/people-directory/fixture.js"></script>
+<script src="../components/people-directory/people-directory.js"></script>
+<script src="../components/content-render/content-render.generated.js"></script>
+<script src="../components/content-render/content-render.js"></script>
+<script src="../backend/projects-data/projects-data.generated.js"></script>
+<script src="../components/project-spotlight/project-spotlight.js"></script>
+<script>
+  PeopleDirectory.mount(
+    document.getElementById('peopleFilters'),
+    document.getElementById('peopleGrid'),
+    window.PEOPLE_FIXTURE,
+    '../',            // about.html is in mockups/, one level below the repo root
+    { nameLevel: 'h4' }   // zone titles here are h3s, so a card name is an h4
+  );
+
+  // Steering committee: same source file, not staff. No members, no section.
+  if (!PeopleDirectory.mountCommittee(document.getElementById('steeringList'), window.PEOPLE_FIXTURE)) {
+    document.getElementById('steering').hidden = true;
+  }
+  ContentRender.mountAll();
+
+  // The host resolves the store; the component does the selecting. Both pages sit in
+  // mockups/, so the entry page is a bare filename.
+  ProjectSpotlight.mount(
+    document.getElementById('projectSpotlight'),
+    (window.PROJECTS_DATA && window.PROJECTS_DATA.items) || [],
+    { entryPage: 'project_entry.html', interval: 7000 }
+  );
+</script>
+
+<script src="../components/site-shell/site-shell.js"></script>
+</body>
+</html>

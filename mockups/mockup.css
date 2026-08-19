@@ -1,0 +1,171 @@
+/* Shared wireframe styles for IIDS mockup pages.
+   Palette locked to U of I (Pride Gold #F1B300 on rich black). Font: Public Sans.
+   Content zones are placeholder boxes tagged by provenance:
+     [migrate text]          = content moves as-is        (content_map status: Migrate)
+     [migrate modified text] = migrated + reworked/added  (content_map status: Partial)
+     [new text]              = written from scratch        (content_map status: New)
+   Design tokens live in shared/tokens.css (linked before this file on every page).
+*/
+*{box-sizing:border-box;margin:0;padding:0}
+/* Smooth scrolling is motion the user did not ask for: it must not apply when the OS
+   reports a reduced-motion preference (WCAG 2.3.3 / vestibular safety). */
+@media (prefers-reduced-motion:no-preference){
+  html{scroll-behavior:smooth}
+}
+body{background:var(--void);color:var(--white);font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.eyebrow{font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);font-weight:600}
+
+/* nav */
+header{position:sticky;top:0;z-index:50;backdrop-filter:blur(8px);background:rgba(13,13,13,.85);border-bottom:1px solid var(--edge)}
+.nav{display:flex;align-items:center;gap:28px;height:var(--nav-h);max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.brand{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:.14em}
+.brand .mark{width:32px;height:32px;border:1.5px solid var(--gold);color:var(--gold);display:grid;place-items:center;font-weight:900;box-shadow:var(--glow);clip-path:polygon(0 0,100% 0,100% 72%,72% 100%,0 100%)}
+.brand small{display:block;font-size:.56rem;letter-spacing:.2em;color:var(--silver);font-weight:400}
+.nav ul{display:flex;gap:20px;list-style:none;margin-left:auto;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--silver)}
+.nav ul a:hover,.nav ul a.here{color:var(--gold)}
+.nav a.lock{color:var(--gold);border:1px solid var(--edge);padding:5px 11px;clip-path:polygon(7px 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%,0 7px)}
+.nav a.lock:hover{background:var(--gold);color:var(--void);box-shadow:var(--glow)}
+.cta{border:1px solid var(--gold);color:var(--gold);padding:8px 16px;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;transition:.2s;clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px)}
+.cta:hover{background:var(--gold);color:var(--void);box-shadow:var(--glow)}
+
+/* page header band */
+.pagehead{position:relative;border-bottom:1px solid var(--edge);padding:54px 0 40px;overflow:hidden}
+.pagehead:before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--gold-line) 1px,transparent 1px),linear-gradient(90deg,var(--gold-line) 1px,transparent 1px);background-size:40px 40px;opacity:.08}
+.pagehead h1{position:relative;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;letter-spacing:-.01em;margin-top:10px}
+.pagehead p{position:relative;color:var(--silver);margin-top:12px;max-width:60ch}
+
+/* legend */
+.legend{display:flex;flex-wrap:wrap;gap:18px;padding:18px 0;border-bottom:1px solid var(--edge);font-size:.74rem;color:var(--silver)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.swatch{width:26px;height:0;border-top-width:3px}
+.sw-mig{border-top:3px solid var(--gold)}
+.sw-mod{border-top:3px dashed var(--gold)}
+.sw-new{border-top:3px dotted var(--silver)}
+
+/* content section */
+main{padding:var(--section-y-sm) 0 calc(var(--section-y-sm) + 18px)}
+.subhead{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:38px 0 16px;font-weight:600}
+.subhead:first-child{margin-top:0}
+
+/* the placeholder zone box */
+.zone{position:relative;border:1px solid var(--edge);border-left-width:3px;background:var(--panel);padding:20px 22px 22px;margin-bottom:16px}
+.zone--migrate{border-left-color:var(--gold)}
+.zone--mod{border-left-color:var(--gold);border-left-style:dashed}
+.zone--new{border-left-color:var(--silver);border-left-style:dotted;background:#141414}
+.zone h3{font-size:1.05rem;font-weight:700;margin-bottom:4px}
+/* A zone heading that is itself a link into the section's real page. */
+.zone h3 a.zonelink{text-decoration:none}
+.zone h3 a.zonelink::after{content:" →";font-weight:400}
+.zone h3 a.zonelink:hover,.zone h3 a.zonelink:focus-visible{text-decoration:underline;text-underline-offset:3px}
+.zone .desc{color:var(--silver);font-size:.9rem;margin-top:8px;max-width:70ch}
+/* Body-copy links must be distinguishable without color alone (WCAG 1.4.1). Scoped to
+   zone copy; nav, tags, and zone-heading links keep their own affordances. The light
+   theme recolors these to --gold-ink below; the underline carries through. */
+.zone .desc a{color:var(--gold);text-decoration:underline;text-underline-offset:2px}
+/* #8f8f8f, not the former #7d7d7d: 5.44:1 on --panel where these sit, against 4.27:1. */
+.zone .file{display:inline-block;margin-top:12px;font-size:.72rem;letter-spacing:.04em;color:#8f8f8f;font-family:ui-monospace,"SFMono-Regular",Menlo,monospace}
+.tag{display:inline-block;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;padding:4px 10px;font-weight:600;border:1px solid}
+.tag--migrate{color:var(--gold);border-color:var(--gold)}
+.tag--mod{color:var(--gold);border-color:var(--gold);border-style:dashed}
+.tag--new{color:var(--silver);border-color:var(--silver)}
+
+/* grid layout for zones that sit side by side */
+.zonegrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.zonegrid .zone{margin-bottom:0}
+
+/* footer */
+footer{border-top:1px solid var(--edge);padding:40px 0 44px;color:var(--silver);font-size:.85rem}
+/* The four-column footer. The Shell renders these columns on every page whose model
+   defines them (components/site-shell/CONTRACT.md), not on the landing alone, so the
+   Accessibility link and the Events path exist site-wide; the styles have to live here
+   rather than in one page's inline CSS. The landing keeps its own copy of these rules
+   because it owns its footer band's color. */
+.foot{display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between}
+.foot h5{color:var(--white);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px}
+.foot ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.foot a:hover,.foot a:focus-visible{color:var(--gold)}
+.foot .brand{color:var(--white);margin-bottom:12px}
+.foot > div:first-child p{max-width:34ch}
+.foot .brand .mark{border-color:var(--gold);color:var(--gold);border-radius:var(--radius-sm)}
+/* #8a8a8a, not the former #6a6a6a: 5.63:1 on the dark footer, against 3.59:1 — below the
+   4.5:1 floor at this size. The theme-light override below already used this value; the
+   base now passes on its own so a future dark page inherits a compliant footer. */
+.disclaimer{margin-top:22px;font-size:.76rem;color:#8a8a8a}
+.disclaimer a{color:var(--gold)}
+
+/* Nav responsiveness is owned by the Shell (components/site-shell/site-shell.css).
+   This file used to hide .nav ul here with nothing in its place, which left the site with
+   no navigation at all on a phone. */
+@media(max-width:820px){
+  .zonegrid{grid-template-columns:1fr}
+}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+/* Focus rings need >=3:1 against the surface (WCAG 1.4.11): --gold holds that on the
+   dark pages but measures 1.88:1 on white, so light-theme pages ring in the ink gold. */
+body.theme-light :focus-visible{outline-color:var(--gold-ink)}
+
+/* ============================================================================
+   LIGHT THEME — GBRC design translation (opt-in via <body class="theme-light">)
+   Now applied across the mockups (resources.html was the proof of concept). Pages
+   WITHOUT this class stay dark. This is the mechanism for the site-wide flip: adding
+   the class migrates a page; making it the default flips the whole site.
+   Grammar swap: dark surface → white card, gold hairline → neutral hairline,
+   sharp/clip-path → radius token, neon glow → soft shadow, light-on-dark text →
+   dark-on-light. Dark bands (footer) are retained as the sub-palette.
+   Spec: docs/superpowers/specs/2026-07-23-gbrc-design-translation-design.md
+   ============================================================================ */
+body.theme-light{background:var(--surface-page);color:var(--text-body)}
+
+/* nav — light bar, sentence-case, gold-ink accents (no glow, no clip-path) */
+body.theme-light header{background:rgba(255,255,255,.85);border-bottom:1px solid var(--border-hairline)}
+body.theme-light .brand{color:var(--text-strong)}
+body.theme-light .brand .mark{border-color:var(--gold);color:var(--gold);box-shadow:none;clip-path:none;border-radius:var(--radius-sm)}
+body.theme-light .brand small{color:var(--text-muted)}
+body.theme-light .nav ul{color:var(--text-body);text-transform:none;letter-spacing:normal;font-size:.9rem;font-weight:500}
+body.theme-light .nav ul a:hover,body.theme-light .nav ul a.here{color:var(--gold-ink)}
+body.theme-light .nav a.lock{color:var(--gold-ink);border-color:var(--border-control);clip-path:none;border-radius:var(--radius-sm)}
+body.theme-light .nav a.lock:hover{background:var(--gold);color:var(--void);box-shadow:none}
+/* CTA — GBRC solid-gold primary button (pill radius, no clip-path, no glow) */
+body.theme-light .cta{background:var(--gold);color:var(--text-strong);border:none;border-radius:var(--radius);text-transform:none;letter-spacing:normal;font-size:.9rem;padding:9px 18px}
+body.theme-light .cta:hover{background:var(--gold-ink);color:var(--white);box-shadow:none}
+
+/* page header — light band, dark ink, no gold grid overlay */
+body.theme-light .pagehead{background:var(--surface-alt);border-bottom:1px solid var(--border-hairline)}
+body.theme-light .pagehead:before{display:none}
+body.theme-light .pagehead .eyebrow{color:var(--gold-ink)}
+body.theme-light .pagehead h1{color:var(--text-strong)}
+body.theme-light .pagehead p{color:var(--text-body)}
+
+/* legend + subheads */
+body.theme-light .legend{color:var(--text-muted);border-bottom:1px solid var(--border-hairline)}
+body.theme-light .subhead{color:var(--gold-ink)}
+
+/* the card — .zone translated to GBRC's white card with soft elevation */
+body.theme-light .zone{
+  background:var(--surface-card);
+  border:1px solid var(--border-hairline);
+  border-left-width:4px;                 /* keep the accent rail, on white */
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-sm);
+  transition:box-shadow .2s,border-color .2s;
+}
+body.theme-light .zone:hover{box-shadow:var(--shadow-md)}
+body.theme-light .zone--migrate{border-left-color:var(--gold)}
+body.theme-light .zone--mod{border-left-color:var(--gold)}
+body.theme-light .zone--new{border-left-color:var(--text-muted);background:var(--surface-card)}
+body.theme-light .zone h3{color:var(--text-strong)}
+body.theme-light .zone h3 a{color:var(--gold-ink)}
+body.theme-light .zone .desc{color:var(--text-body)}
+body.theme-light .zone .desc a{color:var(--gold-ink)}
+body.theme-light .zone .file{color:var(--text-muted)}
+
+/* tags — gold-ink on white for contrast */
+body.theme-light .tag--migrate,body.theme-light .tag--mod{color:var(--gold-ink);border-color:var(--gold-ink)}
+body.theme-light .tag--new{color:var(--text-muted);border-color:var(--border-hairline)}
+
+/* footer — retained as a DARK band (the two-mode split in action) */
+body.theme-light footer{background:var(--void);color:var(--silver);border-top:none}
+body.theme-light footer .brand{color:var(--white)}
+body.theme-light footer .disclaimer{color:#8a8a8a}

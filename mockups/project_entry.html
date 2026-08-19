@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IIDS — Project</title>
+<meta name="description" content="One project record from the Institute for Interdisciplinary Data Sciences (IIDS), University of Idaho: the work, and what IIDS contributed.">
+<meta name="keywords" content="IIDS, University of Idaho, U of I, UIdaho, research project, research computing, data sciences">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../components/site-shell/site-shell.css">
+<link rel="stylesheet" href="mockup.css">
+<link rel="stylesheet" href="../components/project-browse/project-browse.css">
+<link rel="stylesheet" href="../components/project-entry/project-entry.css">
+</head>
+<body class="theme-light">
+
+<site-nav active="projects"></site-nav>
+
+<main id="main" tabindex="-1" class="wrap" style="padding:40px var(--gutter) 80px">
+  <p style="margin-bottom:20px">
+    <a href="projects.html" style="color:var(--gold-ink);font-size:.85rem;letter-spacing:.04em">&larr; Back to all projects</a>
+  </p>
+  <div id="projectEntry"></div>
+</main>
+
+<site-footer></site-footer>
+
+<script src="../backend/projects-data/projects-data.generated.js"></script>
+<!-- browse assets ride along for one reason: the Subprojects section renders the browse's
+     own cards (ProjectBrowse.cardsHtml), so a subproject card here IS a project card. -->
+<script src="../components/project-browse/project-browse.js"></script>
+<script src="../components/project-entry/project-entry.js"></script>
+<script>
+  var params = new URLSearchParams(location.search);
+  var id = params.get('id');
+  var items = (window.PROJECTS_DATA && window.PROJECTS_DATA.items) || [];
+  var item = id ? items.filter(function (i) { return i.objectid === id; })[0] : null;
+  /* items rides along so the entry can derive its parent and its subprojects. */
+  ProjectEntry.mount(document.getElementById('projectEntry'), item, { browsePage: 'projects.html', items: items });
+  document.title = item ? 'IIDS — ' + item.title : 'IIDS — Project not found';
+</script>
+
+<script src="../components/site-shell/site-shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IIDS — Resources</title>
+<meta name="description" content="IIDS resources at the University of Idaho: getting started with IIDS services, the public knowledge base, proposal templates, institute policies, and answers to common questions.">
+<meta name="keywords" content="IIDS, University of Idaho, U of I, UIdaho, knowledge base, policies, templates, onboarding, FAQ">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../components/site-shell/site-shell.css">
+<link rel="stylesheet" href="mockup.css">
+<link rel="stylesheet" href="award_proposal.css">
+<style>
+  .res h3{font-size:var(--text-lg);font-weight:var(--weight-bold);color:var(--text-strong);
+    margin:24px 0 6px}
+  .res p{margin:0 0 4px}
+  .res .kbdoor{font-size:var(--text-sm);font-weight:var(--weight-semibold);margin:2px 0 0}
+  .res .firststep b{color:var(--text-strong)}
+</style>
+</head>
+<body class="theme-light">
+
+<div class="reviewbar">RESOURCES — drafted copy for review: New to IIDS? · FAQ ·
+  Knowledge base · Templates · Policies. <span>The FAQ's IBEST answer is an intentional placeholder —
+  blocked on a decision; see <code>content/resources_faq.md</code>.</span></div>
+
+<site-nav active="resources"></site-nav>
+
+<main id="main" tabindex="-1">
+
+<!-- R-1 hero -->
+<section class="band band--dark">
+  <div class="wrap">
+    <p class="eyebrow">Resources</p>
+    <h1>Resources</h1>
+  </div>
+</section>
+
+<!-- O · New to IIDS? (content/resources_onboarding.md) -->
+<section class="band res" id="new-to-iids">
+  <div class="wrap">
+    <h2>New to IIDS?</h2>
+    <p>The Institute for Interdisciplinary Data Sciences (IIDS) runs the university's
+      research-computing and genomics cores and helps researchers win and manage the awards that use
+      them. Never worked with the institute before? One of the doors below is almost certainly
+      yours — and if none of them fit, <a href="#talk">talk to a person</a>.</p>
+<!-- Lead says "the doors below" without a count, so the card set can grow without a
+     copy edit; the AI card was added 2026-08-14 (client-approved) once the Accessing AI
+     guide gave the route a real destination. -->
+
+    <div class="cards" style="margin-top:18px">
+      <div class="card">
+        <h3>Computing and data</h3>
+        <p>High performance computing, storage, hosting, scientific programming, and data services,
+          through Research Computing and Data Services (RCDS).</p>
+        <p class="firststep"><b>First step:</b> request a research-computing account — one per
+          person; include your PI's name if you are not faculty.</p>
+        <p class="kbdoor"><a href="kb_entry.html?id=iids-guide-services">Guide: IIDS Services →</a> ·
+          <a href="kb_entry.html?id=iids-policy-subsidized-services">Policy: Subsidized Services →</a> ·
+          <a href="kb_entry.html?id=rcds-guide-getting-onto-hpc">Guide: Getting Started on RCDS Computing →</a></p>
+      </div>
+      <div class="card">
+        <h3>Genomics and bioinformatics</h3>
+        <p>Sequencing, library preparation, and bioinformatics, through the Genomics and
+          Bioinformatics Resources Core (GBRC). Orders run through iLab, and external researchers
+          are welcome.</p>
+        <p class="firststep"><b>First step:</b> browse the catalog, then set up your first
+          project.</p>
+        <p class="kbdoor"><a href="/gbrc/services">Catalog →</a> ·
+          <a href="/gbrc/getting-started">First project →</a></p>
+      </div>
+      <div class="card">
+        <h3>Grants and awards</h3>
+        <p>Proposal development, submission through IIDS, and award administration, through the
+          institute's administrative core.</p>
+        <p class="firststep"><b>First step:</b> talk to us before you write — a request for IIDS to
+          submit a proposal needs at least three weeks before the sponsor's deadline.</p>
+        <p class="kbdoor"><a href="wwi_write_a_grant.html">Submitting a proposal →</a> ·
+          <a href="kb_entry.html?id=iids-guide-writing-a-proposal">Guide: Writing a Proposal with IIDS →</a> ·
+          <a href="kb_entry.html?id=iids-guide-post-award">Guide: Managing Your Award with IIDS →</a></p>
+      </div>
+      <div class="card">
+        <h3>AI and applied tools</h3>
+        <p>Campus-hosted language models through MindRouter, AI document intelligence for research
+          administration through the Vandalizer, and GPU computing for models of your own.</p>
+        <p class="firststep"><b>First step:</b> read the guide — access starts with your
+          university login.</p>
+        <p class="kbdoor"><a href="kb_entry.html?id=iids-guide-accessing-ai">Guide: Accessing AI at the University of Idaho →</a></p>
+      </div>
+    </div>
+
+    <h3>What does it cost?</h3>
+    <p>Less than you expect. U of I researchers receive a set of core services at no direct
+      charge — accounts, storage to the group allowance, consultation, and hosting — and genomics
+      work runs at subsidized internal rates through iLab. The subsidy carries one obligation in
+      return: affiliate the sponsored work that uses IIDS with the institute when you submit it —
+      it cannot be added later.</p>
+    <p class="kbdoor"><a href="kb_entry.html?id=iids-policy-subsidized-services">Policy: Subsidized Services →</a> ·
+      <a href="kb_entry.html?id=rcds-service-center-rates">Internal and external users: who pays which rate →</a></p>
+
+    <h3 id="talk">Talk to a person</h3>
+    <p>Not sure which door, or your project spans several? Office hours and the single intake form
+      live on the Start here page — no appointment needed, and you do not need to know which core,
+      policy, or person your question belongs to.</p>
+    <p class="kbdoor"><a href="wwi_hub.html">Start here →</a></p>
+  </div>
+</section>
+
+<!-- W · Working with IIDS: section REMOVED 2026-08-14 (client) — it restated the nav.
+     content/resources_work_with_us.md is retired in place as the record. -->
+
+<!-- Q · FAQ (content/resources_faq.md) -->
+<section class="band band--alt band--narrow res" id="faq">
+  <div class="wrap">
+    <h2>Frequently asked questions</h2>
+<!-- Q-1–Q-4 (the identity set, incl. the IBEST placeholder) REMOVED 2026-08-14 (client) —
+     the list keeps only practical questions, with no door line to About, per the same ruling.
+     The IBEST question stays tracked in content/about_ibest_legacy.md. -->
+
+    <details class="more"><summary>Who can use IIDS services?</summary><div class="body">
+      <p>IIDS services are available to all U of I researchers; graduate students and postdocs come
+        in through their PI's research group. External researchers are welcome at GBRC through iLab,
+        at the full-cost rates federal service-center rules require.</p>
+      <p><a href="kb_entry.html?id=iids-policy-subsidized-services">Policy: Subsidized Services →</a> ·
+        <a href="kb_entry.html?id=rcds-service-center-rates">Internal and external users: who pays which rate →</a></p>
+    </div></details>
+
+    <details class="more"><summary>How can the services be subsidized?</summary><div class="body">
+      <p>Through a simplified facilities and administrative (F&amp;A) model: when researchers
+        affiliate their sponsored projects with IIDS, a share of the F&amp;A those awards return
+        helps sustain the cores, alongside university investment. That is what lets the institute
+        subsidize core services rather than charging faculty for them — and it is why declaring your
+        affiliation accurately matters.</p>
+      <p><a href="kb_entry.html?id=iids-policy-fa-split">Policy: Facilities and Administrative (F&amp;A) Split →</a> ·
+        <a href="kb_entry.html?id=iids-policy-subsidized-services">Policy: Subsidized Services →</a></p>
+    </div></details>
+
+    <details class="more"><summary>How do I indicate my affiliation with IIDS on a proposal?</summary><div class="body">
+      <p><b>Check the box at submission — it cannot be added later.</b> If your sponsored work will
+        use IIDS infrastructure, personnel, or resources, check the IIDS affiliation box in VERAS
+        when the proposal routes. The walkthrough shows exactly where the box is, and the Proposals
+        page carries the full rules.</p>
+      <p><a href="kb_entry.html?id=iids-veras-institute-affiliation">Indicating IIDS affiliation in VERAS →</a> ·
+        <a href="wwi_write_a_grant.html#declare-it">Proposals — Declare it →</a></p>
+    </div></details>
+
+    <details class="more"><summary>Does U of I have AI tools I can use?</summary><div class="body">
+      <p>Yes. MindRouter gives students, staff, and faculty campus-hosted large language models — a
+        university login and a self-serve API key away — and the Vandalizer brings AI document
+        intelligence to research administration. The Accessing AI guide collects every option and
+        how to get access to each.</p>
+      <p><a href="kb_entry.html?id=iids-guide-accessing-ai">Guide: Accessing AI at the University of Idaho →</a></p>
+    </div></details>
+  </div>
+</section>
+
+<!-- K · Knowledge base (content/resources_knowledge_base.md) -->
+<section class="band res" id="knowledge-base">
+  <div class="wrap">
+    <h2><a href="kb.html">Knowledge base &rarr;</a></h2>
+    <!-- Entry counts come from the public store (backend/kb-data/kb-data.public.generated.js =
+         140 public entries, 17 of them guides); recount there before editing this line. The full
+         store (kb-data.generated.js) holds 153, the other 13 being internal staff entries that
+         never render here — always state which of the two figures a sentence means. -->
+    <p>The knowledge base is where this site keeps its facts: 17 curated guides and 140 public
+      entries, searchable and filterable by unit, kind, and topic. It holds the documentation for
+      the RCDS computing environment, the GBRC sequencing catalog and policies, the how-tos for
+      working with the institute, and the institute's drafted policies — and every other page on
+      this site links into it rather than repeating it. Guides — curated paths through the
+      entries — always lead the list.</p>
+    <p class="kbdoor"><a href="kb.html">Open the knowledge base →</a></p>
+    <div class="cards" style="margin-top:18px">
+      <div class="card"><h3>Cite us</h3>
+        <p>Acknowledging the cores in publications — the identifiers and the canonical text.</p>
+        <p><a href="kb_entry.html?id=iids-citing-iids-resources">Citing and acknowledging IIDS resources →</a></p></div>
+      <div class="card"><h3>Data management</h3>
+        <p>Data plans, the repository, DOIs.</p>
+        <p><a href="kb_entry.html?id=rcds-research-data-management">Research data management and the data repository →</a></p></div>
+      <div class="card"><h3>Rates</h3>
+        <p>Who counts as an internal user, and who pays which rate.</p>
+        <p><a href="kb_entry.html?id=rcds-service-center-rates">Internal and external users: who pays which rate →</a></p></div>
+      <div class="card"><h3>Grant resources</h3>
+        <p>The reusable pieces of a proposal — facilities statements, agency templates, the
+          acknowledgement text, funding search.</p>
+        <p><a href="kb_entry.html?id=iids-guide-grant-resources">Guide: Grant Resources →</a></p></div>
+      <div class="card"><h3>Policies</h3>
+        <p>Every policy in one place — the units' terms in force, the institute's drafts marked;
+          none adopted yet.</p>
+        <p><a href="kb_entry.html?id=iids-guide-policies">Guide: IIDS Policies →</a></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- T · Templates and proposal materials: section REMOVED 2026-08-14 (client) — reduced to a
+     door earlier the same day, then folded into the Knowledge base section as the Grant
+     resources card. The #templates anchor is gone; wwi_hub.html's two doors were retargeted
+     straight at the guide with it. content/resources_templates.md is retired in place as the
+     record. -->
+
+<!-- P · Policies: section REMOVED 2026-08-14 (client) — folded into the Knowledge base section
+     as the Policies card, after the guide approach put the in-force unit terms and the drafts
+     in Guide: IIDS Policies. The VERAS related-how-to line was dropped per client, not
+     relocated — the FAQ and the proposal page carry the affiliation links. No inbound links
+     targeted #policies. content/resources_policies.md is retired in place as the record. -->
+
+</main>
+
+<site-footer></site-footer>
+
+<script src="../components/site-shell/site-shell.js"></script>
+</body>
+</html>

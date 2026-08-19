@@ -1,0 +1,105 @@
+/* KB entry renderer styles. Brand colors via var() from shared/tokens.css.
+   Light is the base: dark ink on white, gold-as-text always --gold-ink (never --gold,
+   which fails contrast on white), hairline borders, --surface-alt for insets. */
+
+.kbentry{max-width:760px}
+.kbentry-group{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-ink);font-weight:600;margin:0}
+.kbentry-title{font-size:1.7rem;font-weight:800;margin:6px 0 4px;color:var(--text-strong);line-height:1.2}
+.kbentry-gist{color:var(--text-body);font-size:1rem;margin:0 0 16px}
+
+/* source callout — light-alt inset with gold rail, softened corners */
+.kbentry-source{font-size:.85rem;color:var(--text-body);border-left:3px solid var(--gold);
+  background:var(--surface-alt);padding:9px 14px;margin:0 0 24px;border-radius:var(--radius-sm)}
+.kbentry-source .kbentry-label{color:var(--gold-ink);text-transform:uppercase;letter-spacing:.12em;
+  font-size:.7rem;font-weight:600;margin-right:8px}
+.kbentry-source a,.kbentry-body a{color:var(--gold-ink);text-decoration:underline}
+
+.kbentry-body{color:var(--text-body);line-height:1.65}
+.kbentry-body h2{font-size:1.15rem;font-weight:800;margin:24px 0 8px;color:var(--text-strong)}
+.kbentry-body h3{font-size:1rem;font-weight:700;margin:16px 0 6px;color:var(--text-strong)}
+.kbentry-body p{margin:0 0 12px}
+.kbentry-body ul{list-style:none;margin:0 0 12px;padding-left:0;display:flex;flex-direction:column;gap:6px}
+.kbentry-body li{padding-left:18px;position:relative}
+.kbentry-body li::before{content:"\25B8";color:var(--gold-ink);position:absolute;left:0}
+.kbentry-body ul ul{margin:6px 0 0;padding-left:20px}
+.kbentry-body strong{color:var(--text-strong);font-weight:700}
+.kbentry-body hr{border:0;border-top:1px solid var(--border-hairline);margin:20px 0}
+/* blockquote — a quoted or set-aside note; gold rule, no color change, so it
+   reads as a quotation and never competes with the red review flag */
+.kbentry-body blockquote{margin:0 0 12px;padding:2px 0 2px 14px;border-left:3px solid var(--gold)}
+.kbentry-body blockquote > :last-child{margin-bottom:0}
+
+.kbentry-foot{display:flex;gap:20px;flex-wrap:wrap;margin-top:28px;padding-top:14px;
+  border-top:1px solid var(--border-hairline);color:var(--text-muted);font-size:.78rem;letter-spacing:.04em}
+
+/* code block — light-alt surface, hairline border, dark ink */
+.kbentry-body pre{background:var(--surface-alt);border:1px solid var(--border-hairline);border-radius:var(--radius-sm);
+  padding:12px 14px;margin:0 0 14px;overflow-x:auto}
+/* pre-wrap, not pre: code blocks also carry copy-paste prose (acknowledgement
+   boilerplate), which was running off the right edge unreadably. Wrapping is
+   presentational only — a copy still yields the original text — and overflow-x
+   above still catches a long unbreakable token. */
+.kbentry-body pre code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:.82rem;line-height:1.5;color:var(--text-strong);white-space:pre-wrap;
+  overflow-wrap:anywhere}
+
+.kbentry-body img{max-width:100%;height:auto;border:1px solid var(--border-hairline);border-radius:var(--radius-sm);margin:4px 0 14px}
+.kbentry-body table{border-collapse:collapse;margin:0 0 16px;font-size:.85rem;display:block;overflow-x:auto;max-width:100%}
+.kbentry-body th,.kbentry-body td{border:1px solid var(--border-hairline);padding:6px 11px;text-align:left;vertical-align:top}
+.kbentry-body th{color:var(--gold-ink);font-weight:700;white-space:nowrap}
+.kbentry-body td{color:var(--text-body)}
+.kbentry-body td code,.kbentry-body p code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.85em}
+
+/* disclosure — ":::details Summary" … ":::" renders a collapsed block */
+.kbentry-body details{border:1px solid var(--border-hairline);border-radius:var(--radius-sm);
+  background:var(--surface-alt);margin:0 0 14px;padding:0}
+.kbentry-body summary{cursor:pointer;padding:9px 13px;color:var(--gold-ink);font-weight:700;
+  font-size:.9rem;list-style:none;display:flex;align-items:center;gap:8px}
+.kbentry-body summary::-webkit-details-marker{display:none}
+.kbentry-body summary::before{content:"\203A";display:inline-block;transition:transform .15s ease;
+  font-size:1.1rem;line-height:1}
+.kbentry-body details[open] summary::before{transform:rotate(90deg)}
+.kbentry-body summary:hover{color:var(--text-strong)}
+.kbentry-body .kbentry-disclosure{padding:2px 13px 4px;border-top:1px solid var(--border-hairline)}
+.kbentry-body .kbentry-disclosure > :last-child{margin-bottom:10px}
+
+/* review flag — ":::flag" … ":::" marks content awaiting human verification.
+   Loud on purpose, and off-brand on purpose: a reviewer should catch it at a
+   glance and every instance should be deleted before launch. */
+.kbentry-body .kbentry-flag{border:1px solid var(--flag-ink);border-left-width:4px;
+  border-radius:var(--radius-sm);background:var(--flag-tint);color:var(--flag-ink);
+  font-weight:var(--weight-bold);margin:0 0 14px;padding:11px 14px 1px}
+.kbentry-body .kbentry-flag::before{content:"\2691  NEEDS REVIEW";display:block;
+  font-size:var(--text-xs);letter-spacing:.08em;margin-bottom:6px}
+.kbentry-body .kbentry-flag p,
+.kbentry-body .kbentry-flag li{color:var(--flag-ink);font-weight:var(--weight-bold)}
+.kbentry-body .kbentry-flag a{color:var(--flag-ink)}
+.kbentry-body .kbentry-flag > :last-child{margin-bottom:10px}
+
+/* draft banner — rendered from the entry's `adoption: draft` header key, never
+   from body prose. Same loud red treatment as the review flag: a draft policy
+   must not pass for adopted policy at a skim. */
+.kbentry-draft{border:1px solid var(--flag-ink);border-left-width:4px;
+  border-radius:var(--radius-sm);background:var(--flag-tint);color:var(--flag-ink);
+  font-weight:var(--weight-bold);font-size:.9rem;margin:0 0 16px;padding:11px 14px}
+
+/* kb embed — card: a linked pointer to another entry (title + gist). Unscoped
+   on purpose: kb.html's Guides strip reuses the same card outside .kbentry. */
+.kbentry-embedcard{display:block;border:1px solid var(--border-hairline);border-radius:var(--radius-sm);
+  background:var(--surface-alt);padding:10px 14px;margin:0 0 10px;text-decoration:none}
+.kbentry-embedcard:hover{border-color:var(--gold)}
+.kbentry-body a.kbentry-embedcard{text-decoration:none}
+.kbentry-embedcard-title{display:block;color:var(--text-strong);font-weight:700;font-size:.95rem}
+.kbentry-embedcard-gist{display:block;color:var(--text-body);font-size:.85rem;margin-top:2px}
+.kbentry-embedcard-draft{display:inline-block;color:var(--flag-ink);border:1px solid var(--flag-ink);
+  border-radius:var(--radius-sm);font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;
+  padding:1px 6px;margin-left:6px;vertical-align:2px}
+
+/* kb embed — full: another entry's live body transcluded inline */
+.kbentry-body .kbentry-embedfull{border:1px solid var(--border-hairline);border-radius:var(--radius-sm);
+  padding:14px 16px 4px;margin:0 0 14px}
+.kbentry-body .kbentry-embedfull-title{font-size:1rem;font-weight:700;margin:0 0 8px}
+
+/* kb embed — unresolved pointer (defense in depth; check.js keeps it from shipping) */
+.kbentry-body .kbentry-embed-missing{color:var(--text-muted);font-size:.85rem;
+  border:1px dashed var(--border-hairline);border-radius:var(--radius-sm);padding:9px 13px;margin:0 0 12px}

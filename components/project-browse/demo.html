@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>project-browse — isolated demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../shared/tokens.css">
+<link rel="stylesheet" href="project-browse.css">
+<style>
+  body{margin:0;background:var(--surface-page);color:var(--text-body);
+    font-family:var(--font);line-height:1.55}
+  main{max-width:1000px;margin:0 auto;padding:40px 24px 80px}
+  h1{font-size:1.3rem;color:var(--text-strong);margin:0 0 4px}
+  .lead{font-size:.85rem;color:var(--text-muted);margin:0 0 28px;max-width:70ch}
+</style>
+</head>
+<body>
+<main>
+  <h1>project-browse</h1>
+  <p class="lead">Isolated against <code>fixture.js</code> — four projects, no other module loaded.
+    The overview band drives the browse below it; the filter panel is collapsed by default.</p>
+
+  <div id="overview"></div>
+  <div id="browse"></div>
+</main>
+
+<script src="fixture.js"></script>
+<script src="project-browse.js"></script>
+<script>
+  var items = window.PROJECT_BROWSE_FIXTURE;
+  var browse = ProjectBrowse.mountFaceted(document.getElementById('browse'), items, {
+    detailPage: '../project-entry/demo.html',
+    initialSearch: ''   /* the demo does not read the page URL */
+  });
+  ProjectBrowse.mountOverview(document.getElementById('overview'), items, {
+    browse: browse, topicMin: 2
+  });
+</script>
+</body>
+</html>

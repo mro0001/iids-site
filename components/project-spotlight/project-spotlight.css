@@ -1,0 +1,132 @@
+/* project-spotlight styles. Brand values via var() from shared/tokens.css — no literal
+   brand hex here. Follows the light card surface of project-browse.css so the spotlight and
+   the browse page read as one system.
+
+   The only literals are a focus-ring alpha and two neutral rgba overlays, documented where
+   they appear. */
+
+.psp{
+  position:relative;
+  background:var(--surface-card);
+  border:1px solid var(--border-hairline);
+  border-left:4px solid var(--gold);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-md);
+  padding:26px 28px 16px;
+}
+
+/* ── the slide ─────────────────────────────────────────────────────────────── */
+
+/* Floor only. Slide heights vary by more than this (titles run to 178 characters), so mount()
+   measures the tallest slide and sets min-height inline; this is what holds if it cannot. */
+.psp-stage{min-height:230px;display:flex}
+.psp-slide{flex:1 1 auto;display:flex;flex-direction:column;align-items:flex-start}
+
+.psp-title{
+  display:block;
+  font-size:clamp(1.35rem, 2.6vw, 1.95rem);
+  font-weight:var(--weight-bold);
+  line-height:1.18;
+  letter-spacing:-.01em;
+  color:var(--text-strong);
+  text-decoration:none;
+  margin:0 0 10px;
+  text-wrap:balance;
+}
+.psp-title:hover,.psp-title:focus-visible{text-decoration:underline;text-underline-offset:3px}
+
+.psp-pi{
+  margin:0 0 12px;
+  font-size:clamp(1rem, 1.5vw, 1.2rem);
+  font-weight:var(--weight-semibold);
+  line-height:1.25;
+  color:var(--gold-ink);      /* text-role gold — must hold >=4.5:1 on white (BRAND_CONTRACT),
+                                 not the display gold */
+}
+
+.psp-byline{
+  margin:0 0 16px;
+  max-width:62ch;
+  font-size:.98rem;
+  line-height:1.55;
+  color:var(--text-body);
+}
+
+.psp-more{
+  margin-top:auto;
+  font-size:.88rem;
+  font-weight:var(--weight-semibold);
+  color:var(--gold-ink);
+  text-decoration:none;
+  border-bottom:1px solid var(--gold-line);
+  padding-bottom:1px;
+}
+.psp-more::after{content:" →"}
+.psp-more:hover,.psp-more:focus-visible{color:var(--text-strong);border-bottom-color:var(--text-strong)}
+
+.psp-empty{margin:0;color:var(--text-muted);font-size:.95rem}
+
+/* ── controls ──────────────────────────────────────────────────────────────── */
+
+.psp-bar{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  margin-top:18px;padding-top:14px;
+  border-top:1px solid var(--border-hairline);
+}
+
+.psp-arrow,.psp-toggle{
+  font:inherit;cursor:pointer;
+  width:32px;height:32px;flex:0 0 auto;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:var(--surface-card);color:var(--text-strong);
+  border:1px solid var(--border-hairline);
+  border-radius:var(--radius-sm);
+  line-height:1;
+}
+.psp-arrow{font-size:1.15rem;padding-bottom:2px}
+.psp-arrow:hover,.psp-toggle:hover{border-color:var(--gold-ink);color:var(--gold-ink)}
+
+/* Pause / play drawn in CSS so the control needs no icon asset. */
+.psp-toggle::before{
+  content:"";width:9px;height:11px;
+  border-left:3px solid currentColor;border-right:3px solid currentColor;
+}
+.psp-toggle.paused::before{
+  width:0;height:0;
+  border-left:9px solid currentColor;border-right:0;
+  border-top:6px solid transparent;border-bottom:6px solid transparent;
+  margin-left:3px;
+}
+
+.psp-dots{display:flex;gap:6px;margin-left:4px}
+.psp-dot{
+  cursor:pointer;padding:0;
+  width:8px;height:8px;border-radius:var(--radius-pill);
+  background:var(--border-hairline);border:0;
+}
+.psp-dot.on{background:var(--gold-ink);transform:scale(1.25)}
+.psp-dot:hover{background:var(--gold-ink)}
+
+.psp-count{margin-left:auto;font-size:var(--text-xs);color:var(--text-muted);font-variant-numeric:tabular-nums}
+
+/* One visible focus ring for every control. The alpha literal is a focus ring, not brand. */
+.psp a:focus-visible,.psp button:focus-visible{
+  outline:2px solid var(--gold-ink);
+  outline-offset:2px;
+  border-radius:2px;
+}
+
+/* ── motion ────────────────────────────────────────────────────────────────── */
+
+/* The JS already refuses to auto-rotate under reduced motion; this covers the transition. */
+@media (prefers-reduced-motion: no-preference){
+  .psp-slide{animation:psp-fade .32s ease-out}
+  @keyframes psp-fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .psp-dot{transition:background .15s,transform .15s}
+}
+
+@media (max-width:560px){
+  .psp{padding:20px 18px 12px}
+  .psp-stage{min-height:270px}
+  .psp-count{margin-left:0;width:100%;order:9}
+}

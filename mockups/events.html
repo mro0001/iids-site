@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IIDS — Events</title>
+<meta name="description" content="The event formats IIDS has run at the University of Idaho and when each last took place. Nothing is currently scheduled.">
+<meta name="keywords" content="IIDS, University of Idaho, U of I, UIdaho, events, symposium, research computing workshops">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../components/site-shell/site-shell.css">
+<link rel="stylesheet" href="mockup.css">
+<link rel="stylesheet" href="../components/news-archive/news-archive.css">
+<style>
+  /* Page-local. Five records do not earn a component; when events become a live,
+     dated feed this should graduate into components/ alongside news-archive. */
+  .ev-notice{
+    background:var(--surface-card);border:1px solid var(--border-hairline);
+    border-left:4px solid var(--gold);border-radius:var(--radius-lg);
+    padding:20px 24px;margin-bottom:34px;box-shadow:var(--shadow-sm)
+  }
+  .ev-notice h2{font-size:1.05rem;font-weight:700;margin:0 0 8px;color:var(--text-strong)}
+  .ev-notice p{margin:0;font-size:.93rem;line-height:1.6;color:var(--text-body);max-width:74ch}
+  /* The notice carries this page's only call to action, so the address has to be a real
+     mailto. Styled to the site's in-copy link idiom (components/content-render/content-render.css):
+     --gold-ink, underlined at rest, because that gold sits below 3:1 against --text-body
+     and color alone therefore cannot mark a link (WCAG 1.4.1). */
+  .ev-notice a{color:var(--gold-ink);text-decoration:underline;text-underline-offset:2px}
+  .ev-notice a:hover,.ev-notice a:focus-visible{color:var(--text-strong)}
+  .ev-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+  .ev-item{padding:24px 0;border-top:1px solid var(--border-hairline)}
+  .ev-item:first-child{border-top:0}
+  .ev-meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
+  .ev-kind{
+    font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;
+    color:var(--gold-ink)
+  }
+  .ev-status{
+    font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;
+    padding:3px 9px;border-radius:var(--radius-pill);
+    background:var(--surface-alt);color:var(--text-muted);
+    border:1px solid var(--border-hairline)
+  }
+  .ev-last{font-size:.78rem;color:var(--text-muted);margin-left:auto}
+  .ev-title{margin:0 0 8px;font-size:1.14rem;font-weight:700;line-height:1.3;color:var(--text-strong)}
+  .ev-summary{margin:0 0 10px;font-size:.95rem;line-height:1.6;color:var(--text-body);max-width:72ch}
+  .ev-detail{margin:0;font-size:.88rem;line-height:1.6;color:var(--text-muted);max-width:72ch}
+  /* A live continuation leads; the old-site provenance link follows it, quieter. */
+  .ev-links{display:flex;flex-wrap:wrap;gap:18px;align-items:baseline;margin-top:12px}
+  .ev-continues{
+    font-size:.86rem;font-weight:700;color:var(--gold-ink);text-decoration:none;
+    border-bottom:1px solid var(--gold-line);padding-bottom:1px
+  }
+  .ev-continues::after{content:" →"}
+  .ev-source{
+    font-size:.78rem;font-weight:600;color:var(--text-muted);text-decoration:none;
+    border-bottom:1px solid var(--border-hairline);padding-bottom:1px
+  }
+  .ev-source::after{content:" ↗"}
+  .ev-continues:hover,.ev-continues:focus-visible,
+  .ev-source:hover,.ev-source:focus-visible{color:var(--text-strong);border-bottom-color:var(--text-strong)}
+</style>
+</head>
+<body class="theme-light">
+
+<!-- Events is not its own nav item; it lives under News, so News stays lit here. -->
+<site-nav active="news"></site-nav>
+
+<div class="pagehead">
+  <div class="wrap">
+    <p class="eyebrow">Events</p>
+    <h1>Events</h1>
+    <p>The event formats IIDS has run, and when each last took place. Recent news appears on
+      the <a href="landing_placeholder.html">home page</a>; events will return there once
+      something is scheduled.</p>
+  </div>
+</div>
+
+<main id="main" tabindex="-1" class="wrap" style="padding:32px var(--gutter) 80px">
+
+  <!-- Ops note, not page copy: this page has no owner and no live calendar, so it cannot
+       list anything upcoming until both exist. content_map.md tracks the ownership need. -->
+  <div class="ev-notice">
+    <h2>Nothing is currently scheduled</h2>
+    <p>IIDS has hosted symposia, hands-on workshops, advisory reviews, and seminar series;
+      each format below describes what it was and when it last ran. Research computing
+      training continues today through RCDS. To ask about upcoming events, or to propose
+      one, contact <a href="mailto:iids@uidaho.edu">iids@uidaho.edu</a>.</p>
+  </div>
+
+  <ol class="ev-list" id="eventList"></ol>
+
+  <p class="disclaimer" style="margin-top:36px">
+    Written from the old site's <code>events.php</code> and <code>symposium.php</code>, scraped
+    2026-07-09. Neither page held machine-readable event records, so these five entries were
+    compiled by hand. The old events page was frozen between 2016 and 2019 and still advertised
+    the retired CRC name, so nothing on it could be carried across as upcoming.
+    <strong>News</strong> is listed separately in the
+    <a href="news.html">news archive</a>.
+  </p>
+</main>
+
+<site-footer></site-footer>
+
+<script src="../backend/news-data/news-data.generated.js"></script>
+<script>
+  var events = (window.NEWS_DATA && window.NEWS_DATA.events) || [];
+  var list = document.getElementById('eventList');
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+
+  var MONTHS = ['January','February','March','April','May','June',
+                'July','August','September','October','November','December'];
+  /* last_held arrives at three granularities (2019-05-16, 2019-10, 2018). Readers get the
+     same rendering the news archive gives a date, not the ISO string. */
+  function humanDate(v) {
+    var m = /^(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?$/.exec(String(v == null ? '' : v));
+    if (!m) return String(v == null ? '' : v);
+    if (m[3]) return MONTHS[+m[2] - 1] + ' ' + (+m[3]) + ', ' + m[1];
+    if (m[2]) return MONTHS[+m[2] - 1] + ' ' + m[1];
+    return m[1];
+  }
+
+  events.forEach(function (ev) {
+    var li = el('li', 'ev-item');
+
+    var meta = el('div', 'ev-meta');
+    if (ev.kind) meta.appendChild(el('span', 'ev-kind', ev.kind));
+    if (ev.status) meta.appendChild(el('span', 'ev-status', ev.status));
+    // An unknown last-held date says so rather than rendering an empty slot.
+    meta.appendChild(el('span', 'ev-last',
+      ev.last_held ? 'Last held ' + humanDate(ev.last_held) : 'Last held: not recorded'));
+    li.appendChild(meta);
+
+    li.appendChild(el('h2', 'ev-title', ev.title));
+    if (ev.summary) li.appendChild(el('p', 'ev-summary', ev.summary));
+    if (ev.detail) li.appendChild(el('p', 'ev-detail', ev.detail));
+
+    /* Where a format still runs somewhere, that route leads. The old-site page is
+       provenance and comes second. */
+    var links = el('div', 'ev-links');
+    if (ev.continues_url) {
+      var c = el('a', 'ev-continues', ev.continues_label || 'Where this continues');
+      c.href = ev.continues_url;
+      links.appendChild(c);
+    }
+    if (ev.source_url) {
+      var a = el('a', 'ev-source', 'Original page');
+      a.href = ev.source_url;
+      a.rel = 'noopener';
+      links.appendChild(a);
+    }
+    if (links.children.length) li.appendChild(links);
+    list.appendChild(li);
+  });
+</script>
+
+<script src="../components/site-shell/site-shell.js"></script>
+</body>
+</html>

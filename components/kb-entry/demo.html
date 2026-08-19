@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KB Entry component — isolated demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../shared/tokens.css">
+<link rel="stylesheet" href="kb-entry.css">
+<style>
+  /* Demo-local chrome only, in the site's light look. The reusable piece is the
+     .kbentry renderer; the page frame and back-link are host styles a real page supplies. */
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--surface-page);color:var(--text-body);font-family:var(--font);line-height:1.5;padding:40px 24px}
+  .wrap{max-width:800px;margin:0 auto}
+  .tag{font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-ink);font-weight:600}
+  .note{color:var(--text-muted);font-size:.9rem;margin:6px 0 22px}
+  .note code{color:var(--gold-ink);font-family:ui-monospace,Menlo,monospace}
+  .panel{border:1px solid var(--border-hairline);border-top:3px solid var(--gold);background:var(--surface-card);
+    border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:30px}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="tag">Component · isolated demo</p>
+  <p class="note">Double-clickable, no server. This entry renders from <code>fixture.js</code> + <code>kb-entry.js</code> alone — title, linked source, markdown body, created/last-updated footer.</p>
+  <div class="panel"><div id="entry"></div></div>
+
+  <p class="note" style="margin-top:28px">Draft state — the same renderer with <code>adoption: 'draft'</code> in the record. The banner comes from that key alone; the body carries no draft wording.</p>
+  <div class="panel"><div id="entry-draft"></div></div>
+</div>
+
+<script src="fixture.js"></script>
+<script src="kb-entry.js"></script>
+<script>
+  KBEntry.mount(document.getElementById('entry'), window.KB_ENTRY_FIXTURE);
+  KBEntry.mount(document.getElementById('entry-draft'), window.KB_ENTRY_FIXTURE_DRAFT);
+</script>
+</body>
+</html>

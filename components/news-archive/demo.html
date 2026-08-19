@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>news-archive — isolated demo</title>
+<link rel="stylesheet" href="../../shared/tokens.css">
+<link rel="stylesheet" href="news-archive.css">
+<style>
+  /* Demo host only. Not part of the component. */
+  body{font-family:var(--font);background:var(--surface-page);color:var(--text-strong);
+       margin:0;padding:32px 20px 60px}
+  .host{max-width:860px;margin:0 auto}
+  h1{font-size:1.5rem;margin:0 0 4px}
+  .lede{color:var(--text-muted);font-size:.92rem;margin:0 0 28px;max-width:64ch;line-height:1.5}
+  h2{font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);
+     margin:34px 0 10px;font-weight:600}
+  .note{font-size:.85rem;color:var(--text-muted);margin:10px 0 0;line-height:1.5}
+  code{background:var(--surface-alt);padding:1px 5px;border-radius:3px;font-size:.85em}
+</style>
+</head>
+<body>
+<div class="host">
+
+  <h1>news-archive</h1>
+  <p class="lede">Isolated demo. Fixture data only, no other module loaded. Five items across
+  three years, including one with no image and one whose body must be cut to an excerpt.</p>
+
+  <h2>The archive</h2>
+  <div id="archive"></div>
+  <p class="note">Type in the search box, or click a year. Both narrow together, the count
+  updates, and <code>Reset</code> appears only while something is filtered. The real page runs
+  the same component over 114 items.</p>
+
+  <h2>Empty result</h2>
+  <div id="empty"></div>
+  <p class="note">What a search that matches nothing looks like. It must not throw.</p>
+
+</div>
+
+<script src="fixture.js"></script>
+<script src="news-archive.js"></script>
+<script>
+  NewsArchive.mount(document.getElementById('archive'), window.NEWS_FIXTURE,
+                    { state: { q: '', year: '' }, headingLevel: 3 });
+  NewsArchive.mount(document.getElementById('empty'), window.NEWS_FIXTURE,
+                    { state: { q: 'zzzzqqqq', year: '' }, headingLevel: 3 });
+</script>
+</body>
+</html>

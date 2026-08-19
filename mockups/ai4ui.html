@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IIDS — AI4UI</title>
+<!--
+  AI4UI. Every sentence a visitor reads here is quoted, not written: the two intro
+  sentences and every record are the Institutional AI Initiative's own words. The only
+  strings authored on this page are furniture — headings, labels, link text.
+  Why the page is shaped this way: docs/decisions/
+
+  ── TRUNCATIONS FROM THE SOURCE (recorded so a later reader does not read a shortened
+     quote as AISPEG writing a half sentence) ──
+
+  Two quoted passages on this page stop before their source does. Both cuts are
+  deliberate; neither is a transcription slip.
+
+  1. The lede in .pagehead. AISPEG's About page (app/about/page.tsx, the header <p>)
+     reads in full:
+       "A coordination nexus for the University of Idaho's institutional AI work,
+        operated by the Institute for Interdisciplinary Data Sciences (IIDS). The site
+        shows what's being built, what's stalled, and where to engage."
+     The closing sentence is CUT. Not for brevity: its subject is "The site", meaning
+     aispeg.insight.uidaho.edu. Reproduced here, on the IIDS site, "The site" resolves to
+     the wrong referent and would assert something about THIS site that is not true — the
+     IIDS site does not show what is stalled and has no "where to engage" surface. The
+     port's rule forbids rewording it to fix the referent, so the sentence is dropped
+     rather than misapplied. Restore it only together with an explicit attribution that
+     the passage describes AISPEG's site, not this one.
+
+     The cut is also now visible in the data rather than only here: the store publishes the
+     kept half as `intro.about` and the dropped half as `intro.about_omitted`, and
+     backend/ai4ui-data/check.js asserts the two rejoin into AISPEG's paragraph exactly.
+
+  2. The Partial-record embargo notice (see the .embargo block in the script below).
+     AISPEG's own copy (components/ProjectDetail.tsx lines 392-405) ends:
+       "... are held back from the public site. Contact the operational owner for
+        authorized access."
+     The final sentence is CUT because this port drops every owner-naming field
+     (backend/ai4ui-data/CONTRACT.md, "Dropped"), so on this page that clause names no
+     route a reader could take. CONTRACT.md flags the same collision under
+     "Partial records".
+-->
+<meta name="description" content="AI4UI, a page on the IIDS site. It reproduces project records published by the Institutional AI Initiative.">
+<meta name="keywords" content="AI4UI, IIDS, University of Idaho, U of I, UIdaho, artificial intelligence, institutional AI, data sciences">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../components/site-shell/site-shell.css">
+<link rel="stylesheet" href="mockup.css">
+<style>
+  /* Page-local. One inventory and one link list do not earn a component; if a second page
+     ever renders this data, these rules graduate into one and go with it. The page is
+     always .theme-light, so the selectors are unscoped and use the light tokens. */
+
+  /* ── the stat strip ── */
+  .tally{color:var(--text-strong);font-size:var(--text-2xl);font-weight:var(--weight-bold);
+    line-height:1.25;margin:0}
+  .tally .n{font-variant-numeric:tabular-nums}
+  .stages{color:var(--text-body);font-size:var(--text-base);margin:6px 0 0;
+    display:flex;flex-wrap:wrap;gap:4px 10px}
+  .stages b{color:var(--text-strong);font-variant-numeric:tabular-nums;
+    font-weight:var(--weight-semibold)}
+  .stages .dot{color:var(--text-muted)}
+  .notes{color:var(--text-muted);font-size:var(--text-sm);line-height:1.6;
+    margin:14px 0 0;max-width:70ch}
+  .notes code{font-family:ui-monospace,"SFMono-Regular",Menlo,monospace;font-size:.92em}
+  .toplinks{margin:12px 0 0;display:flex;flex-wrap:wrap;gap:6px 18px}
+
+  /* ── outbound link. --gold-ink, not --gold: gold-as-text is 1.88:1 on white. Underlined
+     at rest because colour alone cannot mark a link (WCAG 1.4.1); the ↗ is the visible
+     leaves-this-site cue and .sr-only carries the same fact to a screen reader, since
+     generated content is not a dependable accessible name. ── */
+  .out{color:var(--gold-ink);font-weight:var(--weight-semibold);
+    text-decoration:underline;text-underline-offset:2px;overflow-wrap:anywhere}
+  .out::after{content:" ↗"}
+  .out:hover,.out:focus-visible{color:var(--text-strong)}
+
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
+    white-space:nowrap}
+
+  /* ── one home-unit group ── */
+  .unit{margin:34px 0 0}
+  .unit-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;
+    padding:0 0 10px;border-bottom:1px solid var(--border-hairline)}
+  .unit-h h2{color:var(--text-strong);font-size:var(--text-xl);font-weight:var(--weight-bold);
+    line-height:1.3;margin:0}
+  .unit-h .count{color:var(--text-muted);font-size:var(--text-sm)}
+
+  .recs{display:grid;gap:16px;grid-template-columns:repeat(3,minmax(0,1fr));margin:16px 0 0}
+  @media (max-width:1000px){.recs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:680px){.recs{grid-template-columns:1fr}}
+
+  .rec{background:var(--surface-card);border:1px solid var(--border-hairline);
+    border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:16px 18px 18px;
+    display:flex;flex-direction:column;min-width:0}
+  .rec h3{color:var(--text-strong);font-size:var(--text-lg);line-height:1.3;
+    font-weight:var(--weight-bold);margin:8px 0 0;overflow-wrap:anywhere}
+  .rec .tagline{color:var(--text-body);font-size:var(--text-sm);line-height:1.6;margin:6px 0 0}
+  /* margin-top:auto — the address sits on the card's floor, so a row of cards lines its
+     links up instead of hanging them wherever the prose happened to stop */
+  .rec .go{margin:14px 0 0;margin-top:auto;padding-top:12px;
+    border-top:1px solid var(--border-hairline);font-size:var(--text-sm);
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px}
+  /* the lane mark sits beside the address it qualifies. Neutral, never gold: gold is
+     reserved for the Live stage chip, and this mark is about the address, not the stage. */
+  .chip--use{flex:none;background:var(--surface-alt);color:var(--text-body)}
+
+  /* chips — the stage rollup and, where it says something the rollup does not, the
+     operational status. Gold fill is reserved for Live; every other chip is neutral. */
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{display:inline-block;font-size:var(--text-xs);font-weight:var(--weight-semibold);
+    letter-spacing:.02em;padding:2px 9px;border-radius:var(--radius-pill);
+    background:var(--surface-alt);color:var(--text-body);border:1px solid var(--border-hairline)}
+  .chip--live{background:var(--gold);color:var(--text-strong);border-color:var(--gold)}
+  .chip--op{background:transparent;color:var(--text-muted)}
+
+  /* embargo notice, as the Initiative places it: above the record's prose, not instead
+     of it. Nothing about these two records is withheld here. */
+  .embargo{margin:12px 0 0;padding:10px 12px;border:1px solid var(--border-hairline);
+    border-left:3px solid var(--gold);border-radius:var(--radius-sm);background:var(--gold-tint)}
+  .embargo b{display:block;color:var(--text-strong);font-size:var(--text-sm);
+    font-weight:var(--weight-semibold)}
+  .embargo span{display:block;color:var(--text-body);font-size:var(--text-xs);
+    line-height:1.6;margin-top:3px}
+
+  /* disclosure — the card face stays scannable; the fuller text is one click away */
+  .more{margin:12px 0 0}
+  .more > summary{cursor:pointer;color:var(--gold-ink);font-size:var(--text-sm);
+    font-weight:var(--weight-semibold);list-style:none;display:inline-flex;align-items:center;
+    gap:6px}
+  .more > summary::-webkit-details-marker{display:none}
+  .more > summary::before{content:"+";display:inline-block;width:1em;text-align:center;
+    font-weight:var(--weight-bold)}
+  .more[open] > summary::before{content:"–"}
+  .more > summary:hover,.more > summary:focus-visible{color:var(--text-strong)}
+  .more .lbl{color:var(--text-muted);font-size:var(--text-xs);letter-spacing:.14em;
+    text-transform:uppercase;font-weight:var(--weight-semibold);margin:12px 0 0}
+  .more .body{color:var(--text-body);font-size:var(--text-sm);line-height:1.65;margin:4px 0 0}
+
+  /* ── reports ── */
+  .reports{list-style:none;margin:14px 0 0;padding:0;max-width:80ch}
+  .reports li{padding:12px 0;border-top:1px solid var(--border-hairline)}
+  .reports li:first-child{border-top:none}
+  .reports .rdate{display:block;color:var(--text-muted);font-size:var(--text-xs);margin-top:3px}
+</style>
+</head>
+<body class="theme-light">
+
+<!-- Projects, not AI4UI: AI4UI has no nav item. This page lights the surface a visitor
+     would have come from. -->
+<site-nav active="projects"></site-nav>
+
+<div class="pagehead">
+  <div class="wrap">
+    <p class="eyebrow">Institutional AI Initiative</p>
+    <h1>AI4UI</h1>
+    <!-- AISPEG's About lede, quoted. Its closing sentence ("The site shows what's being
+         built, what's stalled, and where to engage.") is cut — see TRUNCATION 1 in the
+         head comment for why, and do not restore it without reading that note. -->
+    <p>A coordination nexus for the University of Idaho&rsquo;s institutional AI work, operated
+      by the Institute for Interdisciplinary Data Sciences (IIDS).</p>
+    <p>Tools your unit can use today, plus the work that&rsquo;s coming next.</p>
+  </div>
+</div>
+
+<main id="main" tabindex="-1" class="wrap" style="padding:32px var(--gutter) 80px">
+
+  <p class="tally" id="tally"></p>
+  <p class="stages" id="stages"></p>
+
+  <!-- The ↗ sentence used to read "Links marked ↗ open aispeg.insight.uidaho.edu in a new
+       tab", which was false of most of them: of the 18 outbound links this page emits, only
+       5 are AISPEG routes — the other 13 are the projects' own addresses on other hosts
+       (uidaho.edu and *.insight.uidaho.edu apps). #laneNote is filled from the store
+       (intro.use_lane_heading) and stays empty if the store ever drops it. -->
+  <p class="notes"><span id="embargoNote"></span> Links marked &#8599; leave this site and open
+    in a new tab. <span id="laneNote"></span></p>
+
+  <p class="toplinks">
+    <a class="out" href="https://aispeg.insight.uidaho.edu/" target="_blank" rel="noopener">Institutional AI Initiative<span class="sr-only"> (opens in a new tab)</span></a>
+    <a class="out" href="https://aispeg.insight.uidaho.edu/portfolio" target="_blank" rel="noopener">Projects<span class="sr-only"> (opens in a new tab)</span></a>
+  </p>
+
+  <div id="units"></div>
+
+  <h2 class="subhead">Reports</h2>
+  <!--
+    Two reports, not four. The list is bounded by the closed allow-list in
+    integrations/aispeg/IMPORT.md, not by what AISPEG's /reports index happens to show.
+    Only /reports/feb-2026 and /reports/lovable-vibe-coding-2026 are approved report
+    targets; the whole index (/reports) is approved and carries the rest.
+
+    Removed on 2026-08-10 and NOT to be re-added without an allow-list commit:
+      /reports/presidential-brief-feb-2026 — DENY-LISTED. IMPORT.md's reason: "Not for
+        general publication. Link /reports/feb-2026." AISPEG's own reports index gives its
+        audience as "University of Idaho Executive Leadership". It had shipped as a public
+        link on this page.
+      /reports/utr-stress-test-aug-2026 — permitted by IMPORT.md's allow-list but not
+        linked here: this page carries the inventory, and the reports are reached through
+        the reports index rather than enumerated one by one.
+
+    Adding a report here means adding its route to IMPORT.md's table first.
+  -->
+  <ul class="reports">
+    <li>
+      <a class="out" href="https://aispeg.insight.uidaho.edu/reports/lovable-vibe-coding-2026" target="_blank" rel="noopener">Cautionary tale: Lovable vibe-coding security crisis<span class="sr-only"> (opens in a new tab)</span></a>
+      <span class="rdate">April 21, 2026</span>
+    </li>
+    <li>
+      <a class="out" href="https://aispeg.insight.uidaho.edu/reports/feb-2026" target="_blank" rel="noopener">Development Activity Report &mdash; February 1&ndash;26, 2026<span class="sr-only"> (opens in a new tab)</span></a>
+      <span class="rdate">February 26, 2026</span>
+    </li>
+  </ul>
+  <p class="toplinks">
+    <a class="out" href="https://aispeg.insight.uidaho.edu/reports" target="_blank" rel="noopener">All reports<span class="sr-only"> (opens in a new tab)</span></a>
+  </p>
+</main>
+
+<site-footer></site-footer>
+
+<script src="../backend/ai4ui-data/ai4ui-data.generated.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var D = window.AI4UI_DATA;
+  if (!D || !D.projects) { return; }
+
+  var stageLabel = D.public_stage_label || {};
+  var opLabel = D.operational_label || {};
+
+  var intro = D.intro || {};
+
+  /* ── staging addresses ───────────────────────────────────────────────────────────────
+     6 of the 13 published addresses are staging: AISPEG sets `liveUrlIsStaging: true` on
+     processmapping, openera, execord, audit-dashboard, ucm-daily-register and
+     mindrouter-video-storyboard. Rendering those six exactly like the other seven asserts
+     something AISPEG does not — and the stage chip does not save it, because two of the six
+     (ucm-daily-register, mindrouter-video-storyboard) are chipped "Live" and one
+     (audit-dashboard) is "Paused" behind an address that is currently answering 503.
+
+     There is no AISPEG badge to copy. AISPEG publishes NO chip, badge or label reading
+     "staging" anywhere on its public site; `backend/ai4ui-data/extract.js` says so in as
+     many words and fails the build if the treatment changes. AISPEG's entire public
+     handling of the flag is an EXCLUSION — a project reaches the home page's lane only when
+     `!!p.liveUrl && !p.liveUrlIsStaging` (app/page.tsx) — so the honest way to mark the six
+     is to reproduce that exclusion rather than invent the word "Staging" for them.
+
+     So the lane is what gets drawn, in AISPEG's own two words, taken from the store:
+     `intro.use_lane_heading` is AISPEG's heading over that lane. An address carries the
+     mark exactly when AISPEG's filter would put it in the lane; the six do not, and no
+     string here describes what they are instead. The mark degrades to nothing if either the
+     flag or the heading is missing from the store, so this page cannot silently start
+     asserting a lane membership the store no longer backs. */
+  var useLaneHeading = (typeof intro.use_lane_heading === 'string' && intro.use_lane_heading)
+    ? intro.use_lane_heading : null;
+
+  /* AISPEG's filter, restated only in code (app/page.tsx):
+       computePublicStage(p.status) === "live" && !!p.liveUrl && !p.liveUrlIsStaging
+     All three conditions, not two. The stage test matters: `nexus` has an address and no
+     staging flag, but its publicStage is `tracked`, so AISPEG does not put it in the lane
+     either and neither does this page. Marked: 6. Unmarked: the 6 staging plus nexus. */
+  function inUseLane(p) {
+    return p.publicStage === 'live' && !!p.liveUrl && p.liveUrlIsStaging !== true;
+  }
+
+  /* gives a node an id so a link can point aria-describedby at it; ids are page-unique */
+  var uid = 0;
+  function markId(node) {
+    if (!node.id) { node.id = 'use-lane-' + (++uid); }
+    return node.id;
+  }
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) { n.className = cls; }
+    if (text != null) { n.textContent = text; }
+    return n;
+  }
+
+  /* Every string that came out of the store reaches the DOM as textContent, never as
+     markup: an apostrophe or an ampersand in the Initiative's prose is then a character,
+     not a parse. */
+  function say(parent, tag, cls, text) {
+    var n = el(tag, cls, text);
+    parent.appendChild(n);
+    return n;
+  }
+
+  function outboundLink(href, label) {
+    var a = el('a', 'out', label);
+    a.href = href;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.appendChild(el('span', 'sr-only', ' (opens in a new tab)'));
+    return a;
+  }
+
+  function hostOf(url) {
+    try { return new URL(url).host; }
+    catch (e) { return String(url).replace(/^https?:\/\//, '').replace(/\/.*$/, ''); }
+  }
+
+  /* ── stat strip: the same two lines the Initiative leads its inventory with ──
+
+     home_unit_count comes from the store and is NEVER hardcoded here. AISPEG's own rule
+     (app/page.tsx: `new Set(all.flatMap(p => p.homeUnits)).size`) counts every home unit a
+     record names, not just the first one, so at the 755472e pin it is 13.
+
+     The unit sections below will number 12, and that is not a bug. Sections come from
+     AISPEG's `groupByHomeUnit`, which files a project under its FIRST home unit only.
+     "Office of General Counsel" is named only as the SECOND home unit of `execord`, so it
+     counts toward the total and gets no section. AISPEG's own site has the same shape — its
+     home page reports the flatMap total while /portfolio renders the first-unit groups —
+     and mirroring it is the point. Do not "reconcile" the two numbers by counting sections. */
+  var tally = document.getElementById('tally');
+  if (tally && D.project_count != null) {
+    say(tally, 'span', 'n', String(D.project_count));
+    say(tally, 'span', null, ' projects across ');
+    say(tally, 'span', 'n', String(D.home_unit_count));
+    say(tally, 'span', null, ' home units');
+  }
+
+  var stages = document.getElementById('stages');
+  if (stages && D.stage_breakdown) {
+    D.stage_breakdown.forEach(function (row, i) {
+      var label = stageLabel[row.stage];
+      if (!label) { return; }
+      var span = say(stages, 'span', null, null);
+      /* the flex gap is the visual separator; the dot is what a copy-paste of the line
+         gets, and it is decoration, so it is hidden from assistive tech */
+      if (i > 0) { say(span, 'span', 'dot', '· ').setAttribute('aria-hidden', 'true'); }
+      say(span, 'b', null, String(row.count));
+      /* lowercased here because that is what the Initiative's own stat strip does */
+      say(span, 'span', null, ' ' + label.toLowerCase());
+    });
+  }
+
+  /* ── legend for the lane mark. The quoted words are the store's; the frame around them
+     is furniture and says only where the Initiative puts those addresses. Nothing renders
+     if the store has no heading, so the page never explains a mark it did not draw. ── */
+  var laneNote = document.getElementById('laneNote');
+  if (laneNote && useLaneHeading) {
+    say(laneNote, 'span', null, '“');
+    say(laneNote, 'b', null, useLaneHeading);
+    say(laneNote, 'span', null, '” marks the addresses the Initiative lists under that ' +
+      'heading on its own site.');
+  }
+
+  /* ── the embargo count, in the Initiative's index wording ── */
+  var partial = (D.visibility_counts && D.visibility_counts.Partial) || 0;
+  var note = document.getElementById('embargoNote');
+  if (note && partial > 0) {
+    note.textContent = partial + (partial === 1 ? ' entry has' : ' entries have') +
+      ' deployment detail embargoed.';
+  }
+
+  /* ── group the records the way the Initiative groups them: a project sits under its
+     FIRST home unit, units run in the store's home_unit_order, anything unlisted is
+     appended in record order ── */
+  function grouped(projects, order) {
+    var map = {};
+    var seen = [];
+    projects.forEach(function (p) {
+      var unit = (p.homeUnits && p.homeUnits[0]) || '';
+      if (!map[unit]) { map[unit] = []; seen.push(unit); }
+      map[unit].push(p);
+    });
+    var out = [];
+    (order || []).forEach(function (unit) {
+      if (map[unit]) { out.push({ unit: unit, items: map[unit] }); map[unit] = null; }
+    });
+    seen.forEach(function (unit) {
+      if (map[unit]) { out.push({ unit: unit, items: map[unit] }); map[unit] = null; }
+    });
+    return out;
+  }
+
+  function card(p) {
+    var rec = el('article', 'rec');
+
+    var stage = stageLabel[p.publicStage];
+    var op = opLabel[p.status];
+    if (stage || op) {
+      var chips = say(rec, 'div', 'chips', null);
+      if (stage) {
+        say(chips, 'span', 'chip' + (p.publicStage === 'live' ? ' chip--live' : ''), stage);
+      }
+      /* the operational status only earns a chip where it says something the rollup
+         does not — "Live · Piloting" is worth the room, "Paused · Paused" is not */
+      if (op && op !== stage) { say(chips, 'span', 'chip chip--op', op); }
+    }
+
+    say(rec, 'h3', null, p.name);
+    if (p.tagline) { say(rec, 'p', 'tagline', p.tagline); }
+
+    /* AISPEG's own embargo copy, quoted from components/ProjectDetail.tsx (392-405).
+       TRUNCATED: the source ends "... are held back from the public site. Contact the
+       operational owner for authorized access." That last sentence is cut because this
+       port drops every owner-naming field, so the clause would point a reader at a route
+       this page does not carry. Recorded in full as TRUNCATION 2 in the head comment. */
+    if (p.visibility === 'Partial') {
+      var em = say(rec, 'div', 'embargo', null);
+      say(em, 'b', null, 'UI deployment details embargoed');
+      say(em, 'span', null, 'This project exists in the inventory, but specific details ' +
+        'about UI\'s operational deployment (pilot scope, timelines, or configuration) ' +
+        'are held back from the public site.');
+    }
+
+    if (p.description || p.operationalExcellenceOutcome) {
+      var more = say(rec, 'details', 'more', null);
+      say(more, 'summary', null, 'Details');
+      if (p.description) {
+        say(more, 'p', 'lbl', 'Overview');
+        say(more, 'p', 'body', p.description);
+      }
+      if (p.operationalExcellenceOutcome) {
+        say(more, 'p', 'lbl', 'Why this matters');
+        say(more, 'p', 'body', p.operationalExcellenceOutcome);
+      }
+    }
+
+    /* A record with no published address gets no affordance rather than a dead one. The
+       label is the address itself: the record's stage chip is what says whether the thing
+       is live, so the link does not say it a second time.
+
+       The lane mark rides with the link rather than up in the stage chips, because it
+       qualifies THIS ADDRESS, not the project's stage — that is the whole distinction the
+       six staging records need. aria-describedby ties the two together so the mark is not
+       merely adjacent for a sighted reader. */
+    if (p.liveUrl) {
+      var go = say(rec, 'p', 'go', null);
+      var link = outboundLink(p.liveUrl, hostOf(p.liveUrl));
+      go.appendChild(link);
+      if (useLaneHeading && inUseLane(p)) {
+        var mark = el('span', 'chip chip--use', useLaneHeading);
+        go.appendChild(mark);
+        link.setAttribute('aria-describedby', markId(mark));
+      }
+    }
+
+    return rec;
+  }
+
+  var host = document.getElementById('units');
+  if (!host) { return; }
+  grouped(D.projects, D.home_unit_order).forEach(function (group) {
+    var section = el('section', 'unit');
+    var head = say(section, 'div', 'unit-h', null);
+    say(head, 'h2', null, group.unit);
+    say(head, 'span', 'count', group.items.length +
+      (group.items.length === 1 ? ' project' : ' projects'));
+    var grid = say(section, 'div', 'recs', null);
+    group.items.forEach(function (p) { grid.appendChild(card(p)); });
+    host.appendChild(section);
+  });
+}());
+</script>
+
+<script src="../components/site-shell/site-shell.js"></script>
+</body>
+</html>

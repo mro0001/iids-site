@@ -1,0 +1,22 @@
+/* Rendered-content typography for the Shell renderer. Brand colors via var() from
+   shared/tokens.css. Light is the base: dark ink on white, gold-as-text always
+   --gold-ink. The two incidental literals this file used to carry (#141414 inline-code
+   background, #6a6a6a missing-content notice) are now the --surface-alt / --text-muted
+   tokens, so no literals remain. */
+.rendered{color:var(--text-body);font-size:.92rem;line-height:1.6}
+.rendered > :first-child{margin-top:0}
+.rendered h1,.rendered h2,.rendered h3{color:var(--text-strong);font-weight:800;line-height:1.25;margin:18px 0 8px}
+.rendered h1{font-size:1.4rem}
+.rendered h2{font-size:1.05rem;color:var(--gold-ink);letter-spacing:.02em}
+.rendered h3{font-size:.95rem}
+.rendered p{margin:8px 0;max-width:78ch}
+.rendered ul{margin:8px 0;padding-left:18px;display:flex;flex-direction:column;gap:5px}
+/* In-copy links stay underlined at rest: the darkened gold sits below 3:1 against
+   --text-body, so color alone cannot mark a link (WCAG 1.4.1). */
+.rendered a{color:var(--gold-ink);text-decoration:underline;text-underline-offset:2px}
+.rendered strong{color:var(--text-strong)}
+.rendered em{color:var(--text-body)}
+/* inline code — neutral gray chip (the dark look used gold-on-black; light keeps it readable) */
+.rendered code{font-family:ui-monospace,Menlo,monospace;font-size:.85em;color:var(--text-strong);
+  background:var(--surface-alt);padding:1px 6px;border:1px solid var(--border-hairline)}
+.cr-missing{color:var(--text-muted);font-style:italic}

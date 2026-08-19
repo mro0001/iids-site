@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IIDS — Contact (wireframe)</title>
+<meta name="description" content="How to reach the Institute for Interdisciplinary Data Sciences (IIDS) at the University of Idaho — inquiries routed by need.">
+<meta name="keywords" content="IIDS, Institute for Interdisciplinary Data Sciences, University of Idaho, U of I, UIdaho, contact, research computing, genomics, proposals and grants">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../components/site-shell/site-shell.css">
+<link rel="stylesheet" href="mockup.css">
+</head>
+<body class="theme-light">
+
+<site-nav active="contact"></site-nav>
+
+<div class="pagehead">
+  <div class="wrap">
+    <p class="eyebrow">Contact</p>
+    <h1>Contact</h1>
+    <p>Routed by need rather than a single inbox. Wireframe only — each box is a content zone tagged by provenance.</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="legend">
+    <span><span class="swatch sw-mig"></span> [migrate text] — moves as-is</span>
+    <span><span class="swatch sw-mod"></span> [migrate modified text] — migrated + reworked</span>
+    <span><span class="swatch sw-new"></span> [new text] — written from scratch</span>
+  </div>
+</div>
+
+<main id="main" tabindex="-1" class="wrap">
+
+  <div class="subhead">By need</div>
+
+  <div class="zone zone--mod">
+    <span class="tag tag--mod">[migrate modified text]</span>
+    <h3 style="margin-top:10px">Route by purpose</h3>
+    <p class="desc">Structure is new; the contact data migrates (scattered mailto links, some dead). Routes:</p>
+    <!-- general / proposals / partnerships are the footer's "Contact by need" deep-link
+         targets (components/site-shell/site-shell.js); the ids are the href, do not rename.
+         scroll-margin clears the sticky header (--nav-h). -->
+    <ul class="desc" style="padding-left:18px">
+      <li id="general" style="scroll-margin-top:calc(var(--nav-h) + 16px)">General inquiries</li>
+      <li id="proposals" style="scroll-margin-top:calc(var(--nav-h) + 16px)">Proposals and grants</li>
+      <li>Post-award and budget</li>
+      <li>Genomics and GBRC</li>
+      <li>Research computing and RCDS</li>
+      <!-- Was "AI4UI" until 2026-08-10. Between two unit rows it read as a third unit, and
+           AI4UI is a project, not a unit (Michael). Named as the work instead, matching
+           content/contact_by_need.md and the landing page's approved wording. -->
+      <li>Applied AI work</li>
+      <li id="partnerships" style="scroll-margin-top:calc(var(--nav-h) + 16px)">Partnership outreach</li>
+      <li>Media</li>
+    </ul>
+    <span class="file">content/contact_by_need.md</span>
+  </div>
+
+  <div class="subhead">Core contacts</div>
+
+  <div class="zone zone--migrate">
+    <span class="tag tag--migrate">[migrate text]</span>
+    <h3 style="margin-top:10px">Direct lines per unit</h3>
+    <!-- Ops note, not page copy: this listed AI4UI as a fourth subsidiary until 2026-08-10.
+         It is a project, not a unit, so it has no line in content/contact_core_contacts.md. -->
+    <p class="desc">Contact point for each subsidiary (RCDS, GBRC, Admin Core). Each core verifies its own entry; must stay consistent with By Need — single source.</p>
+    <span class="file">content/contact_core_contacts.md</span>
+  </div>
+
+  <div class="zone zone--new">
+    <span class="tag tag--new">[new text]</span>
+    <h3 style="margin-top:10px">Contact form (optional)</h3>
+    <p class="desc">A routed inquiry form (AI4RA-style) is a candidate to replace bare email links. Decision pending.</p>
+    <span class="file">content/contact_by_need.md → open decision</span>
+  </div>
+
+</main>
+
+<site-footer></site-footer>
+
+<script src="../components/site-shell/site-shell.js"></script>
+</body>
+</html>

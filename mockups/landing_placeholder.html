@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IIDS — Institute for Interdisciplinary Data Sciences</title>
+<meta name="description" content="IIDS is the infrastructure, expertise, and leadership advancing the research mission of the University of Idaho, from computing to genomics.">
+<meta name="keywords" content="IIDS, Institute for Interdisciplinary Data Sciences, University of Idaho, U of I, UIdaho, research computing, genomics, data science">
+<!--
+  THE LANDING PAGE. Rebuilt 2026-08-08 (MO). The filename stays `landing_placeholder.html`
+  because 34 references across 22 files point at it, including the shell's brandHref;
+  renaming it to landing.html is a separate, mechanical follow-up.
+
+  WHAT THIS REPLACED, AND THE TEST THAT DID IT
+  The previous page had five bands, four of which restated something an interior page
+  already did better. A band now earns its place only if it makes a WHOLE-INSTITUTE claim
+  that no single interior page could make. IIDS presents as units plus a portfolio, and
+  every interior page is by construction a part; this is the only surface where the
+  institute is one thing.
+
+    1. Hero      — the institute names itself. Only place it happens at full scale.
+    2. The three — the hero's three nouns, unpacked. One sentence each, title left and
+                   sentence right. `components/capability-statement/`.
+    3. Who we are— identity, and the units as identity rather than as a router.
+    4. News      — perishable, therefore inherently whole-institute.
+
+  CUT, and why:
+  - Four pathway cards. They were the navigation at larger size: RCDS and GBRC are nav
+    items and "Work with us" is the persistent CTA. (AI4UI was a third nav item when the
+    cards were cut; it was removed on 2026-08-10 because it is a project, not a unit, so
+    its pathway card now has no destination at all.) Routing by org chart also asks the
+    visitor to know how IIDS is organized before the site will help them.
+  - Impact tiles. Four invented numbers with no owner.
+  - Events strip. Nothing in the source is scheduled, and an empty strip argues against you.
+  - An intermediate band of portfolio counts and research-area tiles, which restated
+    projects.html. The portfolio reaches this page through the nav and the hero button only.
+
+  STILL PROVISIONAL: the hero treatment is variant D (split lockup) from
+  mockups/hero_variants.html, chosen because it is the only one of the four that makes the
+  name dominant without pushing the next band a full screen down. The whole hero gets
+  revisited when the Brand Book palette lands (branding/FETCH_LIST.md), so this is a
+  working default, not a decision.
+
+  No hardcoded figures. The news strip is computed at runtime from backend/news-data/, so
+  the page cannot drift from the store. News dates render in full; the archive stops at
+  2025-04-18 and the page does not disguise that. Owner and cadence remain open.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,600;0,800;0,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../components/site-shell/site-shell.css">
+<link rel="stylesheet" href="../components/capability-statement/capability-statement.css">
+<link rel="stylesheet" href="../components/content-render/content-render.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--surface-page);color:var(--text-body);font-family:var(--font);
+    line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+  section{padding:var(--section-y) 0}
+  .eyebrow{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-ink);font-weight:600}
+  .sechead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:14px}
+  .sechead h2{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:700;letter-spacing:-.01em;color:var(--text-strong)}
+  .cta{
+    background:var(--gold);color:var(--text-strong);border-radius:var(--radius);
+    padding:13px 24px;font-size:.9rem;font-weight:600;transition:.2s;display:inline-block;
+  }
+  .cta:hover{background:var(--gold-ink);color:var(--white)}
+  .ghost{
+    border:1px solid rgba(255,255,255,.28);border-radius:var(--radius);padding:13px 24px;
+    font-size:.9rem;font-weight:600;color:var(--white);transition:.2s;display:inline-block;
+  }
+  .ghost:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.5)}
+
+  /* ---------- NAV (light bar, matches the rest of the site) ----------
+     The shell injects the markup (site-shell.js) but adds no color of its own; this
+     page does not link mockup.css (its dark-page body rules conflict), so the .nav
+     styling lives here. Recovered from the pre-rebuild page (ec4aaf4^). */
+  header{
+    position:sticky;top:0;z-index:50;backdrop-filter:blur(8px);
+    background:rgba(255,255,255,.85);border-bottom:1px solid var(--border-hairline);
+  }
+  .nav{display:flex;align-items:center;gap:32px;height:var(--nav-h);
+       max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.14em;color:var(--text-strong)}
+  .brand .mark{
+    width:34px;height:34px;border:1.5px solid var(--gold);color:var(--gold);
+    display:grid;place-items:center;font-weight:900;border-radius:var(--radius-sm);
+  }
+  .brand small{display:block;font-size:.58rem;letter-spacing:.22em;color:var(--text-muted);font-weight:400}
+  .nav ul{display:flex;gap:22px;list-style:none;margin-left:auto;font-size:.9rem;font-weight:500;color:var(--text-body)}
+  .nav ul a:hover{color:var(--gold-ink)}
+  .nav a.lock{color:var(--gold-ink);border:1px solid var(--border-hairline);border-radius:var(--radius-sm);padding:5px 11px}
+  .nav a.lock:hover{background:var(--gold);color:var(--void)}
+  .nav .cta{padding:9px 18px}  /* the band .cta size below is too tall for the 68px bar */
+
+  /* ---------- 1. HERO — name-dominant (variant D) ---------- */
+  .hero{position:relative;background:var(--void);color:var(--white);overflow:hidden}
+  .hero:before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(ellipse at 18% 0%,rgba(241,179,0,.14),transparent 58%);
+  }
+  .hero-inner{position:relative;z-index:2;padding:80px 0 88px}
+  .accentbar{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+  .accentbar i{display:block;height:4px;width:48px;background:var(--gold);border-radius:var(--radius-pill);flex:none}
+  .accentbar span{color:var(--gold);font-weight:600;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
+  .split{display:grid;grid-template-columns:auto 1fr;gap:48px;align-items:center}
+  .acr{
+    font-size:clamp(4rem,13vw,11rem);font-weight:900;line-height:.82;letter-spacing:-.02em;
+    color:var(--gold);border-right:2px solid rgba(241,179,0,.35);padding-right:48px;
+  }
+  .hname{
+    font-size:clamp(1.6rem,4.2vw,3.1rem);font-weight:800;line-height:1.1;letter-spacing:-.01em;
+    color:var(--white);max-width:16ch;text-wrap:balance;
+  }
+  .hero .sub{margin-top:16px;max-width:60ch;color:var(--text-on-dark);font-size:1.05rem;line-height:1.6}
+  .hero .row{margin-top:30px;display:flex;gap:16px;flex-wrap:wrap}
+
+  /* ---------- 2. THE THREE — components/capability-statement/ ----------
+     No section heading and no lede: the three words ARE the heading, and a label above
+     them competes with the only thing in the band worth reading. */
+  .cap{background:var(--surface-page)}
+
+  /* ---------- 3. WHO WE ARE ---------- */
+  .who{background:var(--surface-alt);border-block:1px solid var(--border-hairline)}
+  .whogrid{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:start}
+  /* content-render.css sets interior-page scale (.92rem); the landing page runs larger. */
+  .whoprose .rendered{font-size:1.05rem;line-height:1.6}
+  .whoprose .rendered p{margin:0 0 16px;max-width:56ch}
+  .whoprose .rendered p:last-child{margin-bottom:0}
+  .units{display:flex;flex-direction:column;gap:12px}
+  .unit{
+    display:block;background:var(--surface-card);border:1px solid var(--border-hairline);
+    border-radius:var(--radius-lg);padding:20px 22px;transition:box-shadow .2s,border-color .2s,transform .2s;
+  }
+  .unit:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--gold-tint-strong)}
+  .unit .abbr{font-size:.72rem;letter-spacing:.2em;color:var(--gold-ink);font-weight:700}
+  /* h3 under the band's h2: card headings are styled small, but the outline is real. */
+  .unit h3{margin-top:6px;font-size:1.05rem;font-weight:700;color:var(--text-strong)}
+  .unit p{margin-top:6px;font-size:.86rem;line-height:1.5}
+  .whocta{margin-top:22px}
+
+  /* ---------- 4. NEWS ---------- */
+  .newsrow{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .news{
+    display:block;background:var(--surface-card);border:1px solid var(--border-hairline);
+    border-radius:var(--radius-lg);overflow:hidden;transition:box-shadow .2s,transform .2s;
+  }
+  .news:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+  .news .shot{display:block;width:100%;height:150px;object-fit:cover;background:var(--surface-alt);
+    border-bottom:1px solid var(--border-hairline)}
+  .news .body{padding:18px 20px 22px;border-left:3px solid var(--gold)}
+  .news time{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-ink);font-weight:600}
+  .news h3{margin-top:8px;font-size:1rem;font-weight:600;line-height:1.35;color:var(--text-strong)}
+  .news p{margin-top:8px;font-size:.86rem;line-height:1.5;color:var(--text-body)}
+  .allnews{color:var(--gold-ink);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+
+  /* ---------- FOOTER (dark band; shell-injected markup, page-owned color) ----------
+     Recovered from the pre-rebuild page (ec4aaf4^), same reason as the nav block. */
+  footer{background:var(--void);color:var(--silver);padding:56px 0 40px;font-size:.85rem}
+  .foot{display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between}
+  .foot a:hover{color:var(--gold)}
+  .foot h5{color:var(--white);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px}
+  .foot ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+  .foot .brand{color:var(--white);margin-bottom:12px}
+  .foot > div:first-child p{max-width:34ch}
+  .foot .brand .mark{border-color:var(--gold);color:var(--gold);border-radius:var(--radius-sm)}
+  .disclaimer{margin-top:34px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);font-size:.76rem;color:#8a8a8a}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:980px){ .whogrid{grid-template-columns:1fr;gap:36px} }
+  @media(max-width:820px){
+    .split{grid-template-columns:1fr;gap:26px}
+    .acr{border-right:none;padding-right:0;border-bottom:2px solid rgba(241,179,0,.35);padding-bottom:18px}
+    .newsrow{grid-template-columns:1fr}
+  }
+  :focus-visible{outline:2px solid var(--gold-ink);outline-offset:3px}
+</style>
+</head>
+<body>
+
+<site-nav></site-nav>
+
+<main id="main" tabindex="-1">
+
+<!-- ============ 1. HERO ============ -->
+<section class="hero">
+  <div class="hero-inner wrap">
+    <div class="accentbar"><i></i><span>University of Idaho · Office of Research and Economic Development</span></div>
+    <div class="split">
+      <!-- Decorative: the h1 beside it already carries the institute's name, so a
+           screen reader reading "IIDS" first is noise, not information. -->
+      <div class="acr" aria-hidden="true">IIDS</div>
+      <div>
+        <h1 class="hname">Institute for Interdisciplinary Data Sciences</h1>
+        <p class="sub">The computational infrastructure, expertise, and leadership advancing the research mission of the University of Idaho.</p>
+        <div class="row">
+          <a class="cta" href="projects.html">See the research</a>
+<!-- Both Work-with-us CTAs on this page retargeted 2026-08-14 (client): they land on
+     Resources — the streamlined router — instead of the Start-here hub. The hub keeps
+     Connect and the tracks; Connect moves to Resources once the intake is settled. -->
+          <a class="ghost" href="resources.html">Work with us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. THE THREE ============ -->
+<section class="cap">
+  <div class="wrap">
+    <div id="capabilities"></div>
+  </div>
+</section>
+
+<!-- ============ 3. WHO WE ARE ============ -->
+<section class="who">
+  <div class="wrap">
+    <div class="sechead"><h2>Who we are</h2><a class="eyebrow" href="about.html">About IIDS →</a></div>
+    <div class="whogrid">
+      <div class="whoprose">
+        <div class="rendered" data-content="home_who_we_are"></div>
+      </div>
+      <div class="units">
+        <a class="unit" href="portal.html">
+          <span class="abbr">RCDS</span>
+          <h3>Research Computing and Data Services</h3>
+          <p>High performance computing, research data storage, and scientific programming support.</p>
+        </a>
+        <a class="unit" href="/gbrc/">
+          <span class="abbr">GBRC</span>
+          <h3>Genomics and Bioinformatics Resources Core</h3>
+          <p>Sequencing, library preparation, and bioinformatics, open to researchers beyond U of I.</p>
+        </a>
+        <div class="whocta"><a class="cta" href="resources.html">Work with us</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. NEWS ============ -->
+<section class="newsband">
+  <div class="wrap">
+    <div class="sechead"><h2>News</h2><a class="allnews" href="news.html">All news →</a></div>
+    <div class="newsrow" id="newsrow"></div>
+  </div>
+</section>
+
+</main>
+
+<site-footer variant="landing"></site-footer>
+
+<script src="../backend/news-data/news-data.generated.js"></script>
+<script src="../components/capability-statement/fixture.js"></script>
+<script src="../components/capability-statement/capability-statement.js"></script>
+<script src="../components/content-render/content-render.generated.js"></script>
+<script src="../components/content-render/content-render.js"></script>
+<script>
+(function () {
+  'use strict';
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  /* The three. Content lives in content/home_capabilities.md; fixture.js is generated
+     from it by components/capability-statement/build-fixture.js. The band carries no
+     section heading of its own, so the three titles ARE the h2s under the page h1. */
+  CapabilityStatement.mount(document.getElementById('capabilities'), window.CAPABILITY_FIXTURE,
+    { headingLevel: 'h2' });
+
+  /* Who we are. Rendered from content/home_who_we_are.md through the Shell renderer. */
+  ContentRender.mountAll();
+
+  /* ---- news: three most recent, real dates, no disguise -------------------- */
+  var MONTHS = ['January','February','March','April','May','June',
+                'July','August','September','October','November','December'];
+  function fmt(d) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(d || ''));
+    if (!m) return String(d || '');
+    return MONTHS[+m[2] - 1] + ' ' + (+m[3]) + ', ' + m[1];
+  }
+  function trim(s, n) {
+    s = String(s || '').replace(/\s+/g, ' ').trim();
+    if (s.length <= n) return s;
+    var cut = s.slice(0, n);
+    return cut.slice(0, cut.lastIndexOf(' ')) + '…';
+  }
+
+  var news = ((window.NEWS_DATA && window.NEWS_DATA.news) || []).slice()
+    .sort(function (a, b) { return String(b.date).localeCompare(String(a.date)); })
+    .slice(0, 3);
+
+  /* No store, no band. A "News" heading over an empty grid is the same argument-against-you
+     that cut the events strip. */
+  if (!news.length) { document.querySelector('.newsband').hidden = true; return; }
+
+  document.getElementById('newsrow').innerHTML = news.map(function (n) {
+    /* news.html is a searchable archive with no per-item page; its frozen URL
+       contract (?q=) narrows to the item, so the title IS the deep link. */
+    var href = 'news.html?q=' + encodeURIComponent(n.title || '');
+    var img = n.image
+      ? '<img class="shot" src="../' + esc(n.image) + '" alt="" loading="lazy">'
+      : '';
+    return '<a class="news" href="' + esc(href) + '">' + img +
+             '<div class="body">' +
+               '<time datetime="' + esc(n.date) + '">' + esc(fmt(n.date)) + '</time>' +
+               '<h3>' + esc(n.title) + '</h3>' +
+               '<p>' + esc(trim(n.body, 130)) + '</p>' +
+             '</div></a>';
+  }).join('');
+})();
+</script>
+
+<script src="../components/site-shell/site-shell.js"></script>
+</body>
+</html>

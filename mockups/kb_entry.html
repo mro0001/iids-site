@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IIDS — Knowledge base entry</title>
+<meta name="description" content="A knowledge base entry from the University of Idaho IIDS: research computing documentation, institute policy, and how-tos for working with the cores.">
+<meta name="keywords" content="University of Idaho, U of I, UIdaho, IIDS, knowledge base, research computing, RCDS, policy">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../components/site-shell/site-shell.css">
+<link rel="stylesheet" href="mockup.css">
+<link rel="stylesheet" href="../components/kb-entry/kb-entry.css">
+</head>
+<body class="theme-light">
+
+<site-nav active="kb"></site-nav>
+
+<main id="main" tabindex="-1" class="wrap" style="padding:40px var(--gutter) 80px">
+  <p style="margin-bottom:20px">
+    <a href="kb.html" style="color:var(--gold-ink);font-size:.85rem;letter-spacing:.04em">&larr; Back to the knowledge base</a>
+  </p>
+  <div id="kbentry"></div>
+</main>
+
+<site-footer></site-footer>
+
+<!-- PUBLIC store only: the payload is the boundary — internal entries must never be in
+     this file. The runtime visibility gate below is defense in depth, not the gate. -->
+<script src="../backend/kb-data/kb-data.public.generated.js"></script>
+<script src="../components/kb-entry/kb-entry.js"></script>
+<script>
+  var p = new URLSearchParams(location.search);
+  var id = p.get('id'), item = p.get('item');
+  var entries = (window.KB_DATA && window.KB_DATA.entries) || [];
+  // Gate: only PUBLIC entries resolve here — internal ids/titles never render.
+  var isPublic = function (e) { return e.visibility === 'public'; };
+  var entry = null;
+  if (id) entry = entries.filter(function (e) { return e.id === id && isPublic(e); })[0];
+  if (!entry && item) entry = entries.filter(function (e) { return e.title === item && isPublic(e); })[0];
+  var root = document.getElementById('kbentry');
+  if (entry) {
+    KBEntry.mount(root, entry);
+    // Fill {{kb: …}} embeds from the PUBLIC store this page loaded — an
+    // internal id cannot resolve here because it is not in the payload.
+    KBEntry.hydrate(root, entries, { detailPage: 'kb_entry.html' });
+    /* Site title convention: every page is "IIDS — <Page>" (same shape as
+       project_entry.html). The Digital Style Guide's 70-character ceiling is kept by
+       dropping the section marker when the entry's own title is long. */
+    var t = 'IIDS — Knowledge base: ' + entry.title;
+    document.title = t.length <= 70 ? t : 'IIDS — ' + entry.title;
+  } else {
+    root.innerHTML = '<p style="color:var(--text-body)">Entry not found. <a href="kb.html" style="color:var(--gold-ink)">Back to the knowledge base</a>.</p>';
+  }
+</script>
+
+<script src="../components/site-shell/site-shell.js"></script>
+</body>
+</html>

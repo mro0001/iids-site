@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>project-entry — isolated demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../shared/tokens.css">
+<link rel="stylesheet" href="project-entry.css">
+<style>
+  body{margin:0;background:var(--surface-page);color:var(--text-body);
+    font-family:var(--font);line-height:1.55}
+  main{max-width:900px;margin:0 auto;padding:40px 24px 80px}
+  .demolabel{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--text-muted);font-weight:600;margin:0 0 14px}
+  .rule{margin:48px 0;border:0;border-top:1px solid var(--border-hairline)}
+</style>
+</head>
+<body>
+<main>
+  <p class="demolabel">Fully documented record</p>
+  <div id="full"></div>
+
+  <hr class="rule">
+
+  <p class="demolabel">Low-confidence stub — almost every field absent</p>
+  <div id="stub"></div>
+
+  <hr class="rule">
+
+  <p class="demolabel">Source is a page on this site — the record continues there</p>
+  <div id="insite"></div>
+
+  <hr class="rule">
+
+  <p class="demolabel">Missing record</p>
+  <div id="missing"></div>
+</main>
+
+<script src="fixture.js"></script>
+<script src="project-entry.js"></script>
+<script>
+  var f = window.PROJECT_ENTRY_FIXTURE;
+  ProjectEntry.mount(document.getElementById('full'), f[0]);
+  ProjectEntry.mount(document.getElementById('stub'), f[1]);
+  ProjectEntry.mount(document.getElementById('insite'), f[2]);
+  ProjectEntry.mount(document.getElementById('missing'), null, { browsePage: '../project-browse/demo.html' });
+</script>
+</body>
+</html>

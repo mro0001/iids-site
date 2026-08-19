@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IIDS — Knowledge base</title>
+<meta name="description" content="Public documentation from the University of Idaho IIDS: research computing guides and tutorials, institute policies, and how-tos.">
+<meta name="keywords" content="University of Idaho, U of I, UIdaho, IIDS, knowledge base, research computing, RCDS, documentation">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../components/site-shell/site-shell.css">
+<link rel="stylesheet" href="mockup.css">
+<link rel="stylesheet" href="../components/knowledge-base/knowledge-base.css">
+<link rel="stylesheet" href="../components/kb-search/kb-search.css">
+</head>
+<body class="theme-light">
+
+<site-nav active="kb"></site-nav>
+
+<div class="pagehead">
+  <div class="wrap">
+    <p class="eyebrow">Knowledge base</p>
+    <h1>Knowledge base</h1>
+    <p>Public documentation for working with IIDS — research computing guides and tutorials from RCDS, plus institute policies and how-tos. Search, or narrow by unit, kind, and topic. More is added as the cores publish it.</p>
+  </div>
+</div>
+
+<main id="main" tabindex="-1" class="wrap" style="padding-bottom:80px">
+  <div id="kbFacets"></div>
+</main>
+
+<site-footer></site-footer>
+
+<!-- knowledge-base.css stays: the faceted result rows reuse its .itemlist classes.
+     knowledge-base.js is no longer needed here — faceting subsumes group-button browse.
+     PUBLIC store only: this page ships its store in the payload, so internal entries
+     must never be in the file — the runtime filter below is defense in depth, not the gate. -->
+<script src="../backend/kb-data/kb-data.public.generated.js"></script>
+<script src="../components/kb-search/kb-search.js"></script>
+<script>
+  /* Facet values are storage slugs. The host owns the display labels so the component
+     stays value-blind; only slugs whose sentence-cased form reads wrong are listed —
+     everything else ('policies', 'tutorials', 'storage') needs no entry. */
+  var FACET_LABELS = {
+    track: { 'gbrc-services': 'GBRC services', 'working-with-iids': 'Working with IIDS', ai: 'AI' },
+    type: { procedural: 'How-to', substantive: 'Reference', guide: 'Guide' },
+    topic: {
+      aviti24: 'AVITI24', 'f-and-a': 'F and A', gpu: 'GPU', gwas: 'GWAS',
+      'iso-seq': 'Iso-Seq', llm: 'LLM', mpi: 'MPI', pacbio: 'PacBio', pui: 'PUI',
+      'rad-seq': 'RAD-seq', 'rna-seq': 'RNA-seq', rrid: 'RRID',
+      'sample-qc': 'Sample QC', ssh: 'SSH', veras: 'VERAS', wgs: 'WGS'
+    }
+  };
+
+  /* The host applies the permission gate — search and browse can never surface an entry
+     it did not pass in. Facet options are derived from exactly this set. */
+  KBSearch.mountFaceted(
+    document.getElementById('kbFacets'),
+    (window.KB_DATA.entries || []).filter(function (e) { return e.visibility === 'public'; }),
+    { detailPage: 'kb_entry.html', labels: FACET_LABELS }
+  );
+</script>
+
+<script src="../components/site-shell/site-shell.js"></script>
+</body>
+</html>

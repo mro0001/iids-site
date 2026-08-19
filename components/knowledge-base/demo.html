@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knowledge Base component — isolated demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../shared/tokens.css">
+<link rel="stylesheet" href="knowledge-base.css">
+<style>
+  /* Demo-local chrome only. The reusable component is the .groupbtns/.itemlist
+     browser above; .module and the action buttons are host styles a real page
+     supplies (they live in mockups/intranet.css), reproduced minimally here — in the
+     site's light look — so the component is workable in isolation. */
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--surface-page);color:var(--text-body);font-family:var(--font);line-height:1.5;padding:40px 24px}
+  .wrap{max-width:800px;margin:0 auto}
+  .tag{font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-ink);font-weight:600}
+  h1{font-size:1.6rem;font-weight:800;margin:8px 0 4px;color:var(--text-strong)}
+  .note{color:var(--text-muted);font-size:.9rem;margin-bottom:8px}
+  .module{border:1px solid var(--border-hairline);border-top:3px solid var(--gold);background:var(--surface-card);
+    border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:26px;margin-top:24px}
+  .module h2{font-size:1.3rem;font-weight:800;color:var(--text-strong)}
+  .lede{color:var(--text-body);font-size:.92rem;margin-top:6px}
+  .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;padding-top:22px;border-top:1px solid var(--border-hairline)}
+  .actbtn{border:1px solid var(--gold);color:var(--gold-ink);padding:11px 20px;font-size:.8rem;letter-spacing:.12em;
+    text-transform:uppercase;font-weight:600;text-decoration:none;transition:.18s;border-radius:var(--radius)}
+  .actbtn:hover{background:var(--gold);color:var(--text-strong)}
+  .actbtn.ghost{border-color:var(--border-hairline);color:var(--text-body)}
+  .actbtn.ghost:hover{background:transparent;border-color:var(--gold);color:var(--gold-ink)}
+  .itemlist li a{text-decoration:none}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="tag">Component · isolated demo</p>
+  <h1>Knowledge Base</h1>
+  <p class="note">Double-clickable, no server. Pick a group; click an entry to reach the real detail page. This whole surface runs on <code>fixture.js</code> + <code>knowledge-base.js</code> alone.</p>
+
+  <div class="module">
+    <h2>Knowledge Base</h2>
+    <p class="lede">Internal SOPs, runbooks, and reference, grouped by owning unit.</p>
+    <div class="groupbtns" data-kind="kb">
+      <button class="gbtn" data-group="RCDS">RCDS</button>
+      <button class="gbtn" data-group="IIDS">IIDS</button>
+      <button class="gbtn" data-group="GBRC">GBRC</button>
+      <button class="gbtn" data-group="GENERAL">GENERAL</button>
+    </div>
+    <div class="itemlist" id="kbList"><p class="hint">Select a group above to see its entries.</p></div>
+    <div class="actions">
+      <a class="actbtn" id="addBtn" href="#">+ Add a knowledge base entry</a>
+      <a class="actbtn ghost" id="guideBtn" href="#">Guidelines for developing entries</a>
+    </div>
+  </div>
+</div>
+
+<script src="../../backend/kb-data/kb-data.generated.js"></script>
+<script src="knowledge-base.js"></script>
+<script>
+  // Real entries from the generated KB_DATA store; hover a row to see its gist.
+  var fx = KBBrowser.fixtureFromData(window.KB_DATA, {
+    detailPage: '../../mockups/kb_placeholder.html',
+    addHref: '../../mockups/intranet_kb_add.html',
+    guidelinesHref: '../../mockups/intranet_kb_guidelines.html'
+  });
+  KBBrowser.mount(document.querySelector('.groupbtns[data-kind="kb"]'), document.getElementById('kbList'), fx);
+  document.getElementById('addBtn').href = fx.addHref;
+  document.getElementById('guideBtn').href = fx.guidelinesHref;
+</script>
+</body>
+</html>

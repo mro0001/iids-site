@@ -1,0 +1,44 @@
+/* Knowledge Base browser widget styles. Brand colors via var() from shared/tokens.css.
+   The GBRC light look is the BASE (white cards, hairline borders, radius + soft shadow,
+   gold left rail). There is no dark variant of this widget — it only ever appears inside
+   light content bands, never in a hero/footer dark band. The two incidental grays this
+   file used to carry (#6a6a6a hint, #1c1c1c hover) are now the --text-muted /
+   --surface-alt tokens, so no literals remain. */
+
+/* group buttons (RCDS / IIDS / GBRC / GENERAL) — hairline outline, gold fill when active */
+.groupbtns{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 4px}
+.gbtn{font-family:inherit;cursor:pointer;background:transparent;border:1px solid var(--border-hairline);
+  color:var(--text-body);padding:11px 22px;font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:600;transition:.18s;border-radius:var(--radius)}
+.gbtn:hover{border-color:var(--gold);color:var(--gold-ink)}
+.gbtn.active{background:var(--gold);color:var(--text-strong)}
+
+/* populated item list — entry rows are white cards with a gold rail and soft elevation */
+.itemlist{margin-top:18px;min-height:40px}
+.itemlist .hint{color:var(--text-muted);font-size:.86rem;font-style:italic}
+.itemlist ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.itemlist li a{display:flex;align-items:center;gap:12px;border:1px solid var(--border-hairline);
+  border-left:3px solid var(--gold);background:var(--surface-card);color:var(--text-strong);
+  padding:13px 16px;border-radius:var(--radius);box-shadow:var(--shadow-sm);
+  transition:background .16s,box-shadow .16s,border-color .16s,color .16s}
+.itemlist li a:hover{background:var(--surface-alt);color:var(--gold-ink);
+  border-left-color:var(--gold);box-shadow:var(--shadow-md)}
+.itemlist li a .arm{margin-left:auto;color:var(--gold-ink);font-size:.8rem;letter-spacing:.12em}
+/* Flex children default to min-width:auto, so a long entry title could not shrink and pushed
+   the "Open →" arm past the viewport edge (intranet.html at phone width). Let the row wrap and
+   let the title shrink; the group tag and the arm keep their intrinsic size. */
+.itemlist li a{flex-wrap:wrap}
+.itemlist li a .kbname{min-width:0;overflow-wrap:anywhere}
+.itemlist li a .grouptag,.itemlist li a .arm{flex:0 0 auto}
+.itemlist .grouptag{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-ink);
+  border:1px solid var(--gold-ink);padding:2px 8px}
+
+/* hover tooltip showing an entry's gist (KB items carry {id,title,gist}) —
+   floating popover: white card, hairline + gold rail, deep shadow */
+.itemlist li a{position:relative}
+.itemlist .gisttip{position:absolute;left:16px;right:16px;top:calc(100% + 4px);z-index:6;
+  background:var(--surface-card);border:1px solid var(--border-hairline);border-left:3px solid var(--gold);
+  color:var(--text-body);font-size:.82rem;line-height:1.45;padding:9px 12px;text-transform:none;letter-spacing:normal;
+  border-radius:var(--radius-sm);box-shadow:var(--shadow-lg);
+  opacity:0;visibility:hidden;transform:translateY(-4px);transition:.14s;pointer-events:none}
+.itemlist li a:hover .gisttip,.itemlist li a:focus-visible .gisttip{opacity:1;visibility:visible;transform:translateY(0)}
