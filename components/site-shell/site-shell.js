@@ -5,9 +5,11 @@
    .nav / .brand / .cta / footer exactly as they did when this markup was pasted into each
    page by hand. No class was renamed.
 
-   file://-safe: zero fetch. MODULES.md binds the Shell factor-out to a build-time include or
-   an inline-<script> Web Component precisely because a double-clicked file:// page cannot
-   fetch a partial — it would silently render no navigation at all.
+   file://-safe: rendering never fetches. The one fetch in this file is the portal probe in
+   upgradePortals(), which returns on file: before it runs. MODULES.md binds the Shell
+   factor-out to a build-time include or an inline-<script> Web Component precisely because
+   a double-clicked file:// page cannot fetch a partial — it would silently render no
+   navigation at all.
 
    Usage:  <site-nav active="resources"></site-nav>
            <site-footer>Optional per-page disclaimer, preserved as .disclaimer.</site-footer> */
@@ -35,18 +37,20 @@
            mockups/ai4ui.html and content/ai4ui_*.md are kept and are now intentionally
            reached from the Projects browse via the ai4ui record, not from the nav. */
         { id: 'rcds', href: 'portal.html', label: 'RCDS' },
-        { id: 'gbrc', href: '/gbrc/', label: 'GBRC' },
+        /* The portal is an application that exists only when the site is served; from a file
+           or a plain static host /gbrc/ is a 404 (review, 2026-08-28). href is the static
+           stand-in; portal is what upgradePortals() swaps in once the server confirms it. */
+        { id: 'gbrc', href: 'gbrc.html', portal: '/gbrc/', label: 'GBRC' },
         { id: 'contact', href: 'contact.html', label: 'Contact' }
       ],
       /* The padlock is decoration: as part of the label a screen reader announces
          "locked padlock Intranet". It rides in `icon`, which linkHTML hides from AT. */
-      lock: null,
-      /* The CTA lands on Resources (client, 2026-08-14) — the streamlined router —
-         reversing the section map's earlier repoint to the hub (work_with_iids_map.md
-         "The nav change is one line"). The hub keeps Connect and the tracks; Connect
-         moves to Resources once the intake is settled. Yes, the CTA and the Resources
-         nav item now share a target — the CTA is the emphasis, not a distinct room. */
-      cta: { href: 'resources.html', label: 'Work with us' },
+      lock: { id: 'intranet', href: 'intranet.html', label: 'Intranet', icon: '🔒' },
+      /* The CTA lands on Resources (client, 2026-08-14) — the streamlined router — and, since
+         2026-09 (review), on its "New to IIDS?" section rather than the page top, so the CTA
+         and the Resources nav item are not the same click. Connect moves to Resources once the
+         intake is settled; if the intake form ships first the CTA goes there. */
+      cta: { href: 'resources.html#new-to-iids', label: 'Work with us' },
       footer: {
         tagline: 'Institute for Interdisciplinary Data Sciences, University of Idaho.',
         columns: [
@@ -68,7 +72,7 @@
             heading: 'Units',
             links: [
               { href: 'portal.html', label: 'RCDS' },
-              { href: '/gbrc/', label: 'GBRC' }
+              { href: 'gbrc.html', portal: '/gbrc/', label: 'GBRC' }
             ]
           },
           {
@@ -85,7 +89,8 @@
             heading: 'University',
             links: [
               { href: 'https://www.uidaho.edu/research', label: 'U of I Research' },
-              { href: 'https://www.uidaho.edu/access', label: 'Accessibility' },
+              /* /access 404s (review, 2026-08-28); this is the page uidaho.edu's own footer links. */
+              { href: 'https://www.uidaho.edu/policies/web-accessibility', label: 'Accessibility' },
               { href: 'https://www.uidaho.edu/directory', label: 'Directory' }
             ]
           }
@@ -140,7 +145,9 @@
        learns which page they are on (WCAG 4.1.2). An icon is decoration — hidden from AT,
        which reads the label that follows it. */
     return '<li><a' + (classes.length ? ' class="' + classes.join(' ') + '"' : '') +
-      ' href="' + attr(link.href) + '"' + (here ? ' aria-current="page"' : '') + '>' +
+      ' href="' + attr(link.href) + '"' +
+      (link.portal ? ' data-portal="' + attr(link.portal) + '"' : '') +
+      (here ? ' aria-current="page"' : '') + '>' +
       (link.icon ? '<span aria-hidden="true">' + esc(link.icon) + '</span> ' : '') +
       esc(link.label) + '</a></li>';
   }
@@ -259,7 +266,9 @@
           m.footer.columns.map(function (col) {
             return '<div><h2>' + esc(col.heading) + '</h2><ul>' +
               col.links.map(function (l) {
-                return '<li><a href="' + attr(l.href) + '">' + esc(l.label) + '</a></li>';
+                return '<li><a href="' + attr(l.href) + '"' +
+                  (l.portal ? ' data-portal="' + attr(l.portal) + '"' : '') + '>' +
+                  esc(l.label) + '</a></li>';
               }).join('') +
             '</ul></div>';
           }).join('') +
@@ -301,6 +310,28 @@
 
   define('site-nav', renderNav);
   define('site-footer', renderFooter);
+
+  /* ------------------------------------------------------------- portal links
+     Links that carry data-portal point at a static stand-in by default. When the site is
+     served by backend/server/site_server.py, /api/health reports whether the GBRC frontend
+     is built; only then are they upgraded to the served path. file:// cannot fetch, and a
+     plain static host answers 404, so in both cases the stand-in simply stays. */
+  function upgradePortals() {
+    var doc = global.document;
+    if (!doc || typeof doc.querySelectorAll !== 'function' || typeof global.fetch !== 'function' ||
+        !global.location || global.location.protocol === 'file:') return;
+    global.fetch('/api/health', { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (h) {
+        if (!h || !h.gbrc_frontend_built) return;
+        var links = doc.querySelectorAll('a[data-portal]');
+        for (var i = 0; i < links.length; i++) {
+          links[i].setAttribute('href', links[i].getAttribute('data-portal'));
+        }
+      })
+      .catch(function () {});
+  }
+  upgradePortals();
 
   global.SiteShell = {
     /* Swap the navigation model. Call before the elements upgrade (i.e. in a script tag

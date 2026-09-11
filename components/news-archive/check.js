@@ -1,6 +1,7 @@
 /* Standing check for news-archive's pure functions, run against the REAL generated store
    rather than a fixture — 114 published news items (117 extracted, minus 3 verbatim
-   reposts; backend/news-data/CONTRACT.md, Normalization).
+   reposts; backend/news-data/CONTRACT.md, Normalization), plus hand-added stories since
+   2026-09.
    Run:  node components/news-archive/check.js
 
    search/deriveYears/filterByYear/applyFilters/readState/excerpt are pure, so they need no
@@ -31,7 +32,9 @@ const DATA = sandbox.window.NEWS_DATA;
 const NEWS = DATA.news;
 
 console.log('\nnews-archive: the store');
-ok('114 news items', NEWS.length === 114, 'got ' + NEWS.length);
+/* 114 migrated from the old site + stories added by hand since 2026-09 (CONTRACT.md,
+   "Adding a story by hand"). Bump this with every addition; it is the drift guard. */
+ok('115 news items', NEWS.length === 115, 'got ' + NEWS.length);
 ok('5 event formats', DATA.events.length === 5, 'got ' + DATA.events.length);
 ok('every item has a title', NEWS.every((n) => n.title && n.title.trim()));
 ok('every item has an ISO date', NEWS.every((n) => /^\d{4}-\d{2}-\d{2}$/.test(n.date)));
@@ -62,14 +65,14 @@ ok('no two items share an identical title and body', (() => {
    not SCIENCE; the store carries no other all-caps occurrence. */
 ok('the journal Science is not shouted',
   !NEWS.some((n) => /\bSCIENCE\b/.test(n.title + ' ' + n.body)));
-ok('the documented range holds (2018–2025)',
-  NEWS[NEWS.length - 1].date.startsWith('2018') && NEWS[0].date.startsWith('2025'),
+ok('the documented range holds (2018–2026)',
+  NEWS[NEWS.length - 1].date.startsWith('2018') && NEWS[0].date.startsWith('2026'),
   NEWS[NEWS.length - 1].date + ' … ' + NEWS[0].date);
 
 console.log('\nnews-archive: year derivation');
 const years = NA.deriveYears(NEWS);
-ok('eight years present', years.length === 8, 'got ' + years.length);
-ok('newest year first', years[0].year === '2025' && years[years.length - 1].year === '2018');
+ok('nine years present', years.length === 9, 'got ' + years.length);
+ok('newest year first', years[0].year === '2026' && years[years.length - 1].year === '2018');
 ok('counts sum to the whole archive',
   years.reduce((a, y) => a + y.count, 0) === NEWS.length);
 ok('years are derived, not hardcoded',

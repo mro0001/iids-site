@@ -291,13 +291,16 @@
     };
   }
 
-  /* Deterministic shuffle so a check can assert on it; seed is any integer. */
+  /* Deterministic shuffle so a check can assert on it; seed is any integer. Math.imul keeps
+     the LCG inside 32 bits: a plain multiply overflowed the 53-bit mantissa and rounded away
+     the low bits that j read, so a few records opened far more often than others and one
+     never did (final review, 2026-09-06). j scales the whole state instead of a modulus. */
   function shuffle(list, seed) {
     var a = list.slice();
     var s = typeof seed === 'number' ? seed : 1;
     for (var i = a.length - 1; i > 0; i--) {
-      s = (s * 1103515245 + 12345) & 0x7fffffff;
-      var j = s % (i + 1);
+      s = (Math.imul(s, 1103515245) + 12345) & 0x7fffffff;
+      var j = Math.floor((s / 0x80000000) * (i + 1));
       var t = a[i]; a[i] = a[j]; a[j] = t;
     }
     return a;

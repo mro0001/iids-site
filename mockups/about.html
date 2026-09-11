@@ -36,7 +36,7 @@
   </div>
 </div>
 
-<main id="main" tabindex="-1" class="wrap">
+<main id="main" tabindex="-1" class="wrap" style="padding-top:28px">
 
   <!-- Real headings, styled small: the zone titles below are h3s and need an h2 above them. -->
   <h2 class="subhead">Identity</h2>
@@ -58,7 +58,7 @@
   <div class="zone zone--migrate">
     <span class="tag tag--migrate">[migrate text · live component]</span>
     <h3 style="margin-top:10px">People</h3>
-    <p class="desc">Live <code>people-directory</code> component. Data is generated from the single source of record; click a unit to fade the rest, click again to reset. Roster migrated from the old site; titles and links are pending verification by each person before launch.</p>
+    <p class="desc">The people behind the institute's cores. Filter by unit to see who does what.</p>
     <div class="peoplefilters" id="peopleFilters">
       <span class="pf-label">Filter by unit</span>
       <button class="pfbtn" data-unit="IIDS">Administrative Core</button>
@@ -77,10 +77,8 @@
 
   <div class="zone zone--mod">
     <span class="tag tag--mod">[migrate modified text · live component]</span>
-    <h3 style="margin-top:10px"><a class="zonelink" href="projects.html">Research &amp; impact</a></h3>
-    <p class="desc">Live <code>project-spotlight</code> component, rotating the currently active
-      projects from the published store. The section title goes to the full projects page; a
-      project title goes to its own record.</p>
+    <h3 style="margin-top:10px"><a class="zonelink" href="projects.html">Research and impact</a></h3>
+    <p class="desc">A rotating look at the projects IIDS currently supports. The section title opens the full list; a project title opens its record.</p>
     <div id="projectSpotlight"></div>
     <span class="file">backend/projects-data/ → components/project-spotlight/</span>
   </div>
@@ -88,7 +86,7 @@
 
 </main>
 
-<site-footer></site-footer>
+<site-footer>Wireframe mockup — structure and content provenance only. U of I palette; not an approved brand treatment. See <a href="landing_placeholder.html">landing placeholder</a>.</site-footer>
 
 <script src="../components/people-directory/fixture.js"></script>
 <script src="../components/people-directory/people-directory.js"></script>
@@ -113,13 +111,18 @@
 
   // The host resolves the store; the component does the selecting. Both pages sit in
   // mockups/, so the entry page is a bare filename.
+  /* A fresh seed per page load (review, 2026-08-28): unshuffled, the carousel always opened
+     on the store's first record and the last one was never reached. Seed is >= 1 because
+     the component treats 0 as "no shuffle". */
   ProjectSpotlight.mount(
     document.getElementById('projectSpotlight'),
     (window.PROJECTS_DATA && window.PROJECTS_DATA.items) || [],
-    { entryPage: 'project_entry.html', interval: 7000 }
+    { entryPage: 'project_entry.html', interval: 7000,
+      shuffle: 1 + Math.floor(Math.random() * 2147483646) }
   );
 </script>
 
 <script src="../components/site-shell/site-shell.js"></script>
+<script src="provenance.js"></script>
 </body>
 </html>

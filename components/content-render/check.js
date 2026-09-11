@@ -48,6 +48,19 @@ const keys = Object.keys(CONTENT);
 
 console.log('\ncontent-render: every mounted key resolves');
 ok('the store is not empty', keys.length > 0);
+
+/* Explicit heading ids — `### Title {#id}` — carry the footer's deep-link targets
+   (site-shell.js "Contact by need": #general, #proposals, #partnerships) inside the
+   rendered body, so the contact page has no hand-written anchors to drift. */
+ok('contact_by_need renders explicit heading ids',
+  typeof CONTENT.contact_by_need === 'string' &&
+  ['general', 'proposals', 'partnerships'].every(function (id) {
+    return CONTENT.contact_by_need.indexOf('<h3 id="' + id + '">') !== -1;
+  }),
+  'expected <h3 id="general|proposals|partnerships"> in the rendered contact_by_need');
+ok('the {#id} suffix never leaks into rendered text',
+  keys.every(function (k) { return !/\{#[\w-]+\}/.test(CONTENT[k]); }));
+
 ok('every value is a non-empty HTML string',
   keys.every((k) => typeof CONTENT[k] === 'string' && CONTENT[k].trim()));
 

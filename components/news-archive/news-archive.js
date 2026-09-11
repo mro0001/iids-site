@@ -1,4 +1,5 @@
-/* news-archive — the 114-item IIDS news archive as a searchable, year-filtered list.
+/* news-archive — the IIDS news archive (114 migrated items plus stories added since) as a
+   searchable, year-filtered list.
 
    Loads as a plain <script src> and exposes window.NewsArchive. Zero fetch, so a
    double-clicked file:// page renders it.

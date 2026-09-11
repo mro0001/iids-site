@@ -72,7 +72,7 @@ meaning of its own.
 - **Footer columns follow the model, not the page.** A footer renders the four-column `.foot`
   grid whenever its model defines `footer.columns`, on every page — previously only
   `variant="landing"` did, which left every interior page with a footer of brand and tagline
-  and no links: the `uidaho.edu/access` Accessibility link existed on one page of the site and
+  and no links: the Accessibility link (now `uidaho.edu/policies/web-accessibility`; the old `/access` path 404s as of 2026-09) existed on one page of the site and
   the only footer path to Events was the landing. The intranet model defines no columns, so
   intranet pages still get the simple footer. `.foot` is styled in `mockups/mockup.css`
   (the landing page keeps its own copy, since it owns that band's color).
@@ -110,6 +110,11 @@ meaning of its own.
 
 - The navigation model's contents (links may be added, reordered, or relabeled — that is the
   point of having one source), the mobile breakpoint, and everything in `site-shell.css`.
+- **Portal links.** A model link may carry `portal: '<served path>'`. The shell renders it as
+  `data-portal` on the anchor, keeps `href` on the static stand-in (`gbrc.html`), and after
+  the elements upgrade probes `GET /api/health`; only when the server reports
+  `gbrc_frontend_built: true` are all `a[data-portal]` on the page rewritten to the served
+  path. From file:// or a static host the stand-in stays, so the link never 404s.
 
 ## Accessibility
 
@@ -122,7 +127,7 @@ own boundary uses `--border-control` (≥ 3:1, WCAG 1.4.11), not the decorative 
 ## Styling rule
 
 Brand colors use `var(--…)` from `shared/tokens.css`. No literal brand hex. The shell adds no
-color of its own — it inherits whatever the page's stylesheet defines for `.nav` and `footer`.
+color of its own — it inherits whatever the page's stylesheet defines for `.nav` and `site-footer footer` (since 2026-09 the dark band rules in `mockups/mockup.css` are scoped to the Shell's footer, so a page's bare `footer{…}` rule loses to them).
 
 ## Register
 

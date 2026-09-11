@@ -76,7 +76,9 @@ main{padding:var(--section-y-sm) 0 calc(var(--section-y-sm) + 18px)}
 .zonegrid .zone{margin-bottom:0}
 
 /* footer */
-footer{border-top:1px solid var(--edge);padding:40px 0 44px;color:var(--silver);font-size:.85rem}
+/* Scoped to the Shell's footer: a page can carry other <footer> elements (the KB entry's
+   "Created / Last updated" line is one) and they must not inherit the dark band. */
+site-footer footer{border-top:1px solid var(--edge);padding:40px 0 44px;color:var(--silver);font-size:.85rem}
 /* The four-column footer. The Shell renders these columns on every page whose model
    defines them (components/site-shell/CONTRACT.md), not on the landing alone, so the
    Accessibility link and the Events path exist site-wide; the styles have to live here
@@ -166,6 +168,26 @@ body.theme-light .tag--migrate,body.theme-light .tag--mod{color:var(--gold-ink);
 body.theme-light .tag--new{color:var(--text-muted);border-color:var(--border-hairline)}
 
 /* footer — retained as a DARK band (the two-mode split in action) */
-body.theme-light footer{background:var(--void);color:var(--silver);border-top:none}
-body.theme-light footer .brand{color:var(--white)}
-body.theme-light footer .disclaimer{color:#8a8a8a}
+body.theme-light site-footer footer{background:var(--void);color:var(--silver);border-top:none}
+body.theme-light site-footer footer .brand{color:var(--white)}
+body.theme-light site-footer footer .disclaimer{color:#8a8a8a}
+
+/* ============================================================================
+   PROVENANCE CHROME — for the team, not the reader
+   The legend, [migrate text] tags, zone borders and content/*.md paths tell the team where
+   each section's text comes from. A reviewer read them as AI artifacts (2026-08-28). They
+   render only when the page opts in: mockups/provenance.js adds body.show-provenance from
+   ?provenance=1 or the footer toggle, and intranet pages set the class outright.
+   These rules tie the body.theme-light rules above on specificity and win by source
+   order, so this block must stay last in the file. */
+body:not(.show-provenance) .legend,
+body:not(.show-provenance) .tag,
+body:not(.show-provenance) .chiprow,   /* portal.html's per-unit provenance chips */
+body:not(.show-provenance) .zone .file{display:none}
+body:not(.show-provenance) .zone{border:0;border-radius:0;background:transparent;padding:0 0 8px;margin-bottom:28px;box-shadow:none}
+body:not(.show-provenance) .zone:hover{box-shadow:none}
+body:not(.show-provenance) .zone h3{margin-top:0 !important}
+.provenance-toggle{margin-top:14px;background:none;border:1px solid #8a8a8a;color:#8a8a8a;font:inherit;
+  font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;
+  border-radius:var(--radius-sm);cursor:pointer}
+.provenance-toggle:hover,.provenance-toggle:focus-visible{border-color:var(--gold);color:var(--gold)}

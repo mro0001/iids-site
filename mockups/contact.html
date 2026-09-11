@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>IIDS — Contact (wireframe)</title>
+<title>IIDS — Contact</title>
 <meta name="description" content="How to reach the Institute for Interdisciplinary Data Sciences (IIDS) at the University of Idaho — inquiries routed by need.">
 <meta name="keywords" content="IIDS, Institute for Interdisciplinary Data Sciences, University of Idaho, U of I, UIdaho, contact, research computing, genomics, proposals and grants">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,6 +12,14 @@
 <link rel="stylesheet" href="../shared/tokens.css">
 <link rel="stylesheet" href="../components/site-shell/site-shell.css">
 <link rel="stylesheet" href="mockup.css">
+<link rel="stylesheet" href="../components/content-render/content-render.css">
+<style>
+  .contact-block{margin-bottom:40px;max-width:70ch}
+  .contact-block h2{font-size:1.3rem;font-weight:700;margin-bottom:12px;color:var(--text-strong)}
+  /* The footer's "Contact by need" links land on the rendered h3s; clear the fixed nav. */
+  .contact-block .rendered h3{font-size:1.05rem;margin-top:22px;scroll-margin-top:calc(var(--nav-h) + 16px)}
+  .contact-block[id]{scroll-margin-top:calc(var(--nav-h) + 16px)}
+</style>
 </head>
 <body class="theme-light">
 
@@ -21,67 +29,28 @@
   <div class="wrap">
     <p class="eyebrow">Contact</p>
     <h1>Contact</h1>
-    <p>Routed by need rather than a single inbox. Wireframe only — each box is a content zone tagged by provenance.</p>
+    <p>Routed by need rather than a single inbox. Pick the line that matches your question; anything else goes to the general inbox and is forwarded.</p>
   </div>
 </div>
 
-<div class="wrap">
-  <div class="legend">
-    <span><span class="swatch sw-mig"></span> [migrate text] — moves as-is</span>
-    <span><span class="swatch sw-mod"></span> [migrate modified text] — migrated + reworked</span>
-    <span><span class="swatch sw-new"></span> [new text] — written from scratch</span>
-  </div>
-</div>
-
-<main id="main" tabindex="-1" class="wrap">
-
-  <div class="subhead">By need</div>
-
-  <div class="zone zone--mod">
-    <span class="tag tag--mod">[migrate modified text]</span>
-    <h3 style="margin-top:10px">Route by purpose</h3>
-    <p class="desc">Structure is new; the contact data migrates (scattered mailto links, some dead). Routes:</p>
-    <!-- general / proposals / partnerships are the footer's "Contact by need" deep-link
-         targets (components/site-shell/site-shell.js); the ids are the href, do not rename.
-         scroll-margin clears the sticky header (--nav-h). -->
-    <ul class="desc" style="padding-left:18px">
-      <li id="general" style="scroll-margin-top:calc(var(--nav-h) + 16px)">General inquiries</li>
-      <li id="proposals" style="scroll-margin-top:calc(var(--nav-h) + 16px)">Proposals and grants</li>
-      <li>Post-award and budget</li>
-      <li>Genomics and GBRC</li>
-      <li>Research computing and RCDS</li>
-      <!-- Was "AI4UI" until 2026-08-10. Between two unit rows it read as a third unit, and
-           AI4UI is a project, not a unit (Michael). Named as the work instead, matching
-           content/contact_by_need.md and the landing page's approved wording. -->
-      <li>Applied AI work</li>
-      <li id="partnerships" style="scroll-margin-top:calc(var(--nav-h) + 16px)">Partnership outreach</li>
-      <li>Media</li>
-    </ul>
-    <span class="file">content/contact_by_need.md</span>
-  </div>
-
-  <div class="subhead">Core contacts</div>
-
-  <div class="zone zone--migrate">
-    <span class="tag tag--migrate">[migrate text]</span>
-    <h3 style="margin-top:10px">Direct lines per unit</h3>
-    <!-- Ops note, not page copy: this listed AI4UI as a fourth subsidiary until 2026-08-10.
-         It is a project, not a unit, so it has no line in content/contact_core_contacts.md. -->
-    <p class="desc">Contact point for each subsidiary (RCDS, GBRC, Admin Core). Each core verifies its own entry; must stay consistent with By Need — single source.</p>
-    <span class="file">content/contact_core_contacts.md</span>
-  </div>
-
-  <div class="zone zone--new">
-    <span class="tag tag--new">[new text]</span>
-    <h3 style="margin-top:10px">Contact form (optional)</h3>
-    <p class="desc">A routed inquiry form (AI4RA-style) is a candidate to replace bare email links. Decision pending.</p>
-    <span class="file">content/contact_by_need.md → open decision</span>
-  </div>
-
+<main id="main" tabindex="-1" class="wrap" style="padding-top:28px;padding-bottom:80px">
+  <!-- Both blocks render from content/ through content-render; #general, #proposals and
+       #partnerships are h3 ids carried in content/contact_by_need.md (the footer's targets). -->
+  <section class="contact-block" id="by-need">
+    <h2>By need</h2>
+    <div class="rendered" data-content="contact_by_need"></div>
+  </section>
+  <section class="contact-block" id="units">
+    <h2>Direct lines per unit</h2>
+    <div class="rendered" data-content="contact_core_contacts"></div>
+  </section>
 </main>
 
-<site-footer></site-footer>
+<site-footer>Routes still being set up are listed on the page and go to the general inbox in the meantime.</site-footer>
 
+<script src="../components/content-render/content-render.generated.js"></script>
+<script src="../components/content-render/content-render.js"></script>
+<script>ContentRender.mountAll();</script>
 <script src="../components/site-shell/site-shell.js"></script>
 </body>
 </html>

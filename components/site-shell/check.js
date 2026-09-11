@@ -182,9 +182,15 @@ ok('wraps the note in .disclaimer', /<p class="disclaimer">/.test(footInterior))
 ok('an interior page gets the column grid, not just the landing',
   footInterior.indexOf('class="foot"') !== -1,
   'columns follow the model; interior footers used to carry no links at all');
-ok('the Accessibility link is sitewide',
-  footInterior.indexOf('https://www.uidaho.edu/access') !== -1,
-  'a Title II-adjacent expectation cannot live on one page');
+ok('the Accessibility link is sitewide and live',
+  footInterior.indexOf('https://www.uidaho.edu/policies/web-accessibility') !== -1,
+  'a Title II-adjacent expectation cannot live on one page; /access 404s (2026-09)');
+/* GBRC is an application at /gbrc/ that exists only when the site is served. Rendered
+   links point at the static stand-in and carry the served path for the runtime upgrade. */
+ok('GBRC links render the stand-in with the served path in data-portal',
+  footInterior.indexOf('href="gbrc.html" data-portal="/gbrc/"') !== -1 &&
+  render('site-nav', {}).indexOf('href="gbrc.html" data-portal="/gbrc/"') !== -1,
+  'expected href="gbrc.html" data-portal="/gbrc/" in both nav and footer');
 ok('Events is reachable from any footer', footInterior.indexOf('>Events<') !== -1);
 ok('the contact column deep-links its routes',
   ['#general', '#proposals', '#partnerships'].every(function (id) {
@@ -244,9 +250,15 @@ console.log('site-shell: brand contract');
 const allOutput = pub + intra + footInterior + footWide;
 const hex = allOutput.match(/#[0-9a-fA-F]{6}\b/g);
 ok('no literal brand hex in rendered markup', !hex, hex ? 'found ' + hex.join(', ') : '');
-ok('no fetch in the runtime',
-  fs.readFileSync(path.join(__dirname, 'site-shell.js'), 'utf8').indexOf('fetch(') === -1,
-  'a file:// page cannot fetch — MODULES.md forbids it for the Shell');
+/* The Shell renders with no network at all — a file:// page cannot fetch (MODULES.md). Since
+   2026-09 exactly one fetch is allowed: the portal probe in upgradePortals(), which returns on
+   file: before it can run. Render paths stay fetch-free; a second fetch is a regression. */
+const shellSrc = fs.readFileSync(path.join(__dirname, 'site-shell.js'), 'utf8');
+ok('the only fetch in the runtime is the guarded portal probe',
+  shellSrc.split('fetch(').length === 2 &&
+  shellSrc.indexOf('fetch(') > shellSrc.indexOf('function upgradePortals') &&
+  /function upgradePortals\(\) \{[\s\S]*?protocol === 'file:'\) return;[\s\S]*?global\.fetch\(/.test(shellSrc),
+  'render paths must not fetch; only upgradePortals() may probe, after its file: guard');
 
 console.log('');
 if (failures) { console.log('site-shell: ' + failures + ' check(s) FAILED'); process.exit(1); }

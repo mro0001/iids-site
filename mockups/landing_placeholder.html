@@ -161,7 +161,7 @@
 
   /* ---------- FOOTER (dark band; shell-injected markup, page-owned color) ----------
      Recovered from the pre-rebuild page (ec4aaf4^), same reason as the nav block. */
-  footer{background:var(--void);color:var(--silver);padding:56px 0 40px;font-size:.85rem}
+  site-footer footer{background:var(--void);color:var(--silver);padding:56px 0 40px;font-size:.85rem}
   .foot{display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between}
   .foot a:hover{color:var(--gold)}
   .foot h5{color:var(--white);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px}
@@ -231,12 +231,12 @@
           <h3>Research Computing and Data Services</h3>
           <p>High performance computing, research data storage, and scientific programming support.</p>
         </a>
-        <a class="unit" href="/gbrc/">
+        <a class="unit" href="gbrc.html" data-portal="/gbrc/">
           <span class="abbr">GBRC</span>
           <h3>Genomics and Bioinformatics Resources Core</h3>
           <p>Sequencing, library preparation, and bioinformatics, open to researchers beyond U of I.</p>
         </a>
-        <div class="whocta"><a class="cta" href="resources.html">Work with us</a></div>
+        <div class="whocta"><a class="cta" href="resources.html#new-to-iids">Work with us</a></div>
       </div>
     </div>
   </div>
@@ -252,7 +252,7 @@
 
 </main>
 
-<site-footer variant="landing"></site-footer>
+<site-footer variant="landing">Visual direction only, not an approved University of Idaho brand treatment. Colors use the official U of I palette (Pride Gold #F1B300); final identity pending the UCM Brand Book.</site-footer>
 
 <script src="../backend/news-data/news-data.generated.js"></script>
 <script src="../components/capability-statement/fixture.js"></script>

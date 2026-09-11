@@ -15,7 +15,7 @@ const CONTENT_DIR = path.join(__dirname, '../../content');
 const OUT = path.join(__dirname, 'content-render.generated.js');
 
 // sections a page currently renders (extend as more pages consume content)
-const KEYS = ['ai4ui_overview', 'ai4ui_projects', 'ai4ui_news', 'ai4ui_events', 'ai4ui_resources', 'ai4ui_contact', 'about_mission', 'about_origin', 'home_who_we_are'];
+const KEYS = ['ai4ui_overview', 'ai4ui_projects', 'ai4ui_news', 'ai4ui_events', 'ai4ui_resources', 'ai4ui_contact', 'about_mission', 'about_origin', 'home_who_we_are', 'contact_by_need', 'contact_core_contacts'];
 
 function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 function escAttr(s) { return esc(s).replace(/"/g, '&quot;'); }
@@ -47,8 +47,14 @@ function render(md) {
   while (i < lines.length) {
     var line = lines[i];
     if (!line.trim()) { i++; continue; }
-    var h = line.match(/^(#{1,6})\s+(.*)$/);
-    if (h) { out.push('<h' + h[1].length + '>' + inline(h[2]) + '</h' + h[1].length + '>'); i++; continue; }
+    // `### Title {#id}` — an optional explicit id, so a page's deep-link targets live in
+    // the content file rather than in hand-written anchors around it.
+    var h = line.match(/^(#{1,6})\s+(.*?)(?:\s+\{#([a-z][a-z0-9_-]*)\})?\s*$/);
+    if (h) {
+      out.push('<h' + h[1].length + (h[3] ? ' id="' + h[3] + '"' : '') + '>' +
+        inline(h[2]) + '</h' + h[1].length + '>');
+      i++; continue;
+    }
     if (isItem(line)) {
       var items = [];
       while (i < lines.length && isItem(lines[i])) { items.push('<li>' + inline(lines[i].trim().replace(/^-\s+/, '')) + '</li>'); i++; }

@@ -14,7 +14,7 @@ The site's **Shell renderer**: turns content markdown into page HTML. A build st
 
 `content/<key>.md` — a content file in the frozen Content shape (header + markdown body). The renderer drops the frozen header, the leading `#` H1 (the page supplies its own section heading), and any internal `## Needs` section, then renders the rest.
 
-Supported markdown: headings, paragraphs, unordered lists, `**bold**`, `*italic*`, `` `code` ``, `[links](url)`, and `<autolinks>`. (Intentionally minimal — extend `inline()`/`render()` as content needs grow.)
+Supported markdown: headings, paragraphs, unordered lists, `**bold**`, `*italic*`, `` `code` ``, `[links](url)`, and `<autolinks>`. A heading may carry an explicit id — `### Title {#id}` renders `<h3 id="id">Title</h3>` (added 2026-09-06 so the contact page's footer deep-link targets live in the content file). (Intentionally minimal — extend `inline()`/`render()` as content needs grow.)
 
 ## What it produces (FROZEN)
 
